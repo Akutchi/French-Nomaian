@@ -43,10 +43,10 @@ package body Sentence2Phonems is
 
    procedure To_French (Sentence : in out S_WU.Unbounded_Wide_String) is
 
-      Latin_Base : constant Wide_Character := 'Ã';
-      Elem       : Wide_Character;
-      To_Remove  : A_Variant_Index.Vector;
-      de         : Natural                 := 0;
+      Latin_Base    : constant Wide_Character := 'Ã';
+      Accented_Char : Wide_Character;
+      To_Remove     : Latin_Base_Companion_Char_Index.Vector;
+      de            : Natural                 := 0;
    begin
 
       if S_WU.Length (Sentence) /= 0 then
@@ -55,14 +55,15 @@ package body Sentence2Phonems is
 
             if S_WU.Element (Sentence, I) = Latin_Base then
 
-               Elem := Get_Accented_Character (S_WU.Element (Sentence, I + 1));
-               S_WU.Replace_Element (Sentence, I, Elem);
-               A_Variant_Index.Append (To_Remove, I + 1);
+               Accented_Char :=
+                 Get_Accented_Character (S_WU.Element (Sentence, I + 1));
+               S_WU.Replace_Element (Sentence, I, Accented_Char);
+               Latin_Base_Companion_Char_Index.Append (To_Remove, I + 1);
 
             end if;
          end loop;
 
-         if not A_Variant_Index.Is_Empty (To_Remove) then
+         if not Latin_Base_Companion_Char_Index.Is_Empty (To_Remove) then
             for E of To_Remove loop
                S_WU.Delete (Sentence, E - de, Natural (E - de));
                de := de + 1;
@@ -162,6 +163,46 @@ package body Sentence2Phonems is
 
    end Init_Cmudict;
 
+   procedure Decide_On_Word
+     (Phonems : in out S_WU.Unbounded_Wide_String; dict : Cmudict.Map;
+      word    :        Wide_String)
+   is
+
+      Slice_End : Positive         := word'Last;
+      Comma     : constant Boolean := Has_Comma (word);
+
+   begin
+
+      if Comma then
+         Slice_End := Slice_End - 1;
+      end if;
+
+      declare
+         Sliced_Word : constant Wide_String := word (word'First .. Slice_End);
+      begin
+
+         if dict.Contains (Sliced_Word) then
+            S_WU.Append (Phonems, dict (Sliced_Word) & "|");
+
+         elsif Is_Integer (Sliced_Word) then
+            S_WU.Append (Phonems, Split_Number (Sliced_Word) & "|");
+
+         elsif Is_Float (Sliced_Word) then
+            S_WU.Append (Phonems, Split_Number (Sliced_Word) & "|");
+
+         else
+            W_IO.Put_Line
+              ("Warning : '" & word &
+               "' is not in the dictionnary. Consider adding it.");
+         end if;
+
+         if Comma then
+            S_WU.Append (Phonems, ",|");
+         end if;
+      end;
+
+   end Decide_On_Word;
+
    ----------------
    -- To_Phonems --
    ----------------
@@ -196,40 +237,8 @@ package body Sentence2Phonems is
             word : constant Wide_String :=
               CC.To_Wide_String
                 (CH.To_Lower (CC.To_String (S_WU.Slice (Sentence, F, L))));
-
-            Slice_End : Positive := word'Last;
-
-            Comma : constant Boolean := Has_Comma (word);
          begin
-
-            if Comma then
-               Slice_End := Slice_End - 1;
-            end if;
-
-            if dict.Contains (word (word'First .. Slice_End)) then
-               S_WU.Append
-                 (Phonems_Version,
-                  dict (word (word'First .. Slice_End)) & "|");
-
-            elsif Is_Integer (word (word'First .. Slice_End)) then
-               S_WU.Append
-                 (Phonems_Version,
-                  Split_Number (word (word'First .. Slice_End)) & "|");
-
-            elsif Is_Float (word (word'First .. Slice_End)) then
-               S_WU.Append
-                 (Phonems_Version,
-                  Split_Number (word (word'First .. Slice_End)) & "|");
-
-            else
-               W_IO.Put_Line
-                 ("Warning : '" & S_WU.Slice (Sentence, F, L) &
-                  "' is not in the dictionnary. Consider adding it.");
-            end if;
-
-            if Comma then
-               S_WU.Append (Phonems_Version, ",|");
-            end if;
+            Decide_On_Word (Phonems_Version, dict, word);
          end;
 
          Index := L + 1;

@@ -11,7 +11,8 @@ package Sentence2Phonems is
    Cmudict_Location : String :=
      "/home/akutchi/Desktop/Ada_programs/french_nomaian/src/cmudict_fr.txt";
 
-   package A_Variant_Index is new Ada.Containers.Indefinite_Vectors
+   package Latin_Base_Companion_Char_Index is new Ada.Containers
+     .Indefinite_Vectors
      (Index_Type => Natural, Element_Type => Positive);
 
    package Cmudict is new Ada.Containers.Indefinite_Hashed_Maps
@@ -28,6 +29,8 @@ package Sentence2Phonems is
 
    function To_Phonems
      (Sentence : S_WU.Unbounded_Wide_String) return Wide_String;
+   --  I don't check for caps. Thus, you CoulD WRiTe LiKe THiS and it wouldn't
+   --  care.
 
 private
 
@@ -36,7 +39,12 @@ private
 
    function Is_Not_Phonetic_Variant
      (Word : S_WU.Unbounded_Wide_String) return Boolean;
+   --  If not of the form XXXX(k)
 
    procedure Init_Cmudict (dict : in out Cmudict.Map);
+
+   procedure Decide_On_Word
+     (Phonems : in out S_WU.Unbounded_Wide_String; dict : Cmudict.Map;
+      word    :        Wide_String);
 
 end Sentence2Phonems;

@@ -95199,7 +95199,6 @@ tommy+tt oo mm ii
 tomé+tt oo mm ei
 ton+tt on
 ton(2)+tt on nn
-
 tonalité+tt oo nn aa ll ii tt ei
 tonalités+tt oo nn aa ll ii tt ei
 tonalités(2)+tt oo nn aa ll ii tt ei zz
@@ -98305,7 +98304,6 @@ v2+vv ei dd eu
 v6+vv ei ss ii ss
 v8+vv ei uy ii tt
 va+vv aa
-
 va-et-vient+vv aa ai vv yy in
 va-tout+vv aa tt ou
 vabre+vv aa bb rr
@@ -100946,7 +100944,6 @@ vénézuéliennes(3)+vv ei nn ei zz uy ei ll yy ai nn ee zz
 vénézuéliennes(4)+vv ei nn ei zz uy ei ll yy ai nn zz
 vénézuéliens+vv ei nn ei zz uy ei ll yy in
 vénézuéliens(2)+vv ei nn ei zz uy ei ll yy in zz
-
 véra+vv ei rr aa
 véracité+vv ei rr aa ss ii tt ei
 véranda+vv ei rr an dd aa
