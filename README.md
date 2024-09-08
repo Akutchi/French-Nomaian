@@ -15,7 +15,7 @@ There is a game called [outer wilds](<https://store.steampowered.com/app/753640/
 More specifically, this game is about  finding more about the nomais, an ancien alient spieces that dewelled in our solar system long ago.\
 The nomais had a way of communicating that was not linear like french or english is. On the contrary, their writing system was composed of spirals that could connect one to another.
 
-| ![writing exemple](./doc/visuals/nomai_writing.png) |
+| ![writing example](./doc/visuals/nomai_writing.png) |
 |:---------------------------------------------------:|
 | _an exemple of a nomai writing. Credit to [emmaw219602](https://steamcommunity.com/sharedfiles/filedetails/?id=2904939346) for their original screenshot (contains spoilers)_|
 
