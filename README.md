@@ -17,7 +17,7 @@ The nomais had a way of communicating that was not linear like french or english
 
 | ![writing exemple](./doc/visuals/nomai_writing.png) |
 |:---------------------------------------------------:|
-| _an exemple of a nomai writing. This says :_|
+| _an exemple of a nomai writing. Credit to [emmaw219602](https://steamcommunity.com/sharedfiles/filedetails/?id=2904939346) for their original screenshot (contains spoilers)_|
 
 Several people already worked on the elaboration of a real, functional nomai writing system. After a brief research, I stumbled upon :
 - [36CornDog](https://www.reddit.com/r/outerwilds/comments/15fj6yu/took_a_shot_at_a_nomai_writing_system/) who had created a "language model"
@@ -34,4 +34,4 @@ What I will be taking from each project is as following :
 \-·-·-·-·-·-·-·-· => numerals
 I will also keep the way of translating using phonems.
 - evanfields : I will keep the way of creating the spiral and the "3-way" method of the GlyphGrid for organizing information.
-  
+

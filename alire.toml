@@ -1,0 +1,10 @@
+name = "french_nomaian"
+description = "a nomai's language generator adapted for french"
+version = "0.1.0-dev"
+
+authors = ["Kaitlyn"]
+maintainers = ["Kaitlyn <kaitlyn.buffler@tutamail.com>"]
+maintainers-logins = ["Akutchi"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = ["ada", "gtkada", "ow", "nomai", "language"]
