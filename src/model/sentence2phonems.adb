@@ -137,8 +137,6 @@ package body Sentence2Phonems is
 
       Is_Apostrophe_Sentence : Boolean := False;
 
-      Ending : Wide_String (1 .. 2);
-
    begin
 
       if (Has_Comma or else Final_Point)
@@ -179,12 +177,12 @@ package body Sentence2Phonems is
          end if;
 
          if Has_Comma and then not Has (Apostrophe_Char, word) then
-            Ending := " ,";
+            S_WU.Append (Phonems, " ,");
          elsif Final_Point and then not Has (Apostrophe_Char, word) then
-            Ending := " .";
+            S_WU.Append (Phonems, " .");
+         else
+            S_WU.Append (Phonems, "");
          end if;
-
-         S_WU.Append (Phonems, Ending);
 
          if not Is_Apostrophe_Sentence then
             S_WU.Append (Phonems, Space_Char);

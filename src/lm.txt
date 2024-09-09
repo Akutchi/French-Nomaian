@@ -1,0 +1,61 @@
+l line c
+r bend c
+s square c
+t squareline c
+k squarebend c
+n squaresquare c
+m penta c
+d pentaline c
+p pentabend c
+z pentasquare c
+b pentapenta c
+v hexa c
+f hexaline c
+j hexabend c
+g hexasquare c
+ch hexapenta c
+gn hexahexa c
+;;;
+;;;
+;;;
+. bend n
+1 square n
+2 penta n
+3 hexa n
+4 hepta n
+5 squareline n
+6 squarebend n
+7 squaresquare n
+8 pentaline n
+9 pentabend n
+' pentasquare n
+" pentapenta n
+, octa n
+! hexaline n
+? hexabend n
+;;;
+;;;
+;;;
+a squareline v
+ai squarebend v
+i squaresquare v
+o pentaline v
+in pentabend v
+e pentasquare v
+y pentapenta v
+an hexaline v
+u hexabend v
+uy hexasquare v
+ei hexapenta v
+on hexahexa v
+ou heptaline v
+au heptabend v
+oi heptasquare v
+oe heptapenta v
+un heptahexa v
+eu hepthepta v
+w octaline v
+;;;
+;;;
+;;;
+| linedotline s
