@@ -27,8 +27,11 @@ package Sentence2Phonems is
    procedure To_French (Sentence : in out S_WU.Unbounded_Wide_String);
    --  Does not handle caps such as " À "
 
+   procedure Init_Cmudict (dict : in out Cmudict.Map);
+
    function To_Phonems
-     (Sentence : S_WU.Unbounded_Wide_String) return Wide_String;
+     (Sentence, Phonems : S_WU.Unbounded_Wide_String; dict : Cmudict.Map)
+      return Wide_String;
    --  I don't check for caps. Thus, you CoulD WRiTe LiKe THiS and it wouldn't
    --  care.
 
@@ -41,9 +44,7 @@ private
      (Word : S_WU.Unbounded_Wide_String) return Boolean;
    --  If not of the form XXXX(k)
 
-   procedure Init_Cmudict (dict : in out Cmudict.Map);
-
-   procedure Decide_On_Word
+   procedure Word2Phonem
      (Phonems : in out S_WU.Unbounded_Wide_String; dict : Cmudict.Map;
       word    :        Wide_String);
 

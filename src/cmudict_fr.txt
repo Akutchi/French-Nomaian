@@ -7,31 +7,30 @@
 ;;;+02/12/22: corrected some ei/ai & oo/au conflicts
 rature+rr aa tt uu rr
 ratures+rr aa tt uu rr
-qu'un+kk in
+qu'un+kk ' in
 qu'un(2)+kk in nn
-qu'une+kk uu nn
+qu'une+kk ' uu nn
 qu'une(2)+kk uu nn ee
-qu'il+kk ii ll
-qu'ils+kk ii ll
-qu'elle+kk ai ll
-qu'elles+kk ai ll
-qu'on+kk on
-c'est+ss ei
-c'est(2)+ss ei tt
-s'est+ss ei
+qu'il+kk ' ii ll
+qu'ils+kk ' ii ll
+qu'elle+kk ' ai ll
+qu'elles+kk ' ai ll
+qu'on+kk ' on
+c'est+ss ' ei
+c'est(2)+ss ' ei tt
+s'est+ss ' ei
 s'est(2)+ss ei tt
-t'aime+tt ai mm
+t'aime+tt ' ai mm
 t'aime(2)+tt ai mm ee
-t'aiment+tt ai mm
+t'aiment+tt ' ai mm
 t'aiment(2)+tt ai mm ee
 t'aiment(3)+tt ai mm ee tt
-j'ai+jj ai
-j'en+jj an
+j'en+jj ' an
 j'en(2)+jj an nn
-t'as+tt aa
+t'as+tt ' aa
 t'as(2)+tt aa zz
 chuis+ch uy ii
-j'suis+jj ss uy ii
+j'suis+jj ' ss uy ii
 j'suis(2)+ch uy ii
 instagram+in ss tt aa gg rr aa m
 osef+au zz ai ff
@@ -44,7 +43,7 @@ chopé+ch au pp ei
 loser+ll ou zz oe rr
 losers+ll ou zz oe rr
 réincarné+rr ei in kk aa rr nn ei
-y' yy
+y'+yy '
 macaron+mm aa kk aa rr on
 macaron(2)+mm aa kk aa rr on nn
 macarons+mm aa kk aa rr on
@@ -64,7 +63,7 @@ macarons(2)+mm aa kk aa rr on zz
 ?+?
 !+!
 '+'
-j'ai+jj ai
+kaitlyn+kk ai tt ll ii nn
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;+End of words added by Mim for easier user input
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2194,9 +2193,9 @@ afh+aa ai ff aa ch
 afia+aa ff yy aa
 aficionados+aa ff ii ss yy oo nn aa dd au ss
 afin+aa ff in
-afin d'+aa ff in dd
+afin d'+aa ff in dd '
 afin de+aa ff in dd ee
-afin qu'+aa ff in kk
+afin qu'+aa ff in kk '
 afin que+aa ff in kk ee
 aflak+aa ff ll aa kk
 afnor+aa ff nn oo rr
@@ -2742,7 +2741,7 @@ ain+in
 aine+ai nn
 aine(2)+ai nn ee
 ainsi+in ss ii
-ainsi qu'+in ss ii kk
+ainsi qu'+in ss ii kk '
 ainsi que+in ss ii kk ee
 air+ai rr
 airain+ai rr in
@@ -3414,9 +3413,9 @@ alois(2)+aa ll oi zz
 alonso+aa ll on ss au
 alonzo+aa ll on zz au
 alors+aa ll oo rr
-alors même qu'+aa ll oo rr mm ai mm ee kk
+alors même qu'+aa ll oo rr mm ai mm ee kk '
 alors même que+aa ll oo rr mm ai mm ee kk ee
-alors qu'+aa ll oo rr kk
+alors qu'+aa ll oo rr kk '
 alors que+aa ll oo rr kk ee
 alouette+aa ll ww ai tt
 alouette(2)+aa ll ww ai tt ee
@@ -5748,7 +5747,7 @@ après-midi+aa pp rr ai mm ii dd ii
 après-vente+aa pp rr ai vv an tt
 après-vente(2)+aa pp rr ai vv an tt ee
 après coup+aa pp rr ai kk ou
-après qu'+aa pp rr ai kk
+après qu'+aa pp rr ai kk '
 après que+aa pp rr ai kk ee
 aps+aa pp ei ai ss
 apsitis+aa pp ss ii tt ii ss
@@ -7793,7 +7792,7 @@ atys+aa tt ii zz
 au+au
 au-dehors+oo dd ee oo rr
 au-delà+oo dd ee ll aa
-au-delà d'+au dd ee ll aa dd
+au-delà d'+au dd ee ll aa dd '
 au-delà de+au dd ee ll aa dd ee
 au-delà des+au dd ee ll aa dd ei
 au-delà du+au dd ee ll aa dd uu
@@ -7803,22 +7802,22 @@ au-dessous des+au dd ee ss ou dd ei
 au-dessous des(2)+au dd ee ss ou dd ei zz
 au-dessous du+au dd ee ss ou dd uu
 au-dessus+oo dd ee ss uu
-au-dessus d'+au dd ee ss uu dd
+au-dessus d'+au dd ee ss uu dd '
 au-dessus de+au dd ee ss uu dd ee
 au-dessus des+au dd ee ss uu dd ei
 au-dessus des(2)+au dd ee ss uu dd ei zz
 au-dessus du+au dd ee ss uu dd uu
 au-devant de+au dd ee vv an dd ee
-au bas d'+au bb aa dd
+au bas d'+au bb aa dd '
 au bas de+au bb aa dd ee
 au bas du+au bb aa dd uu
-au beau milieu d'+au bb au mm ii ll yy eu dd
+au beau milieu d'+au bb au mm ii ll yy eu dd '
 au beau milieu de+au bb au mm ii ll yy eu dd ee
 au beau milieu du+au bb au mm ii ll yy eu dd uu
 au cas où+au kk aa zz ou
 au compte-gouttes+au kk on tt ee gg ou tt
 au contraire+au kk on tt rr ai rr
-au contraire d'+au kk on tt rr ai rr ee dd
+au contraire d'+au kk on tt rr ai rr ee dd '
 au contraire de+au kk on tt rr ai rr ee dd ee
 au contraire des+au kk on tt rr ai rr ee dd ei
 au courant+au kk ou rr an
@@ -7826,7 +7825,7 @@ au courant de+au kk ou rr an dd ee
 au courant des+au kk ou rr an dd ei
 au courant des(2)+au kk ou rr an dd ei zz
 au courant du+au kk ou rr an dd uu
-au cours d'+au kk ou rr dd
+au cours d'+au kk ou rr dd '
 au cours de+au kk ou rr dd ee
 au cours de laquelle+au kk ou rr dd ee ll aa kk ai ll
 au cours des+au kk ou rr dd ei
@@ -7834,7 +7833,7 @@ au cours desquelles+au kk ou rr dd ei kk ai ll
 au cours desquels+au kk ou rr dd ei kk ai ll
 au cours du+au kk ou rr dd uu
 au cours duquel+au kk ou rr dd uu kk ai ll
-au côté d'+au kk au tt ei dd
+au côté d'+au kk au tt ei dd '
 au côté de+au kk au tt ei dd ee
 au côté des+au kk au tt ei dd ei
 au côté des(2)+au kk au tt ei dd ei zz
@@ -7845,13 +7844,13 @@ au dessus de+au dd ee ss uu dd ee
 au dire de+au dd ii rr ee dd ee
 au dire des+au dd ii rr ee dd ei
 au début+au dd ei bb uu
-au début d'+au dd ei bb uu dd
+au début d'+au dd ei bb uu dd '
 au début de+au dd ei bb uu dd ee
 au début des+au dd ei bb uu dd ei
 au début des(2)+au dd ei bb uu dd ei zz
 au début du+au dd ei bb uu dd uu
 au départ+au dd ei pp aa rr
-au départ d'+au dd ei pp aa rr dd
+au départ d'+au dd ei pp aa rr dd '
 au départ de+au dd ei pp aa rr dd ee
 au départ des+au dd ei pp aa rr dd ei
 au départ des(2)+au dd ei pp aa rr dd ei zz
@@ -7859,16 +7858,16 @@ au départ du+au dd ei pp aa rr dd uu
 au dépourvu+au dd ei pp ou rr vv uu
 au détail+au dd ei tt aa yy
 au fond+au ff on
-au fond d'+au ff on dd
+au fond d'+au ff on dd '
 au fond de+au ff on dd ee
 au fond des+au ff on dd ei
 au fond des(2)+au ff on dd ei zz
 au fond du+au ff on dd uu
 au fur et à mesure+oo ff uu rr ai aa mm ee zz uu rr
 au fur et à mesure(2)+oo ff uu rr ai aa mm ee zz uu rr ee
-au fur et à mesure qu'+au ff uu rr ei aa mm ee zz uu rr ee kk
+au fur et à mesure qu'+au ff uu rr ei aa mm ee zz uu rr ee kk '
 au fur et à mesure que+au ff uu rr ei aa mm ee zz uu rr ee kk ee
-au lieu d'+au ll yy eu dd
+au lieu d'+au ll yy eu dd '
 au lieu de+au ll yy eu dd ee
 au lieu des+au ll yy eu dd ei
 au lieu des(2)+au ll yy eu dd ei zz
@@ -7878,24 +7877,24 @@ au maximum+au mm aa kk ss ii mm oo mm
 au maximum de+au mm aa kk ss ii mm oo mm dd ee
 au mieux+au mm yy eu
 au mieux de+au mm yy eu dd ee
-au milieu d'+au mm ii ll yy eu dd
+au milieu d'+au mm ii ll yy eu dd '
 au milieu de+au mm ii ll yy eu dd ee
 au milieu des+au mm ii ll yy eu dd ei
 au milieu du+au mm ii ll yy eu dd uu
 au minimum+au mm ii nn ii mm oo mm
 au moins+au mm ww in
-au moment d'+au mm oo mm an dd
+au moment d'+au mm oo mm an dd '
 au moment de+au mm oo mm an dd ee
 au moment où+au mm oo mm an tt ou
-au moyen d'+au mm oi yy in dd
+au moyen d'+au mm oi yy in dd '
 au moyen de+au mm oi yy in dd ee
-au niveau d'+au nn ii vv au dd
+au niveau d'+au nn ii vv au dd '
 au niveau de+au nn ii vv au dd ee
 au niveau des+au nn ii vv au dd ei
 au niveau des(2)+au nn ii vv au dd ei zz
 au niveau du+au nn ii vv au dd uu
 au passage+au pp aa ss aa jj
-au passage d'+au pp aa ss aa jj ee dd
+au passage d'+au pp aa ss aa jj ee dd '
 au passage de+au pp aa ss aa jj ee dd ee
 au passage des+au pp aa ss aa jj ee dd ei
 au passage des(2)+au pp aa ss aa jj ee dd ei zz
@@ -7903,9 +7902,9 @@ au passage du+au pp aa ss aa jj ee dd uu
 au plus+au pp ll uu ss
 au plus tard+au pp ll uu ss tt aa rr
 au plus tôt+au pp ll uu ss tt au
-au point qu'+au pp ww in kk
+au point qu'+au pp ww in kk '
 au point que+au pp ww in kk ee
-au prix d'+au pp rr ii dd
+au prix d'+au pp rr ii dd '
 au prix de+au pp rr ii dd ee
 au prix du+au pp rr ii dd uu
 au prorata+au pp rr oo rr aa tt aa
@@ -7915,39 +7914,39 @@ au péril de+au pp ei rr ii ll dd ee
 au ras des+au rr aa dd ei
 au ras des(2)+au rr aa dd ei zz
 au ras du+au rr aa dd uu
-au regard d'+au rr ee gg aa rr dd
+au regard d'+au rr ee gg aa rr dd '
 au regard de+au rr ee gg aa rr dd ee
 au regard des+au rr ee gg aa rr dd ei
 au regard du+au rr ee gg aa rr dd uu
 au reste+au rr ai ss tt
 au revoir+au rr ee vv oi rr
-au sein d'+au ss in dd
+au sein d'+au ss in dd '
 au sein de+au ss in dd ee
 au sein des+au ss in dd ei
 au sein du+au ss in dd uu
-au sortir d'+au ss oo rr tt ii rr dd
+au sortir d'+au ss oo rr tt ii rr dd '
 au sortir de+au ss oo rr tt ii rr dd ee
 au sortir du+au ss oo rr tt ii rr dd uu
-au sujet d'+au ss uu jj ai dd
+au sujet d'+au ss uu jj ai dd '
 au sujet de+au ss uu jj ai dd ee
 au sujet des+au ss uu jj ai dd ei
 au sujet du+au ss uu jj ai dd uu
-au terme d'+au tt ai rr mm ee dd
+au terme d'+au tt ai rr mm ee dd '
 au terme de+au tt ai rr mm ee dd ee
 au terme des+au tt ai rr mm ee dd ei
 au terme des(2)+au tt ai rr mm ee dd ei zz
 au terme du+au tt ai rr mm ee dd uu
-au titre d'+au tt ii tt rr ee dd
+au titre d'+au tt ii tt rr ee dd '
 au titre de+au tt ii tt rr ee dd ee
 au titre des+au tt ii tt rr ee dd ei
 au titre des(2)+au tt ii tt rr ee dd ei zz
 au titre du+au tt ii tt rr ee dd uu
 au total+au tt oo tt aa ll
-au travers d'+au tt rr aa vv ai rr dd
+au travers d'+au tt rr aa vv ai rr dd '
 au travers de+au tt rr aa vv ai rr dd ee
 au travers des+au tt rr aa vv ai rr dd ei
 au travers du+au tt rr aa vv ai rr dd uu
-au vu d'+au vv uu dd
+au vu d'+au vv uu dd '
 au vu de+au vv uu dd ee
 au vu des+au vv uu dd ei
 au vu des(2)+au vv uu dd ei zz
@@ -8131,7 +8130,7 @@ auguste(4)+oo gg uu ss tt ee
 augustin+au gg uu ss tt in
 augusto+au gg uu ss tt au
 augé+au jj ei
-aujourd'hui+au jj ou rr dd uy ii
+aujourd'hui+au jj ou rr dd uy ii '
 aujourd'hui(2)+oo jj ou rr dd uy ii
 aulas+au ll aa
 aulnay+au nn ai
@@ -8150,7 +8149,7 @@ aune(2)+au nn ee
 aung+aa ou nn gg
 auparavant+oo pp aa rr aa vv an
 auprès+oo pp rr ai
-auprès d'+oo pp rr ai dd
+auprès d'+oo pp rr ai dd '
 auprès de+oo pp rr ai dd ee
 auprès des+au pp rr ai dd ei
 auprès du+au pp rr ai dd uu
@@ -8218,12 +8217,12 @@ auspices(2)+oo ss pp ii ss ee
 auspices(3)+oo ss pp ii ss ee zz
 aussaresses+au ss aa rr ai ss
 aussi+oo ss ii
-aussi bien qu'+oo ss ii bb yy in kk
+aussi bien qu'+oo ss ii bb yy in kk '
 aussi bien que+oo ss ii bb yy in kk ee
 aussi loin que+au ss ii ll ww in kk ee
 aussitôt+oo ss ii tt au
 aussitôt(2)+oo ss ii tt au tt
-aussitôt qu'+au ss ii tt au kk
+aussitôt qu'+au ss ii tt au kk '
 aussitôt que+au ss ii tt au kk ee
 austen+au ss tt ai nn
 auster+oo ss tt ai rr
@@ -8487,7 +8486,7 @@ autosatisfaction+oo tt oo ss aa tt ii ss ff aa kk ss yy on
 autosuffisance+au tt oo ss uu ff ii zz an ss
 autour+au tt ou rr
 autour(2)+oo tt ou rr
-autour d'+oo tt ou rr dd
+autour d'+oo tt ou rr dd '
 autour de+oo tt ou rr dd ee
 autour des+au tt ou rr dd ei
 autour du+au tt ou rr dd uu
@@ -8541,7 +8540,7 @@ auvidis+au vv ii dd ii
 aux+au
 aux(2)+au zz
 aux aguets+au zz aa gg ai
-aux côtés d'+au kk au tt ei dd
+aux côtés d'+au kk au tt ei dd '
 aux côtés de+au kk au tt ei dd ee
 aux côtés des+au kk au tt ei dd ei
 aux côtés des(2)+au kk au tt ei dd ei zz
@@ -8659,9 +8658,9 @@ avant-propos+aa vv an pp rr oo pp au
 avant-propos(2)+aa vv an pp rr oo pp au zz
 avant-scène+aa vv an ss ai nn
 avant-scène(2)+aa vv an ss ai nn ee
-avant d'+aa vv an dd
+avant d'+aa vv an dd '
 avant de+aa vv an dd ee
-avant qu'+aa vv an kk
+avant qu'+aa vv an kk '
 avant que+aa vv an kk ee
 avantage+aa vv an tt aa jj
 avantage(2)+aa vv an tt aa jj ee
@@ -9129,7 +9128,7 @@ aïeux+aa yy eu
 aïeux(2)+aa yy eu zz
 aïn+aa ii nn
 aït+aa ii tt
-b+ ai
+b+bb ei
 b(2)+bb ei
 b.+bb ei
 b2+bb ei dd eu
@@ -9870,7 +9869,7 @@ barcelone(3)+bb aa rr ss ll oo nn
 barcelone(4)+bb aa rr ss ll oo nn ee
 barcia+bb aa rr ss ii aa
 barclay+bb aa rr kk ll ei
-barclay's+bb aa rr kk ll aa ii
+barclay's+bb aa rr kk ll aa ii '
 barclays+bb aa rr kk ll ai zz
 barco+bb aa rr kk au
 bard+bb aa rr
@@ -10426,9 +10425,9 @@ beaucoup moins+bb au kk ou mm ww in
 beaucoup moins de+bb au kk ou mm ww in dd ee
 beaucoup moins que+bb au kk ou mm ww in kk ee
 beaucoup plus+bb au kk ou pp ll uu ss
-beaucoup plus d'+bb au kk ou pp ll uu ss dd
+beaucoup plus d'+bb au kk ou pp ll uu ss dd '
 beaucoup plus de+bb au kk ou pp ll uu ss dd ee
-beaucoup plus qu'+bb au kk ou pp ll uu ss kk
+beaucoup plus qu'+bb au kk ou pp ll uu ss kk '
 beaucoup plus que+bb au kk ou pp ll uu ss kk ee
 beaudonnet+bb au dd oo nn ai
 beaufils+bb au ff ii ll
@@ -11086,7 +11085,7 @@ bien-être+bb yy in nn ai tt rr
 bien-être(2)+bb yy in nn ai tt rr ee
 bien entendu+bb yy in nn an tt an dd uu
 bien plus+bb yy in pp ll uu ss
-bien qu'+bb yy in kk
+bien qu'+bb yy in kk '
 bien que+bb yy in kk ee
 bien sûr+bb yy in ss uu rr
 bienfaisance+bb yy in ff ee zz an ss
@@ -12684,7 +12683,7 @@ boxeurs+bb oo kk ss oe rr
 boxeurs(2)+bb oo kk ss oe rr zz
 boy+bb oo yy
 boy(2)+bb oi
-boy's+bb oo ii
+boy's+bb oo ii '
 boyard+bb oo yy aa rr
 boyau+bb oi yy au
 boyaux+bb oi yy au
@@ -14131,14 +14130,14 @@ bûchers+bb uu ch ei
 bûchers(2)+bb uu ch ei zz
 c+ss ei
 c(2)+ss ei
-c'+ss
-c' est ainsi qu'+ss ai ss tt in ss ii kk
-c' est ici+ss ai ss tt ii ss ii
-c' est là+ss ai ss tt ll aa
-c' est là qu'+ss ai ss tt ll aa kk
-c' est là que+ss ai ss tt ll aa kk ee
-c' est pourquoi+ss ai ss tt pp ou rr kk oi
-c'est-à-dire+ss ai tt aa dd ii rr
+c'+ss '
+c' est ainsi qu'+ss ' ai ss tt in ss ii kk '
+c' est ici+ss ' ai ss tt ii ss ii
+c' est là+ss ' ai ss tt ll aa
+c' est là qu'+ss ' ai ss tt ll aa kk
+c' est là que+ss ' ai ss tt ll aa kk ee
+c' est pourquoi+ss ' ai ss tt pp ou rr kk oi
+c'est-à-dire+ss ' ai tt aa dd ii rr
 c'est-à-dire(2)+ss ai tt aa dd ii rr ee
 c130+ss ei ss an tt rr an tt
 c17+ss ei dd ii ss ai tt
@@ -15997,10 +15996,10 @@ cds+ss ei dd ei ai ss
 cdt+ss ei dd ei tt ei
 cdu+ss ei dd ei ou
 cdu(2)+ss ei dd ei uu
-c'+ss
+c'+ss '
 ce+ss ee
 ce(2)+ss ei ee
-ce qu'+ss ee kk
+ce qu'+ss ee kk '
 cea+ss ei eu aa
 ceausescu+tt ch aa au tt ch ai ss kk ou
 cec+ss ai kk
@@ -16232,7 +16231,7 @@ century+ss an tt uu rr ii
 cep+ss ei oe pp ei
 cependant+ss ee pp an dd an
 cependant(2)+ss ee pp an dd an tt
-cependant qu'+ss ee pp an dd an kk
+cependant qu'+ss ee pp an dd an kk '
 cependant que+ss ee pp an dd an kk ee
 cepii+ss ei pp ii
 cepme+ss ei eu pp ei ai mm eu
@@ -17197,15 +17196,15 @@ chebaa+ch ei bb aa aa
 check+ch ai kk
 chee+ch ii
 chef+ch ai ff
-chef-d'oeuvre+ch ai dd oe vv rr
+chef-d'oeuvre+ch ai dd ' oe vv rr
 chef-d'oeuvre(2)+ch ai dd oe vv rr ee
 chef-lieu+ch ai ff ll yy eu
 chefchaouane+ch ei ff ch aa ou aa nn
 chefferie+ch ai ff ee rr ii
 chefs+ch ai ff
 chefs(2)+ch ai ff zz
-chefs-d'oeuvre+ch ai dd oe vv rr
-chefs-d'oeuvre(2)+ch ai dd oe vv rr ee
+chefs-d'oeuvre+ch ai dd ' oe vv rr
+chefs-d'oeuvre(2)+ch ai dd ' oe vv rr ee
 chefs-lieux+ch ai ff ll yy eu
 chefs-lieux(2)+ch ai ff ll yy eu zz
 chehabi+ch ei aa bb ii
@@ -17722,7 +17721,7 @@ christianisme(3)+kk rr ii ss tt yy aa nn ii ss mm ee
 christianistes+kk rr ii ss tt yy aa nn ii ss tt
 christians+kk rr ii ss tt yy an
 christie+kk rr ii ss tt ii
-christie's+kk rr ii ss tt ii zz
+christie's+kk rr ii ss tt ii ' zz
 christin+kk rr ii ss tt in
 christina+kk rr ii ss tt ii nn aa
 christine+kk rr ii ss tt ii nn
@@ -19531,7 +19530,7 @@ combes(3)+kk on bb ee
 combes(4)+kk on bb ee zz
 combes(5)+kk on bb zz
 combien+kk on bb yy in
-combien d'+kk on bb yy in dd
+combien d'+kk on bb yy in dd '
 combien de+kk on bb yy in dd ee
 combinaison+kk on bb ii nn ai zz on
 combinaisons+kk on bb ii nn ai zz on
@@ -19652,10 +19651,10 @@ commandés+kk oo mm an dd ei
 commandés(2)+kk oo mm an dd ei zz
 comme+kk oo mm
 comme(2)+kk oo mm ee
-comme d'habitude+kk oo mm ee dd aa bb ii tt uu dd
+comme d'habitude+kk oo mm ee dd ' aa bb ii tt uu dd
 comme si+kk oo mm ee ss ii
 comme ça+kk oo mm ee ss aa
-commedia dell'arte+kk oo mm ai dd yy aa dd ai ll aa rr tt ei
+commedia dell'arte+kk oo mm ai dd yy aa dd ' ai ll aa rr tt ei
 commence+kk oo mm an ss
 commence(2)+kk oo mm an ss ee
 commencement+kk oo mm an ss ee mm an
@@ -20349,7 +20348,7 @@ compte+kk on tt
 compte(2)+kk on tt ee
 compte-rendu+kk on tt ee rr an dd uu
 compte rendu+kk on tt ee rr an dd uu
-compte tenu d'+kk on tt ee tt ee nn uu dd
+compte tenu d'+kk on tt ee tt ee nn uu dd '
 compte tenu de+kk on tt ee tt ee nn uu dd ee
 compte tenu des+kk on tt ee tt ee nn uu dd ei
 compte tenu des(2)+kk on tt ee tt ee nn uu dd ei zz
@@ -22294,7 +22293,7 @@ contrairement(2)+kk on tt rr ai rr ee mm an tt
 contrairement au+kk on tt rr ai rr ee mm an tt au
 contrairement aux+kk on tt rr ai rr ee mm an tt au
 contrairement à+kk on tt rr ai rr ee mm an tt aa
-contrairement à l'+kk on tt rr ai rr ee mm an tt aa ll
+contrairement à l'+kk on tt rr ai rr ee mm an tt aa ll '
 contrairement à la+kk on tt rr ai rr ee mm an tt aa ll aa
 contraires+kk on tt rr ai rr
 contraires(2)+kk on tt rr ai rr ee
@@ -25233,14 +25232,14 @@ cônes(3)+kk au nn ee zz
 cônes(4)+kk au nn zz
 côte+kk au tt
 côte(2)+kk au tt ee
-côte-d'ivoire+kk oo tt dd ii vv oi rr
+côte-d'ivoire+kk oo tt dd ' ii vv oi rr
 côte-d'ivoire(2)+kk oo tt ee dd ii vv oi rr
-côte-d'or+kk au tt dd oo rr
+côte-d'or+kk au tt dd ' oo rr
 côte-d'or(2)+kk au tt ee dd oo rr
-côte d' azur+kk au tt dd aa zz uu rr
-côte d' azur(2)+kk au tt ee dd aa zz uu rr
-côte d' ivoire+kk au tt dd ii vv oi rr
-côte d' ivoire(2)+kk au tt ee dd ii vv oi rr
+côte d'azur+kk au tt dd ' aa zz uu rr
+côte d'azur(2)+kk au tt ee dd aa zz uu rr
+côte d'ivoire+kk au tt dd ' ii vv oi rr
+côte d'ivoire(2)+kk au tt ee dd ii vv oi rr
 côte à côte+kk au tt aa kk au tt
 côtes+kk au tt
 côtes(2)+kk au tt ee
@@ -25275,34 +25274,34 @@ côté+kk au tt ei
 côté(2)+kk oo tt ei
 côtés+kk oo tt ei
 côtés(2)+kk oo tt ei zz
-d+ ai
+d+dd ei
 d(2)+dd ei
-d'+dd
-d' abord+dd aa bb oo rr
-d' accord+dd aa kk oo rr
-d' ailleurs+dd aa yy oe rr
-d' après+dd aa pp rr ai
-d' autant plus qu'+dd au tt an pp ll uu ss kk
-d' autant plus que+dd au tt an pp ll uu ss kk ee
-d' autant qu'+dd au tt an kk
-d' autant que+dd au tt an kk ee
-d' autre part+dd au tt rr ee pp aa rr
-d' avant+dd aa vv an
-d' entre+dd an tt rr
-d' un autre côté+dd un au tt rr ee kk au tt ei
-d' une manière générale+dd uu nn ee mm aa nn yy ai rr ee jj ei nn ei rr aa ll
-d'abord+dd aa bb oo rr
-d'accord+dd aa kk oo rr
-d'affilée+dd aa ff ii ll ei
-d'ailleurs+dd aa yy oe rr
-d'alberto+dd aa ll bb ai rr tt au
-d'alema+dd aa ll ee mm aa
+d'+dd '
+d'abord+dd ' aa bb oo rr
+d'accord+dd ' aa kk oo rr
+d'ailleurs+dd ' aa yy oe rr
+d'après+dd ' aa pp rr ai
+d'autant plus qu'+dd ' au tt an pp ll uu ss kk '
+d'autant plus que+dd ' au tt an pp ll uu ss kk ee
+d'autant qu'+dd ' au tt an kk '
+d'autant que+dd ' au tt an kk ee
+d'autre part+dd ' au tt rr ee pp aa rr
+d'avant+dd ' aa vv an
+d'entre+dd ' an tt rr
+d'un autre côté+dd ' un au tt rr ee kk au tt ei
+d'une manière générale+dd ' uu nn ee mm aa nn yy ai rr ee jj ei nn ei rr aa ll
+d'abord+dd ' aa bb oo rr
+d'accord+dd ' aa kk oo rr
+d'affilée+dd ' aa ff ii ll ei
+d'ailleurs+dd ' aa yy oe rr
+d'alberto+dd ' aa ll bb ai rr tt au
+d'alema+dd ' aa ll ee mm aa
 d'antan+dd an tt an
-d'après+dd aa pp rr ai
-d'arrache-pied+dd aa rr aa ch ee pp yy ei
+d'après+dd ' aa pp rr ai
+d'arrache-pied+dd ' aa rr aa ch ee pp yy ei
 d'autre part+dd au tt rr ee pp aa rr
 d'emblée+dd an bb ll ei
-d'habitude+dd aa bb ii tt uu dd
+d'habitude+dd ' aa bb ii tt uu dd
 d'ores et déjà+dd oo rr ee zz ai dd ai jj aa
 d'une part+dd uu nn ee pp aa rr
 da+dd aa
@@ -25492,7 +25491,7 @@ dans certains cas+dd an ss ai rr tt in kk aa
 dans la mesure où+dd an ll aa mm ee zz uu rr ou
 dans la plupart des cas+dd an ll aa pp ll uu pp aa rr dd ei kk aa
 dans la suite+dd an ll aa ss uy ii tt
-dans le but d'+dd an ll ee bb uu tt dd
+dans le but d'+dd an ll ee bb uu tt dd '
 dans le but de+dd an ll ee bb uu tt dd ee
 dans tous les cas+dd an tt ou ll ei kk aa
 dans tous les cas de figure+dd an tt ou ll ei kk aa dd ee ff ii gg uu rr
@@ -25675,12 +25674,11 @@ ddass+dd aa ss
 ddass(2)+dd aa ss ss
 ddb+dd ei dd ei bb ei
 dde+dd ei dd ei eu
-d'+dd
 de+dd ee
 de beaucé+dd ee bb au ss ei
 de bon coeur+dd ee bb on kk oe rr
 de bric et de broc+dd ee bb rr ii kk ei dd ee bb rr au
-de ce qu'+dd ee ss ee kk
+de ce qu'+dd ee ss ee kk '
 de ce que+dd ee ss ee kk ee
 de ce type+dd ee ss ee tt ii pp
 de charette+dd ee ch aa rr ai tt
@@ -25695,7 +25693,7 @@ de derrière+dd ee dd ai rr yy ai rr
 de face+dd ee ff aa ss
 de facto+dd ee ff aa kk tt au
 de fait+dd ee ff ai
-de façon qu'+dd ee ff aa ss on kk
+de façon qu'+dd ee ff aa ss on kk '
 de façon que+dd ee ff aa ss on kk ee
 de façon à+dd ee ff aa ss on aa
 de fond en comble+dd ee ff on tt an kk on bb ll
@@ -25707,9 +25705,9 @@ de haut+dd ee au
 de justesse+dd ee jj uu ss tt ai ss
 de klerk+dd ee kk ll ai rr kk
 de la même manière+dd ee ll aa mm ai mm ee mm aa nn yy ai rr
-de la même manière qu'+dd ee ll aa mm ai mm ee mm aa nn yy ai rr ee kk
+de la même manière qu'+dd ee ll aa mm ai mm ee mm aa nn yy ai rr ee kk '
 de la même manière que+dd ee ll aa mm ai mm ee mm aa nn yy ai rr ee kk ee
-de la part d'+dd ee ll aa pp aa rr dd
+de la part d'+dd ee ll aa pp aa rr dd '
 de la part de+dd ee ll aa pp aa rr dd ee
 de la part des+dd ee ll aa pp aa rr dd ei
 de la part du+dd ee ll aa pp aa rr dd uu
@@ -25723,13 +25721,13 @@ de mita+dd ee mm ii tt aa
 de mode+dd ee mm oo dd
 de moins en moins+dd ee mm ww in zz an mm ww in
 de moitié+dd ee mm oi tt yy ei
-de même qu'+dd ee mm ai kk
+de même qu'+dd ee mm ai kk '
 de même que+dd ee mm ai mm ee kk ee
 de nouveau+dd ee nn ou vv au
 de par+dd ee pp aa rr
 de part en part+dd ee pp aa rr tt an pp aa rr
-de part et d' autre+dd ee pp aa rr tt ei dd au tt rr
-de peur d'+dd ee pp oe rr dd
+de part et d' autre+dd ee pp aa rr tt ei dd au tt rr '
+de peur d'+dd ee pp oe rr dd '
 de peur de+dd ee pp oe rr dd ee
 de peur que+dd ee pp ee rr kk ee
 de plain-pied+dd ee pp ll in pp yy ei
@@ -25737,10 +25735,10 @@ de plus+dd ee pp ll uu ss
 de plus en plus+dd ee pp ll uu zz an pp ll uu ss
 de proche en proche+dd ee pp rr oo ch an pp rr oo ch
 de préférence+dd ee pp rr ei ff ei rr an ss
-de sorte qu'+dd ee ss oo rr tt ee kk
+de sorte qu'+dd ee ss oo rr tt ee kk '
 de sorte que+dd ee ss oo rr tt ee kk ee
 de suite+dd ee ss uy ii tt
-de telle sorte qu'+dd ee tt ai ll ee ss oo rr tt ee kk
+de telle sorte qu'+dd ee tt ai ll ee ss oo rr tt ee kk '
 de telle sorte que+dd ee tt ai ll ee ss oo rr tt ee kk ee
 de tous côtés+dd ee tt ou kk au tt ei
 de toute manière+dd ee tt ou tt ee mm aa nn yy ai rr
@@ -25907,7 +25905,7 @@ delgado+dd ei ll gg aa dd au
 delgao+dd ai ll gg aa au
 delhi+dd ei ll ii
 dell+dd ai ll
-dell'arte+dd ai ll aa rr tt
+dell'arte+dd ' ai ll aa rr tt
 della+dd ai ll aa
 dellec+dd ai ll ai kk
 delloye+dd ai ll oi yy
@@ -26141,7 +26139,7 @@ depuis(2)+dd ee pp uy ii zz
 depuis longtemps+dd ee pp uy ii ll on tt an
 depuis longtemps déjà+dd ee pp uy ii ll on tt an dd ei jj aa
 depuis lors+dd ee pp uy ii ll oo rr
-depuis qu'+dd ee pp uy ii kk
+depuis qu'+dd ee pp uy ii kk '
 depuis que+dd ee pp uy ii kk ee
 der+dd ai rr
 derachinois+dd ee rr aa ch ii nn oi
@@ -28921,14 +28919,14 @@ dts+dd ei tt ei ai ss
 du+dd uu
 du(2)+dd ei uu
 du(3)+dd uu
-du côté d'+dd uu kk au tt ei dd
+du côté d'+dd uu kk au tt ei dd '
 du côté de+dd uu kk au tt ei dd ee
 du côté des+dd uu kk au tt ei dd ei
 du côté des(2)+dd uu kk au tt ei dd ei zz
 du côté du+dd uu kk au tt ei dd uu
-du fait qu'+dd uu ff ai kk
+du fait qu'+dd uu ff ai kk '
 du fait que+dd uu ff ai kk ee
-du haut d'+dd uu au dd
+du haut d'+dd uu au dd '
 du haut de+dd uu au dd ee
 du haut des+dd uu au dd ei
 du haut des(2)+dd uu au dd ei zz
@@ -29199,9 +29197,9 @@ dysfonctionnements(2)+dd ii ss ff on kk ss yy oo nn ee mm an zz
 dès+dd ai
 dès(2)+dd ai zz
 dès lors+dd ai ll oo rr
-dès lors qu'+dd ai ll oo rr kk
+dès lors qu'+dd ai ll oo rr kk '
 dès lors que+dd ai ll oo rr kk ee
-dès qu'+dd ai kk
+dès qu'+dd ai kk '
 dès que+dd ai kk ee
 dé+dd ei
 déambulants+dd ei an bb uu ll an
@@ -33543,7 +33541,7 @@ en-tête+an tt ai tt
 en-tête(2)+an tt ai tt ee
 en arrière+an nn aa rr yy ai rr
 en attendant+an nn aa tt an dd an
-en attendant qu'+an nn aa tt an dd an kk
+en attendant qu'+an nn aa tt an dd an kk '
 en attendant que+an nn aa tt an dd an kk ee
 en aucune façon+an nn au kk uu nn ee ff aa ss on
 en aucune manière+an nn au kk uu nn ee mm aa nn yy ai rr
@@ -33553,11 +33551,11 @@ en avant des(2)+an nn aa vv an dd ei zz
 en bas+an bb aa
 en bas de+an bb aa dd ee
 en bref+an bb rr ai ff
-en cas d'+an kk aa dd
+en cas d'+an kk aa dd '
 en cas de+an kk aa dd ee
 en catimini+an kk aa tt ii mm ii nn ii
 en ce cas+an ss ee kk aa
-en ce qu'+an ss ee kk
+en ce qu'+an ss ee kk '
 en ce qui concerne+an ss ee kk ii kk on ss ai rr nn
 en ce qui me concerne+an ss ee kk ii mm ee kk on ss ai rr nn
 en clair+an kk ll ai rr
@@ -33568,11 +33566,11 @@ en conclusion+an kk on kk ll uu zz yy on
 en conséquence+an kk on ss ei kk an ss
 en contrebas+an kk on tt rr ee bb aa
 en cours+an kk ou rr
-en cours d'+an kk ou rr dd
+en cours d'+an kk ou rr dd '
 en cours de+an kk ou rr dd ee
-en d' autres termes+an dd au tt rr tt ai rr mm
+en d' autres termes+an dd ' au tt rr tt ai rr mm
 en dehors+an dd ee oo rr
-en dehors d'+an dd ee oo rr dd
+en dehors d'+an dd ee oo rr dd '
 en dehors de+an dd ee oo rr dd ee
 en dehors des+an dd ee oo rr dd ei
 en dehors du+an dd ee oo rr dd uu
@@ -33583,23 +33581,23 @@ en deçà des+an dd ee ss aa dd ei
 en deçà des(2)+an dd ee ss aa dd ei zz
 en deçà du+an dd ee ss aa dd uu
 en définitive+an dd ei ff ii nn ii tt ii vv
-en dépit d'+an dd ei pp ii dd
+en dépit d'+an dd ei pp ii dd '
 en dépit de+an dd ei pp ii dd ee
 en dépit des+an dd ei pp ii dd ei
 en dépit du+an dd ei pp ii dd uu
 en effet+an nn ei ff ai
 en face+an ff aa ss
-en face d'+an ff aa ss ee dd
+en face d'+an ff aa ss ee dd '
 en face de+an ff aa ss ee dd ee
 en face des+an ff aa ss ee dd ei
 en face du+an ff aa ss ee dd uu
 en fait+an ff ai
-en faveur d'+an ff aa vv oe rr dd
+en faveur d'+an ff aa vv oe rr dd '
 en faveur de+an ff aa vv oe rr dd ee
 en faveur des+an ff aa vv oe rr dd ei
 en faveur du+an ff aa vv oe rr dd uu
 en fin de compte+an ff in dd ee kk on tt
-en fonction d'+an ff on kk ss yy on dd
+en fonction d'+an ff on kk ss yy on dd '
 en fonction de+an ff on kk ss yy on dd ee
 en fonction des+an ff on kk ss yy on dd ei
 en fonction des(2)+an ff on kk ss yy on dd ei zz
@@ -33609,31 +33607,31 @@ en grande partie+an gg rr an dd ee pp aa rr tt ii
 en gros+an gg rr au
 en général+an jj ei nn ei rr aa ll
 en haut+an au
-en haut d'+an au dd
+en haut d'+an au dd '
 en haut de+an au dd ee
 en haut des+an au dd ei
 en haut des(2)+an au dd ei zz
 en haut du+an au dd uu
 en haut lieu+an au ll yy eu
-en l' absence d'+an ll aa pp ss an ss ee dd
-en l' absence de+an ll aa pp ss an ss ee dd ee
+en l' absence d'+an ll ' aa pp ss an ss ee dd '
+en l' absence de+an ll ' aa pp ss an ss ee dd ee
 en la matière+an ll aa mm aa tt yy ai rr
 en majorité+an mm aa jj oo rr ii tt ei
 en manque+an mm an kk
 en manque de+an mm an kk ee dd ee
-en marge d'+an mm aa rr jj ee dd
+en marge d'+an mm aa rr jj ee dd '
 en marge de+an mm aa rr jj ee dd ee
 en marge des+an mm aa rr jj ee dd ei
 en marge du+an mm aa rr jj ee dd uu
-en matière d'+an mm aa tt yy ai rr ee dd
+en matière d'+an mm aa tt yy ai rr ee dd '
 en matière de+an mm aa tt yy ai rr ee dd ee
-en moins d'+an mm ww in dd
+en moins d'+an mm ww in dd '
 en moins de+an mm ww in dd ee
 en même temps+an mm ai mm ee tt an
-en même temps qu'+an mm ai mm ee tt an kk
+en même temps qu'+an mm ai mm ee tt an kk '
 en même temps que+an mm ai mm ee tt an kk ee
 en outre+an nn ou tt rr
-en outre d'+an nn ou tt rr ee dd
+en outre d'+an nn ou tt rr ee dd '
 en outre de+an nn ou tt rr ee dd ee
 en outre des+an nn ou tt rr ee dd ei
 en outre des(2)+an nn ou tt rr ee dd ei zz
@@ -33646,16 +33644,16 @@ en plus des+an pp ll uu ss dd ei
 en plus des(2)+an pp ll uu ss dd ei zz
 en plus du+an pp ll uu ss dd uu
 en principe+an pp rr in ss ii pp
-en présence d'+an pp rr ei zz an ss ee dd
+en présence d'+an pp rr ei zz an ss ee dd '
 en présence de+an pp rr ei zz an ss ee dd ee
 en présence des+an pp rr ei zz an ss ee dd ei
 en présence du+an pp rr ei zz an ss ee dd uu
-en qualité d'+an kk aa ll ii tt ei dd
+en qualité d'+an kk aa ll ii tt ei dd '
 en qualité de+an kk aa ll ii tt ei dd ee
 en quelque sorte+an kk ai ll kk ee ss oo rr tt
 en quelques mots+an kk ai ll kk mm au
 en question+an kk ai ss tt yy on
-en raison d'+an rr ai zz on dd
+en raison d'+an rr ai zz on dd '
 en raison de+an rr ai zz on dd ee
 en raison des+an rr ai zz on dd ei
 en raison du+an rr ai zz on dd uu
@@ -33668,22 +33666,22 @@ en résumé+an rr ei zz uu mm ei
 en sa qualité de+an ss aa kk aa ll ii tt ei dd ee
 en sens inverse+an ss an zz in vv ai rr ss
 en somme+an ss oo mm
-en sorte qu'+an ss oo rr tt ee kk
+en sorte qu'+an ss oo rr tt ee kk '
 en sorte que+an ss oo rr tt ee kk ee
 en sous-main+an ss ou mm in
 en sus+an ss uu ss
 en suspens+an ss uu ss pp an
-en tant qu'+an tt an kk
+en tant qu'+an tt an kk '
 en tant que+an tt an kk ee
 en tous les cas+an tt ou ll ei kk aa
 en tout cas+an tt ou kk aa
 en travers de+an tt rr aa vv ai rr dd ee
 en tête à tête+an tt ai tt aa tt ai tt
-en vertu d'+an vv ai rr tt uu dd
+en vertu d'+an vv ai rr tt uu dd '
 en vertu de+an vv ai rr tt uu dd ee
 en vertu du+an vv ai rr tt uu dd uu
 en vigueur dans+an vv ii gg oe rr dd an
-en vue d'+an vv uu ee dd
+en vue d'+an vv uu ee dd '
 en vue de+an vv uu ee dd ee
 en vue des+an vv uu ee dd ei
 en vue du+an vv uu ee dd uu
@@ -33844,7 +33842,7 @@ encombrés(2)+an kk on bb rr ei zz
 encontre+an kk on tt rr
 encore+an kk oo rr
 encore(2)+an kk oo rr ee
-encore qu'+an kk oo rr ee kk
+encore qu'+an kk oo rr ee kk '
 encore que+an kk oo rr ee kk ee
 encore une fois+an kk oo rr uu nn ee ff oi
 encourage+an kk ou rr aa jj
@@ -34478,7 +34476,7 @@ ensuit+an ss uy ii
 ensuit(2)+an ss uy ii tt
 ensuite+an ss uy ii tt
 ensuite(2)+an ss uy ii tt ee
-ensuite d'+an ss uy ii tt ee dd
+ensuite d'+an ss uy ii tt ee dd '
 ensuite de+an ss uy ii tt ee dd ee
 ensuite des+an ss uy ii tt ee dd ei
 ensuite des(2)+an ss uy ii tt ee dd ei zz
@@ -35792,7 +35790,7 @@ europe+eu rr oo pp
 europe(2)+eu rr oo pp ee
 europe(3)+oe rr oo pp
 europe(4)+oe rr oo pp ee
-europe de l'est+eu rr oo pp dd ee ll ai ss tt
+europe de l'est+eu rr oo pp dd ee ll ' ai ss tt
 europe de l'est(2)+eu rr oo pp dd ll ai ss tt
 europe de l'est(3)+eu rr oo pp ee dd ee ll ai ss tt
 europe de l'est(4)+eu rr oo pp ee dd ll ai ss tt
@@ -37091,7 +37089,7 @@ ezratty+ai zz rr aa tt ii
 ezzat+ei zz aa tt
 eût+uu
 eût(2)+uu tt
-f+ai
+f+ei ff
 f(2)+ai ff ee
 f1+ai ff un
 f117+ai ff ss an dd ii ss ai tt
@@ -37808,7 +37806,7 @@ faut+ff au
 faut(2)+ff au tt
 faute+ff au tt
 faute(2)+ff au tt ee
-faute d'+ff au tt ee dd
+faute d'+ff au tt ee dd '
 faute de+ff au tt ee dd ee
 fautes+ff au tt
 fautes(2)+ff au tt ee
@@ -42260,7 +42258,7 @@ ghozali+gg au zz aa ll ii
 ghraib+gg rr aa ii bb
 ghulam+gg uu ll aa mm
 gi+dd jj ii aa yy
-gi's+jj ii
+gi's+jj ' ii
 gia+jj ei ii aa
 giacobbi+dd jj aa kk oo bb ii
 giacobbi(2)+jj yy aa kk oo bb ii
@@ -42419,7 +42417,7 @@ giroud+jj ii rr ou
 gisant+jj ii zz an
 gisant(2)+jj ii zz an tt
 giscard+jj ii ss kk aa rr
-giscard d' estaing+jj ii ss kk aa rr dd ai ss tt in
+giscard d' estaing+jj ii ss kk aa rr dd ' ai ss tt in
 giscardien+jj ii ss kk aa rr dd yy in
 giscardienne+jj ii ss kk aa rr dd yy ai nn
 giscardiens+jj ii ss kk aa rr dd yy in
@@ -43090,7 +43088,7 @@ gran(2)+gg rr an
 granada+gg rr aa nn aa dd aa
 grand+gg rr an
 grand(2)+gg rr an tt
-grand'messe+gg rr an mm ai ss
+grand'messe+gg rr an ' mm ai ss
 grand'messe(2)+gg rr an mm ai ss ee
 grand-croix+gg rr an kk rr oi
 grand-croix(2)+gg rr an kk rr oi zz
@@ -43669,7 +43667,7 @@ grâce(2)+gg rr aa ss ee
 grâce au+gg rr aa ss au
 grâce aux+gg rr aa ss au
 grâce à+gg rr aa ss aa
-grâce à l'+gg rr aa ss aa ll
+grâce à l'+gg rr aa ss aa ll '
 grâce à la+gg rr aa ss aa ll aa
 grâces+gg rr aa ss
 grâces(2)+gg rr aa ss ee
@@ -44425,7 +44423,7 @@ gül+gg uu ll
 günter+gg uu nn tt ai rr
 günther+gg uu nn tt ai rr
 gürsel+gg uu rr ss ai ll
-h+aa c
+h+aa ch
 h(2)+aa ch ee
 ha+aa
 haaretz+aa aa rr ai tt ss
@@ -45982,11 +45980,11 @@ horrifié+oo rr ii ff yy ei
 hors+oo rr
 hors(2)+oo rr ss
 hors(3)+oo rr zz
-hors-d'oeuvre+oo rr dd oe vv rr
+hors-d'oeuvre+oo rr dd ' oe vv rr
 hors-d'oeuvre(2)+oo rr dd oe vv rr ee
 hors-jeu+oo rr jj eu
 hors-la-loi+oo rr ll aa ll oi
-hors d'+oo rr dd
+hors d'+oo rr dd '
 hors de+oo rr dd ee
 hors de prix+oo rr dd ee pp rr ii
 hors des+oo rr dd ei
@@ -52074,8 +52072,8 @@ izvestia+ii zz vv ei ss tt ii aa
 izzo+ii dd zz au
 izzo(2)+ii zz au
 iéna+yy ei nn aa
-j+ ii
-j'+jj
+j+jj ii
+j'+jj '
 ja+jj aa
 jaan+jj aa aa nn
 jabaliya+jj aa bb aa ll ii yy aa
@@ -52327,7 +52325,7 @@ jazzy+jj aa zz ii
 jbaïl+jj bb aa ii ll
 jc+jj ii ss ei
 jdd+jj ii dd ei dd ei
-j'+jj
+j'+jj '
 je+jj ee
 jea+jj aa
 jeambar+jj an bb aa rr
@@ -53090,18 +53088,18 @@ jurés+jj uu rr ei
 jurés(2)+jj uu rr ei zz
 jus+jj uu
 jus(2)+jj uu zz
-jusqu'+jj uu ss kk
-jusqu' au+jj uu ss kk au
-jusqu' ici+jj uu ss kk ii ss ii
-jusqu' où+jj uu ss kk ou
-jusqu'au+jj uu ss kk au
-jusqu'au-boutistes+jj uu ss kk oo bb ou tt ii ss tt
+jusqu'+jj uu ss kk '
+jusqu'au+jj uu ss kk ' au
+jusqu'ici+jj uu ss kk ' ii ss ii
+jusqu'où+jj uu ss kk ' ou
+jusqu'au+jj uu ss kk ' au
+jusqu'au-boutistes+jj uu ss kk ' oo bb ou tt ii ss tt
 jusqu'au-boutistes(2)+jj uu ss kk oo bb ou tt ii ss tt ee
 jusqu'au-boutistes(3)+jj uu ss kk oo bb ou tt ii ss tt ee zz
 jusqu'au-boutistes(4)+jj uu ss kk oo bb ou tt ii ss tt zz
-jusqu'aux+jj uu ss kk au
-jusqu'à+jj uu ss kk aa
-jusqu'à présent+jj uu ss kk aa pp rr ei zz an
+jusqu'aux+jj uu ss kk ' au
+jusqu'à+jj uu ss kk ' aa
+jusqu'à présent+jj uu ss kk ' aa pp rr ei zz an
 jusque+jj uu ss kk
 jusque(2)+jj uu ss kk ee
 jusque dans+jj uu ss kk ee dd an
@@ -53213,7 +53211,7 @@ jésus+jj ei zz uu
 jörg+jj eu rr gg
 jünger+jj uu nn gg ai rr
 jürgen+yy ou rr gg ai nn
-k+ aa
+k+kk aa
 ka+kk aa
 kaas+kk aa aa ss
 kaba+kk aa bb aa
@@ -54029,42 +54027,42 @@ kérosène+kk ai rr oo zz ai nn
 kérosène(2)+kk ai rr oo zz ai nn ee
 kérékou+kk ei rr ei kk ou
 köhler+kk eu ll ai rr
-l+ai
-l'+ll
-l' autre+ll au tt rr
-l' un+ll un
-l' une+ll uu nn
-l'actu+ll aa kk tt uu
-l'actualité+ll aa kk tt uu aa ll ii tt ei
-l'alsace+ll aa ll ss aa ss
-l'angola+ll an gg oo ll aa
-l'ardennais+ll aa rr dd ai nn ai
-l'association+ll aa ss oo ss yy aa ss yy on
-l'autre+ll au tt rr
-l'essentiel+ll ei ss an ss yy ai ll
-l'est+ll ai ss tt
-l'express+ll ai kk ss pp rr ai ss
-l'harmattan+ll aa rr mm aa tt an
-l'hebdo+ll ai bb dd au
-l'huma+ll uu mm aa
-l'humanité+ll uu mm aa nn ii tt ei
-l'indépendant+ll in dd ei pp an dd an
-l'intelligent+ll in tt ai ll ii jj an
-l'inter+ll in tt ei
-l'irak+ll ii rr aa kk
-l'on+ll on
-l'onu+ll oo nn uu
-l'oréal+ll oo rr ei aa ll
-l'outremangeur+ll ou tt rr ee mm an jj oe rr
-l'ugta+ll uu gg tt aa
-l'un+ll un
-l'une+ll uu nn
+l+ai ll
+l'+ll '
+l' autre+ll ' au tt rr
+l' un+ll ' un
+l' une+ll ' uu nn
+l'actu+ll ' u aa kk tt uu
+l'actualité+ll ' u aa kk tt uu aa ll ii tt ei
+l'alsace+ll ' u aa ll ss aa ss
+l'angola+ll ' u an gg oo ll aa
+l'ardennais+ll ' u aa rr dd ai nn ai
+l'association+ll ' u aa ss oo ss yy aa ss yy on
+l'autre+ll ' u au tt rr
+l'essentiel+ll ' u ei ss an ss yy ai ll
+l'est+ll ' u ai ss tt
+l'express+ll ' u ai kk ss pp rr ai ss
+l'harmattan+ll ' u aa rr mm aa tt an
+l'hebdo+ll ' u ai bb dd au
+l'huma+ll ' u uu mm aa
+l'humanité+ll ' u uu mm aa nn ii tt ei
+l'indépendant+ll ' u in dd ei pp an dd an
+l'intelligent+ll ' u in tt ai ll ii jj an
+l'inter+ll ' u in tt ei
+l'irak+ll ' u ii rr aa kk
+l'on+ll ' u on
+l'onu+ll ' u oo nn uu
+l'oréal+ll ' u oo rr ei aa ll
+l'outremangeur+ll ' u ou tt rr ee mm an jj oe rr
+l'ugta+ll ' u uu gg tt aa
+l'un+ll ' u un
+l'une+ll ' u uu nn
 l'une(2)+ll uu nn ee
-l'union+ll uu nn yy on
-l'yonne+ll yy oo nn
-l'Équipe+ll ei kk ii pp
-l'Étudiant+ll ei tt uu dd yy an
-l'Événement+ll ei vv ei nn ee mm an
+l'union+ll ' u uu nn yy on
+l'yonne+ll ' u yy oo nn
+l'Équipe+ll ' u ei kk ii pp
+l'Étudiant+ll ' u ei tt uu dd yy an
+l'Événement+ll ' u ei vv ei nn ee mm an
 l1+ai ll un
 l2+ai ll dd eu
 la+ll aa
@@ -54883,7 +54881,7 @@ lcr+ai ll ss ei ai rr
 ldh+ai ll dd ei aa ch
 ldi+ai ll dd ei ii
 ldk+ai ll dd ei kk aa
-l'+ll
+l'+ll '
 le+ll ee
 le caire+ll ee kk ai rr
 le cas échéant+ll ee kk aa zz ei ch ei an
@@ -54894,7 +54892,7 @@ le leur+ll ee ll oe rr
 le mans+ll ee mm an
 le mans(2)+ll mm an
 le mien+ll ee mm yy in
-le moins qu'+ll ee mm ww in kk
+le moins qu'+ll ee mm ww in kk '
 le moins que+ll ee mm ww in kk ee
 le nouvel observateur+ll ee nn ou vv ai ll oo pp ss ai rr vv aa tt oe rr
 le nôtre+ll ee nn au tt rr
@@ -55818,7 +55816,7 @@ linéaires(3)+ll ii nn ai ai rr ee zz
 linéaires(4)+ll ii nn ai ai rr zz
 lioce+ll yy oo ss
 lion+ll yy on
-lion's+ll yy on
+lion's+ll yy on ' zz
 lionel+ll yy oo nn ai ll
 lionnel+ll yy oo nn ai ll
 lions+ll yy on
@@ -56104,7 +56102,7 @@ llorente+ll oo rr an tt
 llosa+ll yy au zz aa
 lloyd+ll oo yy dd
 lloyd(2)+ll oo yy dd ee
-lloyd's+ll oo ii dd
+lloyd's+ll oo ii dd ' zz
 lloyds+ll oo yy dd
 lluis+ll uy ii
 lmayari+ll mm aa yy aa rr ii
@@ -56245,12 +56243,12 @@ loi-cadre(2)+ll oi kk aa dd rr ee
 loi-programme+ll oi pp rr oo gg rr aa mm
 loi-programme(2)+ll oi pp rr oo gg rr aa mm ee
 loin+ll ww in
-loin d'+ll ww in dd
+loin d'+ll ww in dd '
 loin de+ll ww in dd ee
 loin des+ll ww in dd ei
 loin des(2)+ll ww in dd ei zz
 loin du+ll ww in dd uu
-loin qu'+ll ww in kk
+loin qu'+ll ww in kk '
 loin que+ll ww in kk ee
 loing+ll ww in
 lointain+ll ww in tt in
@@ -56392,11 +56390,11 @@ lorraine(4)+ll oo rr ai nn ee
 lorrains+ll oo rr in
 lorrains(2)+ll oo rr in zz
 lors+ll oo rr
-lors d'+ll oo rr dd
+lors d'+ll oo rr dd '
 lors de+ll oo rr dd ee
 lors des+ll oo rr dd ei
 lors du+ll oo rr dd uu
-lorsqu'+ll oo rr ss kk
+lorsqu'+ll oo rr ss kk '
 lorsque+ll oo rr ss kk
 lorsque(2)+ll oo rr ss kk ee
 los+ll au ss
@@ -57210,10 +57208,10 @@ lézards+ll ai zz aa rr
 lézards(2)+ll ai zz aa rr zz
 lê+ll ai
 lüttenberger+ll uu tt ai nn bb ai rr gg ai rr
-m+ai
-m'+mm
-m'hamdi+mm an dd ii
-m'sik+mm ss ii kk
+m+ai mm
+m'+mm '
+m'hamdi+mm an dd ii '
+m'sik+mm ss ii kk '
 m16+ai mm ss ai zz
 m2+mm ai tt rr kk aa rr ei
 m3+mm ai tt rr kk uu bb
@@ -57591,8 +57589,8 @@ maillé+mm aa yy ei
 mails+mm aa yy
 mails(2)+mm aa yy zz
 main+mm in
-main-d'oeuvre+mm in dd oe vv rr
-main-d'oeuvre(2)+mm in dd oe vv rr ee
+main-d'oeuvre+mm in dd ' oe vv rr
+main-d'oeuvre(2)+mm in dd ' oe vv rr ee
 main-forte+mm in ff oo rr tt
 main-forte(2)+mm in ff oo rr tt ee
 maine+mm ai nn
@@ -57617,7 +57615,7 @@ maintenance+mm in tt ee nn an ss
 maintenance(2)+mm in tt ee nn an ss ee
 maintenant+mm in tt ee nn an
 maintenant(2)+mm in tt ee nn an tt
-maintenant qu'+mm in tt ee nn an kk
+maintenant qu'+mm in tt ee nn an kk '
 maintenant que+mm in tt ee nn an kk ee
 maintenir+mm in tt ee nn ii rr
 maintenons+mm in tt ee nn on
@@ -58015,7 +58013,7 @@ mamère+mm aa mm ai rr
 mamère(2)+mm aa mm ai rr ee
 man+mm aa nn
 man(2)+mm an
-man's+mm an
+man's+mm ' an zz
 manade+mm aa nn aa dd
 manade(2)+mm aa nn aa dd ee
 management+mm aa nn aa dd jj ee mm ai nn tt
@@ -58282,7 +58280,7 @@ manquantes+mm an kk an tt
 manquants+mm an kk an
 manque+mm an kk
 manque(2)+mm an kk ee
-manque d'+mm an kk ee dd
+manque d'+mm an kk ee dd '
 manque de+mm an kk ee dd ee
 manquement+mm an kk ee mm an
 manquements+mm an kk ee mm an
@@ -59583,7 +59581,6 @@ mdm+ai mm dd ei ai mm
 mdr+ai mm dd ei ai rr
 mds+ai mm dd ei ai ss
 mds(2)+mm dd zz
-m'+mm
 me+mm ee
 mea+mm aa
 mea culpa+mm ai aa kk uu ll pp aa
@@ -61326,7 +61323,7 @@ moins(2)+mm ww in zz
 moins-value+mm ww in vv aa ll uu
 moins-values+mm ww in vv aa ll uu
 moins-values(2)+mm ww in vv aa ll uu zz
-moins qu'+mm ww in kk
+moins qu'+mm ww in kk '
 moins que+mm ww in kk ee
 moins que jamais+mm ww in kk ee jj aa mm ai
 mois+mm oi
@@ -63778,20 +63775,20 @@ mûrs+mm uu rr
 mûrs(2)+mm uu rr zz
 müller+mm uu ll ai rr
 müller(2)+mm uu ll ee rr
-n+ai
-n'+nn
-n' importe+nn in pp oo rr tt
-n' importe quoi+nn in pp oo rr tt ee kk oi
-n'djamena+nn dd jj aa mm ei nn aa
+n+ai nn
+n'+nn '
+n'importe+nn ' in pp oo rr tt
+n'importe quoi+nn ' in pp oo rr tt ee kk oi
+n'djamena+nn ' dd jj aa mm ei nn aa
 n'djamena(2)+ai nn dd jj aa mm ei nn aa
-n'dour+nn dd ou rr
+n'dour+nn ' dd ou rr
 n'dour(2)+ai nn dd ou rr
-n'dri+nn dd rr ii
+n'dri+nn ' dd rr ii
 n'dri(2)+ai nn dd rr ii
-n'guessan+nn gg ei ss an
-n'guessan(2)+ai nn gg ei ss an
-n'guesso+nn gg ei ss au
-n'tamack+nn tt aa mm aa kk
+n'guessan+nn ' gg ei ss an
+n'guessan(2)+ai nn ' gg ei ss an
+n'guesso+nn '  gg ei ss au
+n'tamack+nn '  tt aa mm aa kk
 n'tamack(2)+ai nn tt aa mm aa kk
 n12+ai nn dd ou zz
 na+nn aa
@@ -64314,7 +64311,7 @@ ndayizeye+ai nn dd aa yy ii zz ei yy
 ndjamena+ai nn dd jj aa mm ei nn aa
 ndlr+ai nn dd ei ai ll ai rr
 ndénié+nn dd ei nn yy ei
-n'+nn
+n'+nn '
 ne+nn ee
 ne pas+nn ee pp aa
 neal+nn ii ll
@@ -64738,7 +64735,7 @@ nlc+ai nn ai ll ss ei
 nmd+ai nn ai mm dd ei
 nmpp+ai nn ai mm pp ei pp ei
 no+nn au
-no man's land+nn oo mm aa nn ss ll an dd
+no man's land+nn oo mm aa nn ' ss ll an dd
 noah+nn oo aa
 noailles+nn oo aa yy
 nobel+nn oo bb ai ll
@@ -64924,9 +64921,9 @@ non-stop+nn oo nn ss tt oo pp
 non-violence+nn on vv yy oo ll an ss
 non-violence(2)+nn on vv yy oo ll an ss ee
 non plus+nn on pp ll uu ss
-non plus qu'+nn on pp ll uu ss kk
+non plus qu'+nn on pp ll uu ss kk '
 non plus que+nn on pp ll uu ss kk ee
-non qu'+nn on kk
+non qu'+nn on kk '
 non que+nn on kk ee
 nonagénaire+nn oo nn aa jj ai nn ai rr
 nonagénaire(2)+nn oo nn aa jj ai nn ai rr ee
@@ -67746,7 +67743,7 @@ outre-rhin+ou tt rr ee rr in
 outre-tombe+ou tt rr ee tt on bb
 outre-tombe(2)+ou tt rr ee tt on bb ee
 outre mesure+ou tt rr ee mm ee zz uu rr
-outre qu'+ou tt rr ee kk
+outre qu'+ou tt rr ee kk '
 outre que+ou tt rr ee kk ee
 outrecuidance+ou tt rr ee kk uy ii dd an ss
 outrecuidance(2)+ou tt rr ee kk uy ii dd an ss ee
@@ -67911,7 +67908,7 @@ ozu+au zz uu
 ozzy+au zz ii
 où+ou
 où ça+ou ss aa
-p+ ai
+p+pp ai
 p(2)+pp ei
 pa+pp aa
 paavo+pp aa aa vv au
@@ -68394,11 +68391,11 @@ par-delà+pp aa rr dd ee ll aa
 par-dessus+pp aa rr dd ee ss uu
 par-là+pp aa rr ll aa
 par ailleurs+pp aa rr aa yy oe rr
-par ce qu'+pp aa rr ss ee kk
+par ce qu'+pp aa rr ss ee kk '
 par ce que+pp aa rr ss ee kk ee
 par conséquent+pp aa rr kk on ss ei kk an
 par contre+pp aa rr kk on tt rr
-par crainte d'+pp aa rr kk rr in tt ee dd
+par crainte d'+pp aa rr kk rr in tt ee dd '
 par crainte de+pp aa rr kk rr in tt ee dd ee
 par crainte des+pp aa rr kk rr in tt ee dd ei
 par crainte des(2)+pp aa rr kk rr in tt ee dd ei zz
@@ -68410,7 +68407,7 @@ par ici+pp aa rr ii ss ii
 par la crainte de+pp aa rr ll aa kk rr in tt ee dd ee
 par la suite+pp aa rr ll aa ss uy ii tt
 par là+pp aa rr ll aa
-par manque d'+pp aa rr mm an kk ee dd
+par manque d'+pp aa rr mm an kk ee dd '
 par manque de+pp aa rr mm an kk ee dd ee
 par mégarde+pp aa rr mm ai gg aa rr dd
 par mégarde(2)+pp aa rr mm ai gg aa rr dd ee
@@ -68419,7 +68416,7 @@ par rapport au+pp aa rr rr aa pp oo rr au
 par rapport aux+pp aa rr rr aa pp oo rr au
 par rapport à+pp aa rr rr aa pp oo rr aa
 par suite+pp aa rr ss uy ii tt
-par suite d'+pp aa rr ss uy ii tt ee dd
+par suite d'+pp aa rr ss uy ii tt ee dd '
 par suite de+pp aa rr ss uy ii tt ee dd ee
 para+pp aa rr aa
 parabole+pp aa rr aa bb oo ll
@@ -68609,7 +68606,7 @@ paraîtront(2)+pp aa rr ai tt rr on tt
 parc+pp aa rr
 parc(2)+pp aa rr kk
 parce+pp aa rr ss
-parce qu'+pp aa rr ss ee kk
+parce qu'+pp aa rr ss ee kk '
 parce que+pp aa rr ss ee kk ee
 parcellaire+pp aa rr ss ai ll ai rr
 parcellaire(2)+pp aa rr ss ai ll ai rr ee
@@ -69972,7 +69969,7 @@ pendaison+pp an dd ai zz on
 pendant+pp an dd an
 pendant(2)+pp an dd an tt
 pendant longtemps+pp an dd an ll on tt an
-pendant qu'+pp an dd an kk
+pendant qu'+pp an dd an kk '
 pendant que+pp an dd an kk ee
 pendante+pp an dd an tt
 pendante(2)+pp an dd an tt ee
@@ -72132,14 +72129,14 @@ plus(2)+pp ll uu zz
 plus-value+pp ll uu vv aa ll uu
 plus-values+pp ll uu vv aa ll uu
 plus-values(2)+pp ll uu vv aa ll uu zz
-plus d'un+pp ll uu dd un
+plus d'un+pp ll uu dd '  un
 plus d'un(2)+pp ll uu dd un nn
-plus d'une+pp ll uu dd uu nn
-plus d'une(2)+pp ll uu dd uu nn ee
+plus d'une+pp ll uu dd '  uu nn
+plus d'une(2)+pp ll uu dd '  uu nn ee
 plus encore+pp ll uu zz an kk oo rr
 plus jamais+pp ll uu ss jj aa mm ai
 plus ou moins+pp ll uu zz ou mm ww in
-plus qu'+pp ll uu ss kk
+plus qu'+pp ll uu ss kk '
 plus que+pp ll uu ss kk ee
 plus tard+pp ll uu ss tt aa rr
 plus tôt+pp ll uu ss tt au
@@ -72148,7 +72145,7 @@ plusieurs(2)+pp ll uu zz yy oe rr zz
 pluton+pp ll uu tt on
 plutonium+pp ll uu tt oo nn yy oo mm
 plutôt+pp ll uu tt au
-plutôt qu'+pp ll uu tt au kk
+plutôt qu'+pp ll uu tt au kk '
 plutôt que+pp ll uu tt au kk ee
 pluvi+pp ll uu vv ii
 pluvieux+pp ll uu vv yy eu
@@ -73292,18 +73289,18 @@ poupées(2)+pp ou pp ei zz
 pour+pp ou rr
 pour ainsi dire+pp ou rr in ss ii dd ii rr
 pour autant+pp ou rr au tt an
-pour autant qu'+pp ou rr au tt an kk
+pour autant qu'+pp ou rr au tt an kk '
 pour autant que+pp ou rr au tt an kk ee
-pour ce qu'+pp ou rr ss ee kk
+pour ce qu'+pp ou rr ss ee kk '
 pour ce que+pp ou rr ss ee kk ee
 pour cent+pp ou rr ss an
-pour l' instant+pp ou rr ll in ss tt an
+pour l' instant+pp ou rr ll ' in ss tt an
 pour la plupart+pp ou rr ll aa pp ll uu pp aa rr
 pour le moins+pp ou rr ll ee mm ww in
 pour leur part+pp ou rr ll oe rr pp aa rr
-pour peu qu'+pp ou rr pp eu kk
+pour peu qu'+pp ou rr pp eu kk '
 pour peu que+pp ou rr pp eu kk ee
-pour qu'+pp ou rr kk
+pour qu'+pp ou rr kk '
 pour que+pp ou rr kk ee
 pourboires+pp ou rr bb oi rr
 pourboires(2)+pp ou rr bb oi rr ee
@@ -73415,7 +73412,7 @@ pourvoyeur+pp ou rr vv oi yy oe rr
 pourvoyeurs+pp ou rr vv oi yy oe rr
 pourvoyeurs(2)+pp ou rr vv oi yy oe rr zz
 pourvu+pp ou rr vv uu
-pourvu qu'+pp ou rr vv uu kk
+pourvu qu'+pp ou rr vv uu kk '
 pourvu que+pp ou rr vv uu kk ee
 pourvue+pp ou rr vv uu
 pourvues+pp ou rr vv uu
@@ -73695,9 +73692,9 @@ prescrites(4)+pp rr ai ss kk rr ii tt zz
 prescrits+pp rr ai ss kk rr ii
 prescrits(2)+pp rr ai ss kk rr ii zz
 presley+pp rr ai ss ll ei
-presqu'+pp rr ai ss kk
-presqu'une+pp rr ai ss kk uu nn
-presqu'île+pp rr ai ss kk ii ll
+presqu'+pp rr ai ss kk '
+presqu'une+pp rr ai ss kk ' uu nn
+presqu'île+pp rr ai ss kk ' ii ll
 presqu'île(2)+pp rr ai ss kk ii ll ee
 presque+pp rr ai ss kk
 presque(2)+pp rr ai ss kk ee
@@ -74120,7 +74117,7 @@ proche-orient+pp rr au ch au rr yy an
 proche-orient(2)+pp rr au ch oo rr yy an
 proche-orient(3)+pp rr oo ch au rr yy an
 proche-orient(4)+pp rr oo ch oo rr yy an
-proche d'+pp rr oo ch ee dd
+proche d'+pp rr oo ch ee dd '
 proche de+pp rr oo ch ee dd ee
 proche des+pp rr oo ch ee dd ei
 proche des(2)+pp rr oo ch ee dd ei zz
@@ -75213,7 +75210,7 @@ prs+pp ei ai rr ai ss
 prs(2)+pp rr
 prt+pp ei ai rr tt ei
 prud+pp rr uu
-prud'hommes+pp rr uu dd oo mm
+prud'hommes+pp rr uu dd ' oo mm
 prud'hommes(2)+pp rr uu dd oo mm ee
 prud'hommes(3)+pp rr uu dd oo mm ee zz
 prud'hommes(4)+pp rr uu dd oo mm zz
@@ -76417,7 +76414,7 @@ puiser+pp uy ii zz ei
 puiser(2)+pp uy ii zz ei rr
 puisons+pp uy ii zz on
 puisons(2)+pp uy ii zz on zz
-puisqu'+pp uy ii ss kk
+puisqu'+pp uy ii ss kk '
 puisque+pp uy ii ss kk
 puisque(2)+pp uy ii ss kk ee
 puissamment+pp uy ii ss aa mm an
@@ -77209,8 +77206,8 @@ qsd+kk uu ai ss dd ei
 qst+kk uu ai ss tt ei
 qu+kk
 qu(2)+kk uu uu
-qu'+kk
-qu' on le veuille ou non+kk on ll ee vv oe yy ou nn on
+qu'+kk '
+qu'on le veuille ou non+kk on ll ee vv oe yy ou nn on
 qua+kk aa
 quad+kk aa
 quadragénaire+kk oi dd rr aa jj ai nn ai rr
@@ -77429,7 +77426,6 @@ quatuor+kk oi tt uu oo rr
 quatuors+kk oi tt uu oo rr
 quatuors(2)+kk oi tt uu oo rr zz
 quayle+kk ww ai ll
-qu'+kk
 que+kk ee
 que si+kk ee ss ii
 quechua+kk ei tt ch uy aa
@@ -77453,9 +77449,9 @@ quelles(2)+kk ai ll ee
 quelles(3)+kk ai ll ee zz
 quelles(4)+kk ai ll zz
 quelles que soient+kk ai ll kk ee ss oi an
-quelqu'+kk ai ll kk
-quelqu'ait+kk ai ll kk ai
-quelqu'un+kk ai ll kk un
+quelqu'+kk ai ll kk '
+quelqu'ait+kk ai ll kk ' ai
+quelqu'un+kk ai ll kk ' un
 quelque+kk ai ll kk
 quelque(2)+kk ai ll kk ee
 quelque chose+kk ai ll kk ee ch au zz
@@ -77619,8 +77615,8 @@ quiétude(2)+kk yy ai tt uu dd ee
 quo+kk au
 quoi+kk oi
 quoiqu+kk oi kk
-quoiqu'+kk oi kk
-quoiqu'il+kk oi kk ii ll
+quoiqu'+kk oi kk '
+quoiqu'il+kk oi kk ' ii ll
 quoique+kk oi kk
 quoique(2)+kk oi kk ee
 quolibets+kk oo ll ii bb ai
@@ -77660,8 +77656,8 @@ quêtes+kk ai tt
 quêtes(2)+kk ai tt ee
 quêtes(3)+kk ai tt ee zz
 quêtes(4)+kk ai tt zz
-r+ai
-r'miki+rr mm ii kk ii
+r+ai rr
+r'miki+rr ' mm ii kk ii
 ra+rr aa
 ra(2)+rr aa
 rab+rr aa bb
@@ -78802,7 +78798,7 @@ rdc+ai rr dd ei ss ei
 rdr+ai rr dd ei ai rr
 rdrp+ai rr dd ei ai rr pp ei
 rds+ai rr dd ei ai ss
-r'+rr
+r'+rr '
 re+rr ee
 reader+rr ii dd oe rr
 reading+rr ii dd ii nn gg
@@ -82744,7 +82740,7 @@ rocheuses(5)+rr oo ch oe zz
 rocheux+rr oo ch eu
 rocheux(2)+rr oo ch eu zz
 rock+rr oo kk
-rock'n'roll+rr oo kk nn rr oo ll
+rock'n'roll+rr oo kk ' nn ' rr oo ll
 rockbury+rr au kk bb uu rr ii
 rockefeller+rr oo kk ee ff ai ll ai rr
 rocker+rr oo kk ee rr
@@ -85540,8 +85536,8 @@ rôtir+rr oo tt ii rr
 rühe+rr uu ei
 rürup+rr uu rr uu pp
 rüstü+rr uu ss tt uu
-s+ai
-s'+ss
+s+ai ss
+s'+ss '
 sa+ss aa
 saa+ss aa aa
 saab+ss aa aa bb
@@ -86303,7 +86299,7 @@ sans encombre+ss an zz an kk on bb rr
 sans merci+ss an mm ai rr ss ii
 sans nul doute+ss an nn uu ll dd ou tt
 sans plus+ss an pp ll uu ss
-sans qu'+ss an kk
+sans qu'+ss an kk '
 sans que+ss an kk ee
 sans quoi+ss an kk oi
 sanseverino+ss an ss ei vv ei rr ii nn au
@@ -86543,7 +86539,7 @@ saucisses(3)+ss oo ss ii ss ee zz
 saucisson+ss oo ss ii ss on
 saudi+ss au dd ii
 sauf+ss au ff
-sauf qu'+ss au ff kk
+sauf qu'+ss au ff kk '
 sauf que+ss au ff kk ee
 sauf si+ss au ff ss ii
 sauf à+ss au ff aa
@@ -87207,7 +87203,6 @@ sdp+ai ss dd ei pp ei
 sdr+ai ss dd ei ai rr
 sds+ai ss dd ei ai ss
 sdérot+ss dd ei rr au
-s'+ss
 se+ss ee
 sea+ss aa
 seagel+ss aa jj ai ll
@@ -87415,7 +87410,7 @@ selma+ss ei ll mm aa
 selmouni+ss ei ll mm ou nn ii
 selo+ss ei ll au
 selon+ss ee ll on
-selon qu'+ss ee ll on kk
+selon qu'+ss ee ll on kk '
 selon que+ss ee ll on kk ee
 sels+ss ai ll
 sels(2)+ss ai ll zz
@@ -88081,10 +88076,10 @@ shushtari+ch uu ch tt aa rr ii
 shérif+ch ai rr ii ff
 si+ss ii
 si(2)+ss ii
-si bien qu'+ss ii bb yy in kk
+si bien qu'+ss ii bb yy in kk '
 si bien que+ss ii bb yy in kk ee
 si peu que+ss ii pp eu kk ee
-si tant est qu'+ss ii tt an tt ai ss tt kk
+si tant est qu'+ss ii tt an tt ai ss tt kk '
 si tant est que+ss ii tt an tt ai ss tt kk ee
 siam+ss yy aa mm
 siamois+ss yy aa mm oi
@@ -88114,7 +88109,7 @@ sicilienne(2)+ss ii ss ii ll yy ai nn ee
 siciliens+ss ii ss ii ll yy in
 siciliens(2)+ss ii ss ii ll yy in zz
 sicre+ss ii kk rr
-sid'ahmed+ss ii dd aa mm ai
+sid'ahmed+ss ii dd ' aa mm ai
 sida+ss ii dd aa
 sidaction+ss ii dd aa kk ss yy on
 sidas+ss ii dd aa
@@ -88123,7 +88118,7 @@ side+ss ii dd
 sidel+ss ii dd ai ll
 sidhoum+ss ii dd ou mm
 sidi+ss ii dd ii
-sidi'ahmed+ss ii dd yy aa mm ai
+sidi'ahmed+ss ii dd yy ' aa mm ai
 sidibé+ss ii dd ii bb ei
 sidiki+ss ii dd ii kk ii
 sidney+ss ii dd nn ei
@@ -89031,7 +89026,7 @@ soisson+ss oi ss on
 soissons+ss oi ss on
 soit+ss oi
 soit(2)+ss oi tt
-soit qu'+ss oi kk
+soit qu'+ss oi kk '
 soit que+ss oi kk ee
 soixantaine+ss oi ss an tt ai nn
 soixantaine(2)+ss oi ss an tt ai nn ee
@@ -89566,7 +89561,7 @@ sosies+ss oo zz ii
 sosies(2)+ss oo zz ii zz
 sot+ss au
 sot(2)+ss au tt
-sotheby's+ss oo tt bb ii ss
+sotheby's+ss oo tt bb ii ' ss
 sotheby's(2)+ss oo tt ee bb ii ss
 soti+ss au tt ii
 sotigui+ss oo tt ii gg ii
@@ -90053,9 +90048,9 @@ sous-vêtements(2)+ss ou vv ai tt ee mm an zz
 sous-évalué+ss ou zz ai vv aa ll uu ei
 sous-évaluée+ss ou zz ai vv aa ll uu ei
 sous cet angle+ss ou ss ai tt an gg ll
-sous prétexte qu'+ss ou pp rr ei tt ai kk ss tt ee kk
+sous prétexte qu'+ss ou pp rr ei tt ai kk ss tt ee kk '
 sous prétexte que+ss ou pp rr ei tt ai kk ss tt ee kk ee
-sous réserve d'+ss ou rr ei zz ai rr vv ee dd
+sous réserve d'+ss ou rr ei zz ai rr vv ee dd '
 sous réserve de+ss ou rr ei zz ai rr vv ee dd ee
 sous réserve que+ss ou rr ei zz ai rr vv ee kk ee
 souscripteur+ss ou ss kk rr ii pp tt oe rr
@@ -91994,7 +91989,7 @@ supérieurs(2)+ss uu pp ai rr yy oe rr zz
 supériorité+ss uu pp ai rr yy oo rr ii tt ei
 sur+ss uu rr
 sur-le-champ+ss uu rr ll ee ch an
-sur ce qu'+ss uu rr ss ee kk
+sur ce qu'+ss uu rr ss ee kk '
 sur ce que+ss uu rr ss ee kk ee
 sur le plan de+ss uu rr ll ee pp ll an dd ee
 sur le plan des+ss uu rr ll ee pp ll an dd ei
@@ -92224,7 +92219,7 @@ surtaxes(2)+ss uu rr tt aa kk ss ee
 surtaxes(3)+ss uu rr tt aa kk ss ee zz
 surtension+ss uu rr tt an ss yy on
 surtout+ss uu rr tt ou
-surtout qu'+ss uu rr tt ou kk
+surtout qu'+ss uu rr tt ou kk '
 surtout que+ss uu rr tt ou kk ee
 surveillaient+ss uu rr vv ai yy ai
 surveillaient(2)+ss uu rr vv ai yy ai tt
@@ -93141,9 +93136,9 @@ sûrs(2)+ss uu rr zz
 sût+ss uu
 sût(2)+ss uu tt
 süddeutsche+ss uu dd eu tt ss ch
-t+ ai
+t+tt ei
 t(2)+tt ei
-t'+tt
+t'+tt '
 t55+tt ei ss in kk an tt ss in kk
 t72+tt ei ss oi ss an tt dd ou zz
 ta+tt aa
@@ -93410,7 +93405,7 @@ tancer(2)+tt an ss ei rr
 tancé+tt an ss ei
 tandem+tt an dd ai mm
 tandis+tt an dd ii
-tandis qu'+tt an dd ii ss kk
+tandis qu'+tt an dd ii ss kk '
 tandis que+tt an dd ii ss kk ee
 tang+tt an gg
 tanger+tt an jj ei
@@ -93451,7 +93446,7 @@ tansu+tt aa nn ss uu
 tant+tt an
 tant(2)+tt an tt
 tant bien que mal+tt an bb yy in kk ee mm aa ll
-tant qu'+tt an kk
+tant qu'+tt an kk '
 tant que+tt an kk ee
 tante+tt an tt
 tante(2)+tt an tt ee
@@ -93488,7 +93483,7 @@ tapas+tt aa pp aa
 tapas(2)+tt aa pp aa zz
 tape+tt aa pp
 tape(2)+tt aa pp ee
-tape-à-l'oeil+tt aa pp aa ll oe yy
+tape-à-l'oeil+tt aa pp aa ll ' oe yy
 tapent+tt aa pp ee
 taper+tt aa pp ei
 taper(2)+tt aa pp ei rr
@@ -93773,7 +93768,6 @@ tchétchénie+tt ch ai tt ch ei nn ii
 tchétchénie(2)+tt ch ei tt ch ei nn ii
 tcl+tt ei ss ei ai ll
 tdf+tt ei dd ei ai ff
-t'+tt
 te+tt ee
 te deum+tt ei dd ei ou mm
 tea+tt aa
@@ -95258,7 +95252,7 @@ tony+tt au nn ii
 tony(2)+tt oo nn ii
 too+tt ou
 toon+tt ou nn
-toon's+tt ou nn
+toon's+tt ou nn ' ss
 top+tt oo pp
 top(2)+tt oo pp ee
 topaze+tt au pp aa zz ei
@@ -95645,7 +95639,7 @@ tout-puissants(2)+tt ou pp uy ii ss an zz
 tout-terrain+tt ou tt ai rr in
 tout-venant+tt ou vv ee nn an
 tout au long+tt ou tt au ll on
-tout au long d'+tt ou tt au ll on dd
+tout au long d'+tt ou tt au ll on dd '
 tout au long de+tt ou tt au ll on dd ee
 tout au long des+tt ou tt au ll on dd ei
 tout au long des(2)+tt ou tt au ll on dd ei zz
@@ -95660,7 +95654,7 @@ tout de suite+tt ou dd ee ss uy ii tt
 tout le+tt ou ll ee
 tout à coup+tt ou tt aa kk ou
 tout à fait+tt ou tt aa ff ai
-tout à l'heure+tt ou tt aa ll oe rr
+tout à l'heure+tt ou tt aa ll ' oe rr
 tout ça+tt ou ss aa
 touta+tt ou tt aa
 toute+tt ou tt
@@ -96761,7 +96755,7 @@ trompait+tt rr on pp ai
 trompait(2)+tt rr on pp ai tt
 trompe+tt rr on pp
 trompe(2)+tt rr on pp ee
-trompe-l'oeil+tt rr on pp ee ll oe yy
+trompe-l'oeil+tt rr on pp ee ll ' oe yy
 trompent+tt rr on pp ee
 tromper+tt rr on pp ei
 tromper(2)+tt rr on pp ei rr
@@ -97660,7 +97654,7 @@ tôt+tt au
 tübingen+tt uu bb ii nn gg gg ai nn
 tübingen(2)+tt uu bb ii nn gg gg ee nn
 tübingen(3)+tt uu bb ii nn gg gg nn
-u+
+u+uu
 u2+uu dd eu
 u2(2)+yy ou tt ou
 ua+uu aa
@@ -97799,15 +97793,15 @@ un(2)+un nn
 un(3)+uu nn
 un petit peu+un pp ee tt ii pp eu
 un peu+un pp eu
-un peu d'+un pp eu dd
+un peu d'+un pp eu dd '
 un peu de+un pp eu dd ee
 un peu moins+un pp eu mm ww in
-un peu moins d'+un pp eu mm ww in dd
+un peu moins d'+un pp eu mm ww in dd '
 un peu moins de+un pp eu mm ww in dd ee
 un peu plus+un pp eu pp ll uu ss
-un peu plus d'+un pp eu pp ll uu ss dd
+un peu plus d'+un pp eu pp ll uu ss dd '
 un peu plus de+un pp eu pp ll uu ss dd ee
-un peu plus qu'+un pp eu pp ll uu ss kk
+un peu plus qu'+un pp eu pp ll uu ss kk '
 un peu plus que+un pp eu pp ll uu ss kk ee
 unaf+uu nn aa ff
 unanime+uu nn aa nn ii mm
@@ -97834,7 +97828,7 @@ une fois+uu nn ee ff oi
 une fois de plus+uu nn ee ff oi dd ee pp ll uu ss
 une fois encore+uu nn ee ff oi zz an kk oo rr
 une fois pour toutes+uu nn ee ff oi pp ou rr tt ou tt
-une partie d'+uu nn ee pp aa rr tt ii ee dd
+une partie d'+uu nn ee pp aa rr tt ii ee dd '
 une partie de+uu nn ee pp aa rr tt ii ee dd ee
 une partie des+uu nn ee pp aa rr tt ii ee dd ei
 une partie des(2)+uu nn ee pp aa rr tt ii ee dd ei zz
@@ -98298,7 +98292,7 @@ uzan+uu zz an
 uzeste+uu zz ai ss tt
 uzeste(2)+uu zz ai ss tt ee
 uzès+uu zz ai ss
-v'+vv
+v'+vv '
 v+vv ei
 v2+vv ei dd eu
 v6+vv ei ss ii ss
@@ -98437,7 +98431,7 @@ vaisselle+vv ai ss ai ll
 vaisselle(2)+vv ai ss ai ll ee
 vajpayee+vv aa jj pp aa yy ii
 val+vv aa ll
-val-d'oise+vv aa ll dd oi zz
+val-d'oise+vv aa ll dd ' oi zz
 val-d'oise(2)+vv aa ll dd oi zz ee
 val-de-marne+vv aa ll dd ee mm aa rr nn
 val-de-marne(2)+vv aa ll dd ee mm aa rr nn ee
@@ -100003,7 +99997,7 @@ vis(2)+vv ii ss
 vis(3)+vv ii zz
 vis-à-vis+vv ii zz aa vv ii
 vis-à-vis(2)+vv ii zz aa vv ii zz
-vis-à-vis d'+vv ii zz aa vv ii ss dd
+vis-à-vis d'+vv ii zz aa vv ii ss dd '
 vis-à-vis de+vv ii zz aa vv ii ss dd ee
 vis-à-vis des+vv ii zz aa vv ii ss dd ei
 vis-à-vis des(2)+vv ii zz aa vv ii ss dd ei zz
@@ -100785,7 +100779,7 @@ vsd+vv ei ai ss dd ei
 vtsiom+vv tt ss yy oo mm
 vtt+vv ei tt ei tt ei
 vu+vv uu
-vu qu'+vv uu kk
+vu qu'+vv uu kk '
 vu que+vv uu kk ee
 vuaillat+vv uu aa yy aa
 vucalemu+vv uu kk aa ll ee mm uu
@@ -101276,7 +101270,7 @@ whitner+ww ii tt nn ai rr
 whitney+ww ii tt nn ei
 who+ww au
 who(2)+ww ou
-who's+ww oo
+who's+ww oo ' zz
 whun+ww uu nn
 wi+vv ii
 wiburg+vv ii bb uu rr gg
@@ -101376,7 +101370,7 @@ wolfsburg+vv oo ll ff ss bb uu rr gg
 wolton+vv oo ll tt on
 woman+ww au mm aa nn
 woman(2)+ww oo mm an
-woman's+ww oo mm an
+woman's+ww oo mm an ' ss
 women+ww au mm ai nn
 won+ww oo nn
 wonder+vv on dd ai rr
@@ -101435,7 +101429,7 @@ wynton+ww ii nn tt oo nn
 wyoming+oi yy au mm ii nn gg
 wyoming(2)+oi yy oo mm ii nn gg
 wéa+ww ei aa
-x+kk ss
+x+ii kk ss
 x(2)+ii kk ss
 xanana+kk ss aa nn aa nn aa
 xavier+gg zz aa vv yy ei
@@ -101459,7 +101453,7 @@ xénophobes(2)+kk ss ai nn oo ff oo bb ee
 xénophobes(3)+kk ss ai nn oo ff oo bb ee zz
 xénophobes(4)+kk ss ai nn oo ff oo bb zz
 xénophobie+gg zz ai nn oo ff oo bb ii
-y+ii
+y+ii gg rr ai kk
 y(2)+ii gg rr ai gg
 y(3)+ii gg rr ai gg ee
 y(4)+ii gg rr ai kk
@@ -101669,7 +101663,7 @@ yéménites+yy ei mm ei nn ii tt
 yéménites(2)+yy ei mm ei nn ii tt ee
 yéménites(3)+yy ei mm ei nn ii tt ee zz
 yéménites(4)+yy ei mm ei nn ii tt zz
-z+ ai dd
+z+zz ai dd
 z(2)+zz ai dd zz
 zabel+zz aa bb ai ll
 zabul+zz aa bb uu ll
@@ -101976,23 +101970,23 @@ zülle+zz uu ll
 à bas prix+aa bb aa pp rr ii
 à bon marché+aa bb on mm aa rr ch ei
 à bras-le-corps+aa bb rr aa ll ee kk oo rr
-à cause d'+aa kk au zz ee dd
+à cause d'+aa kk au zz ee dd '
 à cause de+aa kk au zz ee dd ee
 à cause des+aa kk au zz ee dd ei
 à cause du+aa kk au zz ee dd uu
-à ce qu'+aa ss ee kk
+à ce qu'+aa ss ee kk '
 à ce que+aa ss ee kk ee
 à certains égards+aa ss ai rr tt in zz ei gg aa rr
 à cet égard+aa ss ai tt ei gg aa rr
 à compter de+aa kk on tt ei dd ee
 à compter du+aa kk on tt ei dd uu
-à condition qu'+aa kk on dd ii ss yy on kk
+à condition qu'+aa kk on dd ii ss yy on kk '
 à condition que+aa kk on dd ii ss yy on kk ee
 à contre-coeur+aa kk on tt rr ee kk oe rr
 à contrecoeur+aa kk on tt rr ee kk oe rr
 à court terme+aa kk ou rr tt ai rr mm
 à côté+aa kk au tt ei
-à côté d'+aa kk au tt ei dd
+à côté d'+aa kk au tt ei dd '
 à côté de+aa kk au tt ei dd ee
 à côté des+aa kk au tt ei dd ei
 à côté du+aa kk au tt ei dd uu
@@ -102002,70 +101996,70 @@ zülle+zz uu ll
 à droite de+aa dd rr oi tt ee dd ee
 à découvert+aa dd ei kk ou vv ai rr
 à défaut+aa dd ei ff au
-à défaut d'+aa dd ei ff au dd
+à défaut d'+aa dd ei ff au dd '
 à défaut de+aa dd ei ff au dd ee
 à fleur de+aa ff ll oe rr dd ee
 à fond+aa ff on
-à force d'+aa ff oo rr ss ee dd
+à force d'+aa ff oo rr ss ee dd '
 à force de+aa ff oo rr ss ee dd ee
 à gauche+aa gg au ch
 à gauche de+aa gg au ch ee dd ee
 à huis clos+aa uy ii kk ll au
 à jamais+aa jj aa mm ai
 à juste titre+aa jj uu ss tt ee tt ii tt rr
-à l' exception de+aa ll ai kk ss ai pp ss yy on dd ee
-à l' intérieur de+aa ll in tt ei rr yy oe rr dd ee
-à l' intérieur du+aa ll in tt ei rr yy oe rr dd uu
-à l' occasion d'+aa ll oo kk aa zz yy on dd
-à l'accoutumée+aa ll aa kk ou tt uu mm ei
-à l'aveuglette+aa ll aa vv ee gg ll ai tt
+à l' exception de+aa ll ' ai kk ss ai pp ss yy on dd ee
+à l' intérieur de+aa ll ' in tt ei rr yy oe rr dd ee
+à l' intérieur du+aa ll ' in tt ei rr yy oe rr dd uu
+à l' occasion d'+aa ll ' oo kk aa zz yy on dd
+à l'accoutumée+aa ll ' aa kk ou tt uu mm ei
+à l'aveuglette+aa ll ' aa vv ee gg ll ai tt
 à l'aveuglette(2)+aa ll aa vv ee gg ll ai tt ee
-à l'encontre de+aa ll an kk on tt rr ee dd ee
-à l'encontre des+aa ll an kk on tt rr ee dd ei
-à l'encontre du+aa ll an kk on tt rr ee dd uu
-à l'envi+aa ll an vv ii
-à l'improviste+aa ll in pp rr oo vv ii ss tt
+à l'encontre de+aa ll ' an kk on tt rr ee dd ee
+à l'encontre des+aa ll ' an kk on tt rr ee dd ei
+à l'encontre du+aa ll ' an kk on tt rr ee dd uu
+à l'envi+aa ll ' an vv ii
+à l'improviste+aa ll ' in pp rr oo vv ii ss tt
 à l'improviste(2)+aa ll in pp rr oo vv ii ss tt ee
-à l'instar de+aa ll in ss tt aa rr dd ee
-à l'instar des+aa ll in ss tt aa rr dd ei
-à l'instar du+aa ll in ss tt aa rr dd uu
-à l'insu de+aa ll in ss uu dd ee
-à l'issue de+aa ll ii ss uu ee dd ee
-à l'issue des+aa ll ii ss uu ee dd ei
-à l'issue du+aa ll ii ss uu ee dd uu
-à l'occasion d'+aa ll oo kk aa zz yy on dd
-à l'occasion de+aa ll oo kk aa zz yy on dd ee
-à l'occasion des+aa ll oo kk aa zz yy on dd ei
-à l'occasion du+aa ll oo kk aa zz yy on dd uu
-à l'égard de+aa ll ei gg aa rr dd ee
-à l'égard des+aa ll ei gg aa rr dd ei
-à l'égard du+aa ll ei gg aa rr dd uu
+à l'instar de+aa ll ' in ss tt aa rr dd ee
+à l'instar des+aa ll ' in ss tt aa rr dd ei
+à l'instar du+aa ll ' in ss tt aa rr dd uu
+à l'insu de+aa ll ' in ss uu dd ee
+à l'issue de+aa ll ' ii ss uu ee dd ee
+à l'issue des+aa ll ' ii ss uu ee dd ei
+à l'issue du+aa ll ' ii ss uu ee dd uu
+à l'occasion d'+aa ll oo kk aa zz yy on dd '
+à l'occasion de+aa ll ' oo kk aa zz yy on dd ee
+à l'occasion des+aa ll ' oo kk aa zz yy on dd ei
+à l'occasion du+aa ll ' oo kk aa zz yy on dd uu
+à l'égard de+aa ll ' ei gg aa rr dd ee
+à l'égard des+aa ll ' ei gg aa rr dd ei
+à l'égard du+aa ll ' ei gg aa rr dd uu
 à la+aa ll aa
 à la droite de+aa ll aa dd rr oi tt ee dd ee
 à la face du+aa ll aa ff aa ss ee dd uu
-à la faveur d'+aa ll aa ff aa vv oe rr dd
+à la faveur d'+aa ll aa ff aa vv oe rr dd '
 à la faveur de+aa ll aa ff aa vv oe rr dd ee
 à la faveur des+aa ll aa ff aa vv oe rr dd ei
 à la faveur des(2)+aa ll aa ff aa vv oe rr dd ei zz
 à la faveur du+aa ll aa ff aa vv oe rr dd uu
-à la façon d'+aa ll aa ff aa ss on dd
+à la façon d'+aa ll aa ff aa ss on dd '
 à la façon de+aa ll aa ff aa ss on dd ee
 à la façon des+aa ll aa ff aa ss on dd ei
 à la façon des(2)+aa ll aa ff aa ss on dd ei zz
 à la fin+aa ll aa ff in
-à la fin d'+aa ll aa ff in dd
+à la fin d'+aa ll aa ff in dd '
 à la fin de+aa ll aa ff in dd ee
 à la fin des+aa ll aa ff in dd ei
 à la fin des(2)+aa ll aa ff in dd ei zz
 à la fin du+aa ll aa ff in dd uu
 à la fois+aa ll aa ff oi
 à la gauche de+aa ll aa gg au ch ee dd ee
-à la manière d'+aa ll aa mm aa nn yy ai rr ee dd
+à la manière d'+aa ll aa mm aa nn yy ai rr ee dd '
 à la manière de+aa ll aa mm aa nn yy ai rr ee dd ee
 à la manière des+aa ll aa mm aa nn yy ai rr ee dd ei
 à la manière des(2)+aa ll aa mm aa nn yy ai rr ee dd ei zz
 à la manière du+aa ll aa mm aa nn yy ai rr ee dd uu
-à la merci d'+aa ll aa mm ai rr ss ii dd
+à la merci d'+aa ll aa mm ai rr ss ii dd '
 à la merci de+aa ll aa mm ai rr ss ii dd ee
 à la merci des+aa ll aa mm ai rr ss ii dd ei
 à la merci des(2)+aa ll aa mm ai rr ss ii dd ei zz
@@ -102077,7 +102071,7 @@ zülle+zz uu ll
 à la sauvette+aa ll aa ss oo vv ai tt
 à la sauvette(2)+aa ll aa ss oo vv ai tt ee
 à la suite+aa ll aa ss uy ii tt
-à la suite d'+aa ll aa ss uy ii tt ee dd
+à la suite d'+aa ll aa ss uy ii tt ee dd '
 à la suite de+aa ll aa ss uy ii tt ee dd ee
 à la suite des+aa ll aa ss uy ii tt ee dd ei
 à la suite du+aa ll aa ss uy ii tt ee dd uu
@@ -102090,25 +102084,25 @@ zülle+zz uu ll
 à leur égard+aa ll oe rr ei gg aa rr
 à long terme+aa ll on tt ai rr mm
 à merci+aa mm ai rr ss ii
-à mesure qu'+aa mm ee zz uu rr ee kk
+à mesure qu'+aa mm ee zz uu rr ee kk '
 à mesure que+aa mm ee zz uu rr ee kk ee
 à mi-chemin+aa mm ii ch ee mm in
 à mi-chemin de+aa mm ii ch ee mm in dd ee
 à mi-voix+aa mm ii vv oi
-à moins d'+aa mm ww in dd
+à moins d'+aa mm ww in dd '
 à moins de+aa mm ww in dd ee
-à moins qu'+aa mm ww in kk
+à moins qu'+aa mm ww in kk '
 à moins que+aa mm ww in kk ee
 à moitié+aa mm oi tt yy ei
 à mon avis+aa mm on aa vv ii
 à moyen terme+aa mm oi yy in tt ai rr mm
-à même d'+aa mm ai mm ee dd
+à même d'+aa mm ai mm ee dd '
 à même de+aa mm ai mm ee dd ee
 à notre égard+aa nn oo tt rr ei gg aa rr
 à nouveau+aa nn ou vv au
 à part+aa pp aa rr
 à part entière+aa pp aa rr tt an tt yy ai rr
-à partir d'+aa pp aa rr tt ii rr dd
+à partir d'+aa pp aa rr tt ii rr dd '
 à partir de+aa pp aa rr tt ii rr dd ee
 à partir des+aa pp aa rr tt ii rr dd ei
 à partir du+aa pp aa rr tt ii rr dd uu
@@ -102119,21 +102113,21 @@ zülle+zz uu ll
 à plein temps+aa pp ll in tt an
 à point nommé+aa pp ww in nn oo mm ei
 à propos+aa pp rr oo pp au
-à propos d'+aa pp rr oo pp au dd
+à propos d'+aa pp rr oo pp au dd '
 à propos de+aa pp rr oo pp au dd ee
 à propos des+aa pp rr oo pp au dd ei
 à propos du+aa pp rr oo pp au dd uu
 à proximité+aa pp rr oo kk ss ii mm ii tt ei
-à proximité d'+aa pp rr oo kk ss ii mm ii tt ei dd
+à proximité d'+aa pp rr oo kk ss ii mm ii tt ei dd '
 à proximité de+aa pp rr oo kk ss ii mm ii tt ei dd ee
 à proximité des+aa pp rr oo kk ss ii mm ii tt ei dd ei
 à proximité des(2)+aa pp rr oo kk ss ii mm ii tt ei dd ei zz
 à proximité du+aa pp rr oo kk ss ii mm ii tt ei dd uu
-à près d'+aa pp rr ai dd
+à près d'+aa pp rr ai dd '
 à près de+aa pp rr ai dd ee
 à présent+aa pp rr ei zz an
 à présent que+aa pp rr ei zz an kk ee
-à raison d'+aa rr ai zz on dd
+à raison d'+aa rr ai zz on dd '
 à raison de+aa rr ai zz on dd ee
 à ras+aa rr aa
 à rebours+aa rr ee bb ou rr
@@ -102145,7 +102139,7 @@ zülle+zz uu ll
 à son avis+aa ss on aa vv ii
 à son insu+aa ss on in ss uu
 à son égard+aa ss on ei gg aa rr
-à supposer qu'+aa ss uu pp au zz ei kk
+à supposer qu'+aa ss uu pp au zz ei kk '
 à supposer que+aa ss uu pp au zz ei kk ee
 à temps plein+aa tt an pp ll in
 à terme+aa tt ai rr mm
@@ -104934,9 +104928,9 @@ etampes+ei tt an pp
 évin+ei vv in
 éyadéma+ei yy aa dd ei mm aa
 fpö+ai ff pp ei au
-l'équipe+ll ei kk ii pp
-l'étudiant+ll ei tt uu dd yy an
-l'événement+ll ei vv ei nn ee mm an
+l'équipe+ll ei kk ii pp '
+l'étudiant+ll ei tt uu dd yy an '
+l'événement+ll ei vv ei nn ee mm an '
 öcalan+au kk aa ll an
 övp+au vv ei pp ei
 özkök+au zz kk au kk

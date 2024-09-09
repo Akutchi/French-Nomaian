@@ -28,7 +28,7 @@ The three projects are already very good on their own, however each somewhat lac
 As such, I decided to combine those two projects together using my favourite programming language. \
 What I will be taking from each project is as following :
 - 36CornDogs : the language model consisting of the genral rules and the consonants/vowels/numerals to nomaian's glyph table, which I will adapt to the french language using [a french version of cmudict](https://github.com/mmemim/OpenUTAU-French-Dictionary).
-- YanWittman : I will keep the way of reading and organizing the glyphs, namely three separated ligns for numerals (include punctuation), vowels, consonants in this respective order of reading. For a part of the spiral, the three ligns should be
+- YanWittman : I will keep the way of reading and organizing the glyphs, namely three separated ligns for numerals (include punctuation), vowels, consonants in this respective order of reading. For a part of the spiral, the three ligns should be\
 \-·-·-·-·-·-·-·-· => vowels\
 \-·-·-·-·-·-·-·-· => consonants\
 \-·-·-·-·-·-·-·-· => numerals\

@@ -43,10 +43,9 @@ package body Sentence2Phonems is
 
    procedure To_French (Sentence : in out S_WU.Unbounded_Wide_String) is
 
-      Latin_Base    : constant Wide_Character := 'Ã';
       Accented_Char : Wide_Character;
       To_Remove     : Latin_Base_Companion_Char_Index.Vector;
-      de            : Natural                 := 0;
+      de            : Natural := 0;
    begin
 
       if S_WU.Length (Sentence) /= 0 then
@@ -116,8 +115,7 @@ package body Sentence2Phonems is
    function Is_Not_Phonetic_Variant
      (Word : S_WU.Unbounded_Wide_String) return Boolean
    is
-      Closing_Parenthesis : constant Wide_Character := ')';
-      Word_Bounded        : constant Wide_String := S_WU.To_Wide_String (Word);
+      Word_Bounded : constant Wide_String := S_WU.To_Wide_String (Word);
 
    begin
       return Word_Bounded (Word_Bounded'Last) /= Closing_Parenthesis;
@@ -132,7 +130,7 @@ package body Sentence2Phonems is
 
       File : W_IO.File_Type;
 
-      Comment : constant Wide_Character := ';';
+      Comment : constant Wide_Character := Semi_Colon_Char;
 
    begin
 
@@ -163,32 +161,53 @@ package body Sentence2Phonems is
 
    end Init_Cmudict;
 
-   procedure Decide_On_Word
+   -----------------
+   -- Word2Phonem --
+   -----------------
+
+   procedure Word2Phonem
      (Phonems : in out S_WU.Unbounded_Wide_String; dict : Cmudict.Map;
       word    :        Wide_String)
    is
 
-      Slice_End : Positive         := word'Last;
-      Comma     : constant Boolean := Has_Comma (word);
+      Slice_End   : Positive         := word'Last;
+      Has_Comma   : constant Boolean := Has (Comma_Char, word);
+      Final_Point : constant Boolean := Has_Final_Point (word);
+
+      Is_Apostrophe_Sentence : Boolean := False;
+
+      Ending : Wide_String (1 .. 2);
 
    begin
 
-      if Comma then
+      if Has_Comma or else Final_Point then
          Slice_End := Slice_End - 1;
       end if;
 
       declare
-         Sliced_Word : constant Wide_String := word (word'First .. Slice_End);
+         Sliced_Word  : constant Wide_String := word (word'First .. Slice_End);
+         Null_UString : S_WU.Unbounded_Wide_String;
       begin
 
          if dict.Contains (Sliced_Word) then
-            S_WU.Append (Phonems, dict (Sliced_Word) & "|");
+            S_WU.Append (Phonems, dict (Sliced_Word));
+
+         elsif Has (Apostrophe_Char, word) then
+            S_WU.Append
+              (Phonems,
+               To_Phonems
+                 (Split_Apostrophe_Word (Sliced_Word), Null_UString, dict));
+
+            Is_Apostrophe_Sentence := True;
 
          elsif Is_Integer (Sliced_Word) then
-            S_WU.Append (Phonems, Split_Number (Sliced_Word) & "|");
+            S_WU.Append (Phonems, Split_Number (Sliced_Word));
 
          elsif Is_Float (Sliced_Word) then
-            S_WU.Append (Phonems, Split_Number (Sliced_Word) & "|");
+            S_WU.Append (Phonems, Split_Number (Sliced_Word));
+
+         elsif Has_Ellipsis (word) then
+            S_WU.Append (Phonems, Split_Ellipses (Sliced_Word));
 
          else
             W_IO.Put_Line
@@ -196,24 +215,33 @@ package body Sentence2Phonems is
                "' is not in the dictionnary. Consider adding it.");
          end if;
 
-         if Comma then
-            S_WU.Append (Phonems, ",|");
+         if Has_Comma then
+            Ending := ",|";
+         elsif Final_Point then
+            Ending := ".|";
          end if;
+
+         if not Is_Apostrophe_Sentence then
+            S_WU.Append (Phonems, Word_Separator);
+         end if;
+         --  because then, the sentence is inserted midway in which would
+         --  result in the addition of gibberish
+
+         S_WU.Append (Phonems, Ending);
       end;
 
-   end Decide_On_Word;
+   end Word2Phonem;
 
    ----------------
    -- To_Phonems --
    ----------------
 
    function To_Phonems
-     (Sentence : S_WU.Unbounded_Wide_String) return Wide_String
+     (Sentence, Phonems : S_WU.Unbounded_Wide_String; dict : Cmudict.Map)
+      return Wide_String
    is
 
-      dict : Cmudict.Map;
-
-      Phonems_Version : S_WU.Unbounded_Wide_String;
+      Phonems_Version : S_WU.Unbounded_Wide_String := Phonems;
 
       Index : Natural := 1;
       F     : Positive;
@@ -222,8 +250,6 @@ package body Sentence2Phonems is
       Whitespace : constant S_WM.Wide_Character_Set := S_WM.To_Set (' ');
 
    begin
-
-      Init_Cmudict (dict);
 
       while Index in 1 .. S_WU.Length (Sentence) loop
 
@@ -238,7 +264,7 @@ package body Sentence2Phonems is
               CC.To_Wide_String
                 (CH.To_Lower (CC.To_String (S_WU.Slice (Sentence, F, L))));
          begin
-            Decide_On_Word (Phonems_Version, dict, word);
+            Word2Phonem (Phonems_Version, dict, word);
          end;
 
          Index := L + 1;
