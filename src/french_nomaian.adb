@@ -5,13 +5,14 @@ with Sentence2Phonems; use Sentence2Phonems;
 procedure French_Nomaian is
 
    Sentence        : Unbounded_Wide_String;
-   Phonems_Version : Unbounded_Wide_String := S_WU.Null_Unbounded_Wide_String;
-   dict            : Cmudict.Map;
+   Phonems_Version : constant Unbounded_Wide_String :=
+     S_WU.Null_Unbounded_Wide_String;
+
+   dict : Cmudict.Map;
 
 begin
 
    Sentence := Get_Raw_Sentence;
-   To_French (Sentence);
    Init_Cmudict (dict);
 
    declare

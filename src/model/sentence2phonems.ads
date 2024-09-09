@@ -24,9 +24,6 @@ package Sentence2Phonems is
 
    function Get_Raw_Sentence return S_WU.Unbounded_Wide_String;
 
-   procedure To_French (Sentence : in out S_WU.Unbounded_Wide_String);
-   --  Does not handle caps such as " À "
-
    procedure Init_Cmudict (dict : in out Cmudict.Map);
 
    function To_Phonems

@@ -8161,7 +8161,7 @@ auguste(4)+oo gg uu ss tt ee
 augustin+au gg uu ss tt in
 augusto+au gg uu ss tt au
 augé+au jj ei
-aujourd'hui+au jj ou rr dd uy ii '
+aujourd'hui+au jj ou rr dd ' uy ii
 aujourd'hui(2)+oo jj ou rr dd uy ii
 aulas+au ll aa
 aulnay+au nn ai

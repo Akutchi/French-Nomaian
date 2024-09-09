@@ -12,11 +12,6 @@ package Phonems_Utils is
    Word_Separator      : constant Wide_Character := '|';
    Closing_Parenthesis : constant Wide_Character := ')';
 
-   Latin_Base : constant Wide_Character := 'Ã';
-
-   function Get_Accented_Character
-     (A_Variant : Wide_Character) return Wide_Character;
-
    function Is_Integer (word : Wide_String) return Boolean;
 
    function Is_Float (word : Wide_String) return Boolean;

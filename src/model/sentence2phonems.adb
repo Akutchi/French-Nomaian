@@ -1,7 +1,6 @@
-with Ada.Command_Line;
 with Ada.Characters.Conversions;
 with Ada.Wide_Text_IO;
-with Ada.Strings;
+with Ada.Wide_Text_IO.Wide_Unbounded_IO;
 with Ada.Strings.Wide_Maps;
 with Ada.Characters.Handling;
 
@@ -9,9 +8,9 @@ with Phonems_Utils; use Phonems_Utils;
 
 package body Sentence2Phonems is
 
-   package CLI renames Ada.Command_Line;
    package CC renames Ada.Characters.Conversions;
    package W_IO renames Ada.Wide_Text_IO;
+   package UW_IO renames Ada.Wide_Text_IO.Wide_Unbounded_IO;
    package Str renames Ada.Strings;
    package S_WM renames Ada.Strings.Wide_Maps;
    package CH renames Ada.Characters.Handling;
@@ -26,52 +25,14 @@ package body Sentence2Phonems is
 
    begin
 
-      for I in 1 .. CLI.Argument_Count loop
+      UW_IO.Get_Line (Sentence);
 
-         S_WU.Append (Sentence, CC.To_Wide_String ((CLI.Argument (I))));
-         S_WU.Append (Sentence, " ");
-
-      end loop;
+      S_WU.Delete (Sentence, 1, 1);
+      S_WU.Delete (Sentence, S_WU.Length (Sentence), S_WU.Length (Sentence));
 
       return Sentence;
 
    end Get_Raw_Sentence;
-
-   ---------------
-   -- To_French --
-   ---------------
-
-   procedure To_French (Sentence : in out S_WU.Unbounded_Wide_String) is
-
-      Accented_Char : Wide_Character;
-      To_Remove     : Latin_Base_Companion_Char_Index.Vector;
-      de            : Natural := 0;
-   begin
-
-      if S_WU.Length (Sentence) /= 0 then
-
-         for I in 1 .. S_WU.Length (Sentence) - 1 loop
-
-            if S_WU.Element (Sentence, I) = Latin_Base then
-
-               Accented_Char :=
-                 Get_Accented_Character (S_WU.Element (Sentence, I + 1));
-               S_WU.Replace_Element (Sentence, I, Accented_Char);
-               Latin_Base_Companion_Char_Index.Append (To_Remove, I + 1);
-
-            end if;
-         end loop;
-
-         if not Latin_Base_Companion_Char_Index.Is_Empty (To_Remove) then
-            for E of To_Remove loop
-               S_WU.Delete (Sentence, E - de, Natural (E - de));
-               de := de + 1;
-            end loop;
-         end if;
-
-      end if;
-
-   end To_French;
 
    ---------------------------
    -- Get_Word_And_Phonetic --
@@ -180,7 +141,8 @@ package body Sentence2Phonems is
 
    begin
 
-      if (Has_Comma or else Final_Point) and not Has (Apostrophe_Char, word)
+      if (Has_Comma or else Final_Point)
+        and then not Has (Apostrophe_Char, word)
       then
          Slice_End := Slice_End - 1;
       end if;
@@ -216,9 +178,9 @@ package body Sentence2Phonems is
                "' is not in the dictionnary. Consider adding it.");
          end if;
 
-         if Has_Comma and not Has (Apostrophe_Char, word) then
+         if Has_Comma and then not Has (Apostrophe_Char, word) then
             Ending := " ,";
-         elsif Final_Point and not Has (Apostrophe_Char, word) then
+         elsif Final_Point and then not Has (Apostrophe_Char, word) then
             Ending := " .";
          end if;
 
