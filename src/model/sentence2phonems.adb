@@ -180,7 +180,8 @@ package body Sentence2Phonems is
 
    begin
 
-      if Has_Comma or else Final_Point then
+      if (Has_Comma or else Final_Point) and not Has (Apostrophe_Char, word)
+      then
          Slice_End := Slice_End - 1;
       end if;
 
@@ -215,19 +216,22 @@ package body Sentence2Phonems is
                "' is not in the dictionnary. Consider adding it.");
          end if;
 
-         if Has_Comma then
-            Ending := ",|";
-         elsif Final_Point then
-            Ending := ".|";
+         if Has_Comma and not Has (Apostrophe_Char, word) then
+            Ending := " ,";
+         elsif Final_Point and not Has (Apostrophe_Char, word) then
+            Ending := " .";
          end if;
 
+         S_WU.Append (Phonems, Ending);
+
          if not Is_Apostrophe_Sentence then
+            S_WU.Append (Phonems, Space_Char);
             S_WU.Append (Phonems, Word_Separator);
+            S_WU.Append (Phonems, Space_Char);
+
          end if;
          --  because then, the sentence is inserted midway in which would
          --  result in the addition of gibberish
-
-         S_WU.Append (Phonems, Ending);
       end;
 
    end Word2Phonem;

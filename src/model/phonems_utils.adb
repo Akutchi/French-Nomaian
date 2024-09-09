@@ -62,6 +62,9 @@ package body Phonems_Utils is
          when '¶' =>
             return 'ö';
 
+         when '§' =>
+            return 'ç';
+
          when others => -- does not reckognize non-breaking space (?)
             return 'à';
 
@@ -196,16 +199,25 @@ package body Phonems_Utils is
 
    function Has_Ellipsis (word : Wide_String) return Boolean is
    begin
+
+      if word'Last < 3 then
+         return False;
+      end if;
+
       return
         word (word'Last - 2) = Point_Char
         and then word (word'Last - 1) = Point_Char
         and then word (word'Last) = Point_Char;
    end Has_Ellipsis;
 
+   --------------------
+   -- Split_Ellipses --
+   --------------------
+
    function Split_Ellipses (word : Wide_String) return Wide_String is
 
-      Splited_Word : Wide_String (1 .. word'Last + 3);
-      I            : Natural := word'Last - 2;
+      Splited_Word : Wide_String (1 .. word'Last + 6);
+      I            : Natural := word'Last;
    begin
 
       Splited_Word (word'First .. word'Last - 3) :=
@@ -213,14 +225,16 @@ package body Phonems_Utils is
 
       loop
 
-         exit when I > word'Last + 3;
+         exit when I >= word'Last + 6;
 
          Splited_Word (I)     := Space_Char;
          Splited_Word (I + 1) := Point_Char;
          I                    := I + 2;
       end loop;
 
-      Splited_Word (word'Last - 2) := Word_Separator;
+      Splited_Word (word'Last - 2) := Space_Char;
+      Splited_Word (word'Last - 1) := Word_Separator;
+      Splited_Word (word'Last)     := Space_Char;
 
       return Splited_Word;
 

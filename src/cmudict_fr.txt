@@ -48,6 +48,16 @@ macaron+mm aa kk aa rr on
 macaron(2)+mm aa kk aa rr on nn
 macarons+mm aa kk aa rr on
 macarons(2)+mm aa kk aa rr on zz
+etait+ei tt ai
+était+ei tt ai
+appuyez+aa pp uy ei
+burrito+bb uu rr ii tt oo
+devinant+dd ee vv ii nn an
+micro-onde+mm ii cc rr oo on dd de
+micro-ondes+mm ii cc rr oo on dd de
+;;;
+;;; nombres et ponctuation
+;;;
 1+1
 2+2
 3+3
@@ -63,7 +73,28 @@ macarons(2)+mm aa kk aa rr on zz
 ?+?
 !+!
 '+'
+;;;
+;;; prénoms
+;;;
 kaitlyn+kk ai tt ll ii nn
+eleanor+ei ll ei aa nn oo rr
+éléanor+ei ll ei aa nn oo rr
+charlotte+ch aa rr ll oo tt
+pandora+ pp an dd oo rr aa
+opéra+oo pp ai rr aa
+krystal+kk rr ii ss tt aa ll
+elise+ei ll ii zz
+élise+ei ll ii zz
+cassandre+kk aa ss ss an dd rr
+nemesis+nn ei mm ei zz ii ss
+némésis+nn ei mm ei zz ii ss
+cyrille+ss ii rr yy ll ee
+emilie+ei mm ii ll ii ee
+émilie+ei mm ii ll ii ee
+abigaelle+aa bb ii gg aa ei ll
+abigaëlle+aa bb ii gg aa ei ll
+eloise+ei ll oo ii zz
+éloise+ei ll oo ii zz
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;+End of words added by Mim for easier user input
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
