@@ -3,12 +3,18 @@ with Ada.Strings.Unbounded;
 with Ada.Containers.Indefinite_Vectors;
 with Ada.Strings.Wide_Hash;
 with Ada.Containers.Indefinite_Hashed_Maps;
+with Ada.Containers.Indefinite_Multiway_Trees;
 
 package Phonems2Glyphs is
 
-   LM_Location : constant String := "../src/lm.txt";
-
    package S_U renames Ada.Strings.Unbounded;
+
+   type String_Tuple is array (Natural range 0 .. 3) of S_U.Unbounded_String;
+
+   Vowel          : constant Character := 'v';
+   Consonant      : constant Character := 'c';
+   Numeral        : constant Character := 'n';
+   Word_Separator : constant Character := 's';
 
    type GlyphInfo is record
 
@@ -20,11 +26,12 @@ package Phonems2Glyphs is
    package List_GlyphInfo is new Ada.Containers.Indefinite_Vectors
      (Index_Type => Natural, Element_Type => GlyphInfo, "=" => "=");
 
-   type String_Tuple is array (Natural range 0 .. 3) of S_U.Unbounded_String;
-
    package Language_Model is new Ada.Containers.Indefinite_Hashed_Maps
      (Key_Type => Wide_String, Element_Type => GlyphInfo,
       Hash     => Ada.Strings.Wide_Hash, Equivalent_Keys => "=");
+
+   package Spiral_Model is new Ada.Containers.Indefinite_Multiway_Trees
+     (S_U.Unbounded_String, S_U."=");
 
    function Simplify (Phonems : Wide_String) return Wide_String;
 
@@ -34,6 +41,10 @@ package Phonems2Glyphs is
      (Phonems : Wide_String; LM : Language_Model.Map)
       return List_GlyphInfo.Vector;
 
-   procedure print_glyphs (List_Glyphs : List_GlyphInfo.Vector);
+   procedure Construct
+     (Spiral : in out Spiral_Model.Tree; GlyphList : List_GlyphInfo.Vector);
+
+   procedure Print (List_Glyphs : List_GlyphInfo.Vector);
+   procedure Print (Position : Spiral_Model.Cursor);
 
 end Phonems2Glyphs;

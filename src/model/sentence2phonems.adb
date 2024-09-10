@@ -4,6 +4,7 @@ with Ada.Wide_Text_IO.Wide_Unbounded_IO;
 with Ada.Strings.Wide_Maps;
 with Ada.Characters.Handling;
 
+with Locations;     use Locations;
 with Phonems_Utils; use Phonems_Utils;
 
 package body Sentence2Phonems is

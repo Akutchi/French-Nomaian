@@ -3,6 +3,7 @@ with Ada.Wide_Text_IO;           use Ada.Wide_Text_IO;
 
 with Sentence2Phonems; use Sentence2Phonems;
 with Phonems2Glyphs;   use Phonems2Glyphs;
+
 procedure French_Nomaian is
 
    Sentence        : Unbounded_Wide_String;
@@ -25,10 +26,14 @@ begin
 
       Glyphs : constant List_GlyphInfo.Vector := To_Glyphs (Phonems, LM);
 
+      Spiral : Spiral_Model.Tree := Spiral_Model.Empty_Tree;
+
    begin
 
       Put_Line (Phonems);
-      print_glyphs (Glyphs);
+      Print (Glyphs);
+      Construct (Spiral, Glyphs);
+      Print (Spiral_Model.First_Child (Spiral.Root));
 
    end;
 

@@ -1,24 +1,24 @@
-with Ada.Strings.Wide_Unbounded;
 with Ada.Strings;
+with Ada.Strings.Wide_Unbounded;
 with Ada.Strings.Maps;
 with Ada.Strings.Wide_Maps;
-with Ada.Text_IO;
+
 with Ada.Characters.Conversions;
+with Ada.Text_IO;
 
-with Ada.Exceptions; use Ada.Exceptions;
+with Ada.Containers; use Ada.Containers;
 
-with Ada.Wide_Text_IO;
+with Locations; use Locations;
 
 package body Phonems2Glyphs is
 
-   package S_WU renames Ada.Strings.Wide_Unbounded;
    package Str renames Ada.Strings;
+   package S_WU renames Ada.Strings.Wide_Unbounded;
    package S_M renames Ada.Strings.Maps;
    package S_WM renames Ada.Strings.Wide_Maps;
-   package IO renames Ada.Text_IO;
-   package CC renames Ada.Characters.Conversions;
 
-   package W_IO renames Ada.Wide_Text_IO;
+   package CC renames Ada.Characters.Conversions;
+   package IO renames Ada.Text_IO;
 
    --------------
    -- Simplify --
@@ -173,13 +173,104 @@ package body Phonems2Glyphs is
 
    end To_Glyphs;
 
-   procedure print_glyphs (List_Glyphs : List_GlyphInfo.Vector) is
+   ---------------
+   -- Construct --
+   ---------------
+
+   procedure Construct
+     (Spiral : in out Spiral_Model.Tree; GlyphList : List_GlyphInfo.Vector)
+   is
+
+      Spiral_Root : constant Spiral_Model.Cursor := Spiral_Model.Root (Spiral);
+
+      Current_V : Spiral_Model.Cursor;
+      Current_C : Spiral_Model.Cursor;
+      Current_N : Spiral_Model.Cursor;
+
+   begin
+
+      Spiral_Model.Append_Child
+        (Spiral, Spiral_Root, S_U.To_Unbounded_String ("dot"));
+
+      Current_V := Spiral_Model.First_Child (Spiral_Root);
+      Current_C := Spiral_Model.First_Child (Spiral_Root);
+      Current_N := Spiral_Model.First_Child (Spiral_Root);
+
+      for Node of GlyphList loop
+
+         case Node.T is
+
+            when Vowel =>
+               Spiral_Model.Append_Child (Spiral, Current_V, Node.GlyphName);
+
+               Current_V := Spiral_Model.First_Child (Current_V);
+
+            when Numeral =>
+               Spiral_Model.Append_Child (Spiral, Current_N, Node.GlyphName);
+
+               Current_N := Spiral_Model.First_Child (Current_N);
+
+            when Consonant | Word_Separator =>
+
+               Spiral_Model.Append_Child (Spiral, Current_C, Node.GlyphName);
+
+               declare
+                  Child_Number  : constant Count_Type          :=
+                    Spiral_Model.Child_Count (Current_C);
+                  C_First_Child : constant Spiral_Model.Cursor :=
+                    Spiral_Model.First_Child (Current_C);
+               begin
+
+                  Current_C :=
+                    (if Child_Number > 1 then
+                       Spiral_Model.Next_Sibling (C_First_Child)
+                     else C_First_Child);
+               end;
+
+            when others =>
+               null;
+
+         end case;
+
+         if Node.T = Consonant then
+            Current_V := Current_C;
+
+         elsif Node.T = Word_Separator then
+            Current_V := Current_C;
+            Current_N := Current_C;
+         end if;
+
+      end loop;
+
+   end Construct;
+
+   -----------
+   -- Print --
+   -----------
+
+   procedure Print (List_Glyphs : List_GlyphInfo.Vector) is
    begin
 
       for E of List_Glyphs loop
          IO.Put (S_U.To_String (E.GlyphName) & "(" & E.T & ") ");
       end loop;
 
-   end print_glyphs;
+      IO.Put_Line ("");
+   end Print;
+
+   procedure Print (Position : Spiral_Model.Cursor) is
+
+      Value : constant S_U.Unbounded_String := Spiral_Model.Element (Position);
+   begin
+
+      IO.Put (S_U.To_String (Value));
+      IO.Put (" ");
+
+      if not Spiral_Model.Is_Leaf (Position) then
+
+         Spiral_Model.Iterate_Children (Position, Print'Access);
+      end if;
+
+   end Print;
 
 end Phonems2Glyphs;

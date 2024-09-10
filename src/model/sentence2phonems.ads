@@ -8,8 +8,6 @@ package Sentence2Phonems is
 
    package S_WU renames Ada.Strings.Wide_Unbounded;
 
-   Cmudict_Location : String := "../src/cmudict_fr.txt";
-
    package Latin_Base_Companion_Char_Index is new Ada.Containers
      .Indefinite_Vectors
      (Index_Type => Natural, Element_Type => Positive);
