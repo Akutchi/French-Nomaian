@@ -1,40 +1,47 @@
-with Ada.Strings.Wide_Unbounded; use Ada.Strings.Wide_Unbounded;
-with Ada.Wide_Text_IO;           use Ada.Wide_Text_IO;
+with Ada.Strings.Wide_Unbounded;
 
-with Sentence2Phonems; use Sentence2Phonems;
-with Phonems2Glyphs;   use Phonems2Glyphs;
+with Cairo;
+with Cairo.Surface;
+with Cairo.SVG;
+
+with Locations;
+with Sentence2Phonems;
+with Phonems2Glyphs;
+with Tools;
+with Draw_Glyphs;
 
 procedure French_Nomaian is
 
-   Sentence        : Unbounded_Wide_String;
-   Phonems_Version : constant Unbounded_Wide_String :=
-     S_WU.Null_Unbounded_Wide_String;
+   package S_WU renames Ada.Strings.Wide_Unbounded;
+   package C_S renames Cairo.Surface;
+   package C_SVG renames Cairo.SVG;
+   package S2P renames Sentence2Phonems;
+   package P2G renames Phonems2Glyphs;
+   package DG renames Draw_Glyphs;
 
-   dict : Cmudict.Map;
-   LM   : Language_Model.Map;
+   Sentence : S_WU.Unbounded_Wide_String;
+   Spiral   : P2G.Spiral_Model.Tree;
+
+   dict : S2P.Cmudict.Map;
+   LM   : P2G.Language_Model.Map;
+
+   S   : constant Cairo.Cairo_Surface :=
+     C_SVG.Create (Locations.SVG_FILE, 100.0, 100.0);
+   Ctx : Cairo.Cairo_Context          := Cairo.Create (S);
 
 begin
 
-   Init_Cmudict (dict);
-   Init_Language_Model (LM);
+   S2P.Init_Cmudict (dict);
+   P2G.Init_Language_Model (LM);
 
-   Sentence := Get_Raw_Sentence;
+   Sentence := S2P.Get_Raw_Sentence;
+   Spiral   := Tools.To_Spiral_Model (Sentence, dict, LM);
 
-   declare
-      Phonems : constant Wide_String :=
-        Simplify (To_Phonems (Sentence, Phonems_Version, dict));
+   DG.Background (Ctx);
+   DG.Ngone (Ctx, 50.0, 50.0, 5);
 
-      Glyphs : constant List_GlyphInfo.Vector := To_Glyphs (Phonems, LM);
-
-      Spiral : Spiral_Model.Tree := Spiral_Model.Empty_Tree;
-
-   begin
-
-      Put_Line (Phonems);
-      Print (Glyphs);
-      Construct (Spiral, Glyphs);
-      Print (Spiral_Model.First_Child (Spiral.Root));
-
-   end;
+   C_S.Finish (S);
+   Cairo.Destroy (Ctx);
+   C_S.Destroy (S);
 
 end French_Nomaian;

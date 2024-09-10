@@ -8,5 +8,6 @@ package Locations is
 
    Cmudict_Location : constant String := Base & "src/cmudict_fr.txt";
    LM_Location      : constant String := Base & "src/lm.txt";
+   SVG_FILE         : constant String := Base & "result/nomai_sentence.svg";
 
 end Locations;
