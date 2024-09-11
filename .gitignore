@@ -4,4 +4,4 @@
 /config/
 /share/
 /.vscode/
-/result/*
+/result/*.svg

@@ -38,7 +38,6 @@ begin
    Spiral   := Tools.To_Spiral_Model (Sentence, dict, LM);
 
    DG.Background (Ctx);
-   DG.Bend (Ctx, 50.0, 50.0);
 
    C_S.Finish (S);
    Cairo.Destroy (Ctx);
