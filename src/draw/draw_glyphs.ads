@@ -1,18 +1,13 @@
 with Cairo;
 with Glib; use Glib;
-with Ada.Numerics;
+
+with Phonems2Glyphs;
+
+with Draw_Utils; use Draw_Utils;
 
 package Draw_Glyphs is
 
-   PI     : constant Gdouble := Gdouble (Ada.Numerics.Pi);
-   TWO_PI : constant Gdouble := 2.0 * PI;
-   PI_2   : constant Gdouble := PI / 2.0;
-   PI_3   : constant Gdouble := PI / 3.0;
-   PI_4   : constant Gdouble := PI / 4.0;
-   PI_6   : constant Gdouble := PI / 6.0;
-
-   R_Dot  : constant Gdouble := 0.3;
-   R_Poly : constant Gdouble := 5.0;
+   package P2G renames Phonems2Glyphs;
 
    procedure Background (Ctx : Cairo.Cairo_Context);
 
@@ -22,7 +17,10 @@ package Draw_Glyphs is
    procedure Scaling_Around
      (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble; Sx, Sy : Gdouble);
 
-   procedure Dot (Ctx : Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure Dot (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+
+   procedure Line_Between_Words
+     (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
    procedure Line (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
@@ -55,12 +53,34 @@ package Draw_Glyphs is
 
    procedure HeptaHexa (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
-   procedure SquareSquare (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure x2_Square (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
-   procedure PentaPenta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure x2_Penta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
-   procedure HexaHexa (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure x2_Hexa (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
-   procedure HeptaHepta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure x2_Hepta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+
+   procedure Draw_Unrolled_Spiral
+     (Ctx    : in out Cairo.Cairo_Context; X, Y : Gdouble;
+      dv, dn : in out Gdouble; Root : P2G.Spiral_Model.Cursor);
+
+private
+
+   procedure Draw_Ngone
+     (Ctx : in out Cairo.Cairo_Context; GlyphName : String; X, Y : Gdouble;
+      Has_Line, Has_Bend :        Boolean);
+
+   procedure Draw_Spiral_Element
+     (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
+      X, Y :        Gdouble);
+
+   procedure Update_Child
+     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp : Gdouble; dv, dn : Gdouble);
+
+   procedure Draw_CVSN
+     (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
+      Xp, Yp :        Gdouble; dv, dn : in out Gdouble);
 
 end Draw_Glyphs;

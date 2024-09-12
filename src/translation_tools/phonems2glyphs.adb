@@ -190,7 +190,11 @@ package body Phonems2Glyphs is
    begin
 
       Spiral_Model.Append_Child
-        (Spiral, Spiral_Root, S_U.To_Unbounded_String ("dot"));
+        (Spiral, Spiral_Root, ('d', S_U.To_Unbounded_String ("dot_start")));
+      --  dot_start because when drawing elements, there's also a "Dot"
+      --  function which causes an ambiguity with the GlyphType used to
+      --  calculate dx/dy displacement for printing. Also, it litteraly
+      --  start the spiral.
 
       Current_V := Spiral_Model.First_Child (Spiral_Root);
       Current_C := Spiral_Model.First_Child (Spiral_Root);
@@ -201,18 +205,18 @@ package body Phonems2Glyphs is
          case Node.T is
 
             when Vowel =>
-               Spiral_Model.Append_Child (Spiral, Current_V, Node.GlyphName);
+               Spiral_Model.Append_Child (Spiral, Current_V, Node);
 
                Current_V := Spiral_Model.First_Child (Current_V);
 
             when Numeral =>
-               Spiral_Model.Append_Child (Spiral, Current_N, Node.GlyphName);
+               Spiral_Model.Append_Child (Spiral, Current_N, Node);
 
                Current_N := Spiral_Model.First_Child (Current_N);
 
             when Consonant | Word_Separator =>
 
-               Spiral_Model.Append_Child (Spiral, Current_C, Node.GlyphName);
+               Spiral_Model.Append_Child (Spiral, Current_C, Node);
 
                declare
                   Child_Number  : constant Count_Type          :=
@@ -244,6 +248,54 @@ package body Phonems2Glyphs is
 
    end Construct;
 
+   ------------------
+   -- Is_Consonant --
+   ------------------
+
+   function Is_Consonant (Elem : Spiral_Model.Cursor) return Boolean is
+   begin
+
+      if Spiral_Model.Element (Elem).T = Consonant
+        or else Spiral_Model.Element (Elem).T = Word_Separator
+      then
+         return True;
+      end if;
+
+      return False;
+
+   end Is_Consonant;
+
+   -----------
+   -- Depth --
+   -----------
+
+   function Depth
+     (Elem : Spiral_Model.Cursor; LM : Language_Model.Map) return Float
+   is
+
+      Current_Depth : Float := 0.0;
+      Current_Child : Spiral_Model.Cursor;
+   begin
+
+      if Is_Consonant (Elem) then
+         Current_Depth := Current_Depth + 1.0;
+      end if;
+
+      if not Spiral_Model.Is_Leaf (Elem) then
+
+         Current_Child := Spiral_Model.First_Child (Elem);
+
+         while Spiral_Model.Has_Element (Current_Child) loop
+
+            Current_Depth := Current_Depth + Depth (Current_Child, LM);
+            Current_Child := Spiral_Model.Next_Sibling (Current_Child);
+         end loop;
+      end if;
+
+      return Current_Depth;
+
+   end Depth;
+
    -----------
    -- Print --
    -----------
@@ -260,11 +312,13 @@ package body Phonems2Glyphs is
 
    procedure Print (Position : Spiral_Model.Cursor) is
 
-      Value : constant S_U.Unbounded_String := Spiral_Model.Element (Position);
+      Value : constant GlyphInfo := Spiral_Model.Element (Position);
+      Tabs  :
+        constant String (1 .. 2 * Integer (Spiral_Model.Depth (Position))) :=
+        (others => ' ');
    begin
 
-      IO.Put (S_U.To_String (Value));
-      IO.Put (" ");
+      IO.Put_Line (Tabs & S_U.To_String (Value.GlyphName));
 
       if not Spiral_Model.Is_Leaf (Position) then
 

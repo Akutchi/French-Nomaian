@@ -31,7 +31,7 @@ package Phonems2Glyphs is
       Hash     => Ada.Strings.Wide_Hash, Equivalent_Keys => "=");
 
    package Spiral_Model is new Ada.Containers.Indefinite_Multiway_Trees
-     (S_U.Unbounded_String, S_U."=");
+     (GlyphInfo, "=");
 
    function Simplify (Phonems : Wide_String) return Wide_String;
 
@@ -44,7 +44,14 @@ package Phonems2Glyphs is
    procedure Construct
      (Spiral : in out Spiral_Model.Tree; GlyphList : List_GlyphInfo.Vector);
 
+   function Depth
+     (Elem : Spiral_Model.Cursor; LM : Language_Model.Map) return Float;
+
    procedure Print (List_Glyphs : List_GlyphInfo.Vector);
    procedure Print (Position : Spiral_Model.Cursor);
+
+private
+
+   function Is_Consonant (Elem : Spiral_Model.Cursor) return Boolean;
 
 end Phonems2Glyphs;
