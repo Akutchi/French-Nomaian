@@ -4,8 +4,6 @@ with Ada.Containers; use Ada.Containers;
 
 with Draw_Glyphs;
 
-with Draw_Utils; use Draw_Utils;
-
 package body Draw_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
@@ -123,26 +121,19 @@ package body Draw_Spiral is
 
    begin
 
-      if Is_CS_V (Parent, Element) then
+      Draw_Spiral_Element (Ctx, Root, Xp, Yp);
 
-         Draw_Spiral_Element (Ctx, Root, Xp, Yp);
+      if Is_CS_V (Parent, Element) then
          state.Xv := Xp + dx (Element.GlyphName, before) + 1.5 * R_Poly;
 
       elsif Is_V then
-
-         Draw_Spiral_Element (Ctx, Root, Xp, Yp);
          state.Xv := state.Xv + dx (Element.GlyphName, before);
 
       elsif Is_CS_N (Parent, Element) then
-
-         Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
+         null; -- too implement later when everything works with vowels
 
       elsif Is_N then
-
-         Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
-
-      else
-         Draw_Spiral_Element (Ctx, Root, Xp, Yp);
+         null;
 
       end if;
 
@@ -176,9 +167,10 @@ package body Draw_Spiral is
       if Is_CS_V (E_Root, E_Child) then
 
          Dv :=
-           (if Xp <= state.Xv then (state.Xv - Xp) + 0.2 * R_Poly else 0.0);
+           (if Xp <= state.Xv then (state.Xv - Xp) + Offset_Leaf
+            else Offset_Branch);
          Xc := Xp + Dv;
-         Yc := Yp - dy;
+         Yc := Yp - dy_vn;
 
       elsif Is_CX (E_Root, Child_Type, P2G.Word_Separator) then
          Xc := Xp + dx_Root_Before;
@@ -192,21 +184,30 @@ package body Draw_Spiral is
 
    end Update_Child_Coordinates;
 
+   --------------------------------
+   -- Update_Element_Coordinates --
+   --------------------------------
+
+   procedure Update_Element_Coordinates
+     (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type)
+   is
+   begin
+      Yp := Yp + dy (Parent_Elem.GlyphName, dtype);
+   end Update_Element_Coordinates;
+
    -----------------------------------
    -- Restore_To_Parent_Coordinates --
    -----------------------------------
 
    procedure Restore_To_Parent_Coordinates_If_CS
      (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp      : Gdouble; state : Machine_State)
+      Xp, Yp      : Gdouble)
    is
 
       Child_Type : constant Character := P2G.Spiral_Model.Element (Child).T;
 
       E_Root  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
       E_Child : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
-
-      Dv : Gdouble;
 
    begin
 
@@ -230,67 +231,6 @@ package body Draw_Spiral is
 
    end Restore_To_Parent_Coordinates_If_CS;
 
-   ----------------------
-   -- Get_Displacement --
-   ----------------------
-
-   procedure Get_Displacement
-     (Element             : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
-      Is_Parent, Is_Child : Boolean)
-   is
-   begin
-
-      case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
-
-         when line =>
-            dx_e := 0.0;
-            dy_e := 0.0;
-
-         when squareline =>
-
-            dx_e := -1.0 * dx (Element.GlyphName, after);
-            dy_e :=
-              -1.0 * dx (Element.GlyphName, after); --  change to dy later
-
-            if Is_Child then
-               dy_e := -dy_e;
-            end if;
-
-         when others =>
-            dx_e := 0.0;
-            dy_e := 0.0;
-
-      end case;
-
-   end Get_Displacement;
-
-   -----------------
-   -- Draw_Branch --
-   -----------------
-
-   procedure Draw_Branch_If_VN
-     (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble)
-   is
-
-      dx_root, dy_root   : Gdouble := 0.0;
-      dx_child, dy_child : Gdouble := 0.0;
-
-   begin
-
-      if Is_CS_V (Parent, Child) then
-
-         Get_Displacement (Parent, dx_root, dy_root, True, False);
-         Get_Displacement (Child, dx_child, dy_child, False, True);
-
-         Cairo.Move_To (Ctx, Xp + dx_root, Yp + dy_root);
-         Cairo.Line_To (Ctx, Xc + dx_child, Yc + dy_child);
-         Cairo.Stroke (Ctx);
-
-      end if;
-
-   end Draw_Branch_If_VN;
-
    --------------------------
    -- Draw_Unrolled_Spiral --
    --------------------------
@@ -306,17 +246,24 @@ package body Draw_Spiral is
       Child_Elem  : P2G.GlyphInfo;
 
       Xp : constant Gdouble := X;
-      Yp : constant Gdouble := Y;
+      Yp : Gdouble          := Y;
 
       Xc : Gdouble := X;
       Yc : Gdouble := Y;
-      Dv : Gdouble;
 
       I : Positive := 1;
 
    begin
 
+      if Parent_Elem.T /= P2G.Vowel then
+         Update_Element_Coordinates (Parent_Elem, Yp, before);
+      end if;
+
       Draw_CVSN (Ctx, Root, Xp, Yp, state);
+
+      if Parent_Elem.T /= P2G.Vowel then
+         Update_Element_Coordinates (Parent_Elem, Yp, after);
+      end if;
 
       if not P2G.Spiral_Model.Is_Leaf (Root) then
 
@@ -330,7 +277,7 @@ package body Draw_Spiral is
             Draw_Branch_If_VN (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
 
             Restore_To_Parent_Coordinates_If_CS
-              (Root, Current_Child, Xc, Yc, Xp, Yp, state);
+              (Root, Current_Child, Xc, Yc, Xp, Yp);
 
             Draw_Unrolled_Spiral (Ctx, Current_Child, Xc, Yc, state);
 

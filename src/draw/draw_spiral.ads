@@ -3,6 +3,8 @@ with Glib; use Glib;
 
 with Phonems2Glyphs;
 
+with Draw_Utils; use Draw_Utils;
+
 package Draw_Spiral is
 
    package P2G renames Phonems2Glyphs;
@@ -29,9 +31,12 @@ private
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
       Xp, Yp : Gdouble; state : Machine_State);
 
+   procedure Update_Element_Coordinates
+     (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type);
+
    procedure Restore_To_Parent_Coordinates_If_CS
      (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp      : Gdouble; state : Machine_State);
+      Xp, Yp      : Gdouble);
 
    procedure Draw_CVSN
      (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;

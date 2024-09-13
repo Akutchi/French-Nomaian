@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded;
 with Ada.Numerics;
 
+with Cairo;
 with Glib; use Glib;
 
 with Phonems2Glyphs;
@@ -26,6 +27,7 @@ package Draw_Utils is
    PI_3   : constant Gdouble := PI / 3.0;
    PI_4   : constant Gdouble := PI / 4.0;
    PI_6   : constant Gdouble := PI / 6.0;
+   PI_7   : constant Gdouble := PI / 7.0;
 
    Line_Width : constant Gdouble := 0.3;
    R_Dot      : constant Gdouble := 0.3;
@@ -35,9 +37,10 @@ package Draw_Utils is
    Line_Glyph_R_Poly : constant Gdouble := 1.3 * R_Poly;
    Line_Words_R_Poly : constant Gdouble := 2.0 * R_Poly;
 
-   Offset_Branch : constant Gdouble := R_Poly;
+   Offset_Leaf   : constant Gdouble := 0.5 * R_Poly;
+   Offset_Branch : constant Gdouble := 1.5 * R_Poly;
 
-   dy : constant Gdouble := 3.5;
+   dy_vn : constant Gdouble := 3.5;
 
    function Is_CX
      (E : P2G.GlyphInfo; Child_Type, X : Character) return Boolean;
@@ -56,7 +59,18 @@ package Draw_Utils is
    function dx
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble;
 
+   function dy
+     (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble;
+
    function Need_Line_Between_Phonems
      (Root : P2G.Spiral_Model.Cursor; Root_GlyphName : String) return Boolean;
+
+   procedure Get_Displacement_For_Branch
+     (Element  : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
+      Is_Child : Boolean);
+
+   procedure Draw_Branch_If_VN
+     (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
+      Xc, Yc, Xp, Yp : Gdouble);
 
 end Draw_Utils;

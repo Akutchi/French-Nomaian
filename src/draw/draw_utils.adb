@@ -1,6 +1,11 @@
+with Ada.Numerics.Generic_Elementary_Functions;
 with Ada.Containers; use Ada.Containers;
 
 package body Draw_Utils is
+
+   package Functions is new Ada.Numerics.Generic_Elementary_Functions
+     (Gdouble);
+   use Functions;
 
    -----------
    -- Is_CX --
@@ -92,7 +97,13 @@ package body Draw_Utils is
             return R_Poly;
 
          when penta =>
-            return 0.85 * R_Poly;
+
+            case dp is
+               when before =>
+                  return 1.0 * R_Poly;
+               when after =>
+                  return 0.83 * R_Poly;
+            end case;
 
          when squareline | squarebend =>
             return 0.7 * R_Poly;
@@ -175,7 +186,6 @@ package body Draw_Utils is
                when after =>
                   return R_Poly;
             end case;
-            return 0.0;
 
          when heptasquare =>
             return 0.0;
@@ -193,6 +203,151 @@ package body Draw_Utils is
 
    end dx;
 
+   --------
+   -- dy --
+   --------
+
+   function dy
+     (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble
+   is
+
+      GN_String : constant String := S_U.To_String (GlyphName);
+   begin
+
+      case GlyphRep'Value (GN_String) is
+
+         when bend =>
+
+            case dp is
+               when before =>
+                  return R_Poly;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when linedotline =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.4;
+            end case;
+
+         when octa =>
+            return 0.0;
+
+         when penta =>
+
+            case dp is
+               when before =>
+                  return -1.1 * R_Poly_2;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when squareline | squarebend =>
+
+            case dp is
+               when before =>
+                  return -0.7 * R_Poly;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when pentaline | pentabend =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when hexaline | hexabend | heptaline | heptabend =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when octaline | octabend =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when squaresquare =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return R_Poly;
+            end case;
+
+         when pentapenta =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when hexahexa =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when heptahepta =>
+            return 0.0;
+
+         when pentasquare =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when hexasquare =>
+            return 0.0;
+
+         when hexapenta =>
+
+            case dp is
+               when before =>
+                  return 0.0;
+               when after =>
+                  return 0.0;
+            end case;
+
+         when heptasquare =>
+            return 0.0;
+
+         when heptapenta =>
+            return 0.0;
+
+         when heptahexa =>
+            return 0.0;
+
+         when others =>
+            return 0.0;
+
+      end case;
+
+   end dy;
    -------------------------------
    -- Need_Line_Between_Phonems --
    -------------------------------
@@ -240,5 +395,136 @@ package body Draw_Utils is
       return False;
 
    end Need_Line_Between_Phonems;
+
+   ----------------------
+   -- Get_Displacement --
+   ----------------------
+
+   procedure Get_Displacement_For_Branch
+     (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; Is_Child : Boolean)
+   is
+
+      r     : Gdouble := R_Poly;
+      theta : Gdouble; --  turn in anti-trigonometric sense. I think ?
+   begin
+
+      case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
+
+         when bend =>
+
+            if not Is_Child then
+               r     := 1.2 * R_Poly;
+               theta := 2.0;
+            end if;
+
+         when square =>
+            theta := PI_2;
+
+         when penta =>
+            theta := PI_4 + 0.1;
+
+         when hexa =>
+            theta := PI_4 + 0.2;
+
+         when squareline | squarebend =>
+
+            r     := -R_Poly;
+            theta := 3.0 * PI_4;
+
+            if not Is_Child then
+               theta := theta + PI_2;
+            end if;
+
+         when pentaline | pentabend =>
+
+            if Is_Child then
+               theta := -(PI_4 + 0.5);
+            else
+               theta := theta + PI_2 + 0.3;
+            end if;
+
+         when hexaline | hexabend =>
+
+            if Is_Child then
+               null;
+            else
+               theta := PI_3 - 0.5;
+            end if;
+
+         when heptaline | heptabend =>
+
+            if Is_Child then
+               theta := -PI_7 - 0.4;
+            else
+               theta := theta + PI_2;
+            end if;
+
+         when squaresquare =>
+            r     := 2.0 * R_Poly;
+            theta := PI_2;
+
+         when hexahexa =>
+
+            if Is_Child then
+               theta := -PI_6 - 0.5;
+            else
+               null;
+            end if;
+
+         when pentapenta =>
+
+            if Is_Child then
+               r     := -2.15 * R_Poly;
+               theta := 3.0 * PI_4 + 0.4;
+            else
+               theta := theta + PI_2 + 0.3;
+            end if;
+
+         when pentasquare =>
+
+            if Is_Child then
+               theta := -0.5;
+            end if;
+
+         when heptasquare =>
+            theta := -PI_7;
+
+         when others =>
+            r     := 0.0;
+            theta := 0.0;
+
+      end case;
+
+      dx_e := -r * Cos (theta);
+      dy_e := -r * Sin (theta);
+
+   end Get_Displacement_For_Branch;
+
+   -----------------
+   -- Draw_Branch --
+   -----------------
+
+   procedure Draw_Branch_If_VN
+     (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
+      Xc, Yc, Xp, Yp : Gdouble)
+   is
+
+      dx_root, dy_root   : Gdouble := 0.0;
+      dx_child, dy_child : Gdouble := 0.0;
+
+   begin
+
+      if Is_CS_V (Parent, Child) then
+
+         Get_Displacement_For_Branch (Parent, dx_root, dy_root, False);
+         Get_Displacement_For_Branch (Child, dx_child, dy_child, True);
+
+         Cairo.Move_To (Ctx, Xp + dx_root, Yp + dy_root);
+         Cairo.Line_To (Ctx, Xc + dx_child, Yc + dy_child);
+         Cairo.Stroke (Ctx);
+
+      end if;
+
+   end Draw_Branch_If_VN;
 
 end Draw_Utils;
