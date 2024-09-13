@@ -52,10 +52,8 @@ begin
 
    begin
 
-      P2G.Print (Root_Child);
-
       DS.Background (Ctx);
-      DS.Draw_Unrolled_Spiral (Ctx, 5.0, 6.0, state, Root_Child);
+      DS.Draw_Unrolled_Spiral (Ctx, Root_Child, 5.0, 6.0, state);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

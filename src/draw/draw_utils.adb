@@ -31,8 +31,8 @@ package body Draw_Utils is
    is
    begin
       return
-        (Parent.T = P2G.Consonant or else Parent.T = P2G.Word_Separator)
-        and then Element.T = P2G.Vowel;
+        Is_CX (Parent, Element.T, P2G.Vowel)
+        or else Is_SX (Parent, Element.T, P2G.Vowel);
    end Is_CS_V;
 
    -------------
@@ -44,8 +44,8 @@ package body Draw_Utils is
    is
    begin
       return
-        (Parent.T = P2G.Consonant or else Parent.T = P2G.Word_Separator)
-        and then Element.T = P2G.Numeral;
+        Is_CX (Parent, Element.T, P2G.Numeral)
+        or else Is_SX (Parent, Element.T, P2G.Numeral);
    end Is_CS_N;
 
    ------------------
