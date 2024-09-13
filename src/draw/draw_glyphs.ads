@@ -9,6 +9,12 @@ package Draw_Glyphs is
 
    package P2G renames Phonems2Glyphs;
 
+   type Machine_State is record
+
+      Xv : Gdouble := 0.0;
+      Xn : Gdouble := 0.0;
+   end record;
+
    procedure Background (Ctx : Cairo.Cairo_Context);
 
    procedure Rotation_Around
@@ -62,8 +68,8 @@ package Draw_Glyphs is
    procedure x2_Hepta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
    procedure Draw_Unrolled_Spiral
-     (Ctx    : in out Cairo.Cairo_Context; X, Y : Gdouble;
-      dv, dn : in out Gdouble; Root : P2G.Spiral_Model.Cursor);
+     (Ctx   : in out Cairo.Cairo_Context; X, Y : Gdouble;
+      state : in out Machine_State; Root : P2G.Spiral_Model.Cursor);
 
 private
 
@@ -77,10 +83,10 @@ private
 
    procedure Update_Child
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp : Gdouble; dv, dn : Gdouble);
+      Xp, Yp : Gdouble);
 
    procedure Draw_CVSN
      (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      Xp, Yp :        Gdouble; dv, dn : in out Gdouble);
+      Xp, Yp :        Gdouble; state : in out Machine_State);
 
 end Draw_Glyphs;

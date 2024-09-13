@@ -48,14 +48,14 @@ begin
 
       Ctx : Cairo.Cairo_Context := Cairo.Create (S);
 
-      dv, dn : Gdouble := 0.0;
+      state : DG.Machine_State;
 
    begin
 
       P2G.Print (Root_Child);
 
       DG.Background (Ctx);
-      DG.Draw_Unrolled_Spiral (Ctx, 2.0, 6.0, dv, dn, Root_Child);
+      DG.Draw_Unrolled_Spiral (Ctx, 5.0, 6.0, state, Root_Child);
       C_S.Finish (S);
       Cairo.Destroy (Ctx);
       C_S.Destroy (S);

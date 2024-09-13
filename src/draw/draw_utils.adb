@@ -68,15 +68,6 @@ package body Draw_Utils is
          when penta =>
             return 0.85 * R_Poly;
 
-         when hexaline | octaline | hexabend | octabend =>
-
-            case dp is
-               when before =>
-                  return R_Poly;
-               when after =>
-                  return R_Poly;
-            end case;
-
          when squareline | squarebend =>
             return 0.7 * R_Poly;
 
@@ -89,13 +80,22 @@ package body Draw_Utils is
                   return R_Poly;
             end case;
 
-         when heptaline | heptabend =>
+         when hexaline | hexabend | heptaline | heptabend =>
 
             case dp is
                when before =>
-                  return 2.5 * R_Poly;
+                  return 0.9 * R_Poly;
                when after =>
-                  return 2.5 * R_Poly;
+                  return R_Poly;
+            end case;
+
+         when octaline | octabend =>
+
+            case dp is
+               when before =>
+                  return R_Poly;
+               when after =>
+                  return R_Poly;
             end case;
 
          when squaresquare =>
@@ -108,7 +108,13 @@ package body Draw_Utils is
             end case;
 
          when pentapenta =>
-            return R_Poly;
+
+            case dp is
+               when before =>
+                  return R_Poly;
+               when after =>
+                  return 2.6 * R_Poly;
+            end case;
 
          when hexahexa =>
 
@@ -136,6 +142,13 @@ package body Draw_Utils is
             return 0.0;
 
          when hexapenta =>
+
+            case dp is
+               when before =>
+                  return 1.95 * R_Poly;
+               when after =>
+                  return R_Poly;
+            end case;
             return 0.0;
 
          when heptasquare =>

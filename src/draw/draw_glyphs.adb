@@ -501,7 +501,7 @@ package body Draw_Glyphs is
 
    procedure Update_Child
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp : Gdouble; dv, dn : Gdouble)
+      Xp, Yp : Gdouble)
    is
 
       Child      : constant P2G.Spiral_Model.Cursor :=
@@ -528,13 +528,6 @@ package body Draw_Glyphs is
          Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
       end if;
 
-      if E_Root.T = 'v' then
-         Xc := Xc + dv;
-
-      elsif E_Root.T = 'n' then
-         Xc := Xc + dn;
-      end if;
-
    end Update_Child;
 
    ---------------
@@ -543,27 +536,33 @@ package body Draw_Glyphs is
 
    procedure Draw_CVSN
      (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      Xp, Yp :        Gdouble; dv, dn : in out Gdouble)
+      Xp, Yp :        Gdouble; state : in out Machine_State)
    is
 
-      P : constant P2G.GlyphInfo :=
+      P  : constant P2G.GlyphInfo :=
         P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
-      E : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      E  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      Dv : Gdouble;
 
    begin
       if (P.T = 'c' or else P.T = 's') and then E.T = 'v' then
-         Draw_Spiral_Element (Ctx, Root, Xp + dv, Yp - dy);
+
+         Dv :=
+           (if Xp <= state.Xv then (state.Xv - Xp) + 0.2 * R_Poly else 0.0);
+
+         Draw_Spiral_Element (Ctx, Root, Xp + Dv, Yp - dy);
+         state.Xv := Xp + dx (E.GlyphName, before) + 1.5 * R_Poly;
 
       elsif E.T = 'v' then
+
          Draw_Spiral_Element (Ctx, Root, Xp, Yp - dy);
-         dv := 0.0;
+         state.Xv := state.Xv + dx (E.GlyphName, before);
 
       elsif (P.T = 'c' or else P.T = 's') and then E.T = 'n' then
-         Draw_Spiral_Element (Ctx, Root, Xp + dn, Yp + dy);
+         Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
 
       elsif E.T = 'n' then
          Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
-         dn := 0.0;
 
       else
          Draw_Spiral_Element (Ctx, Root, Xp, Yp);
@@ -575,8 +574,8 @@ package body Draw_Glyphs is
    --------------------------
 
    procedure Draw_Unrolled_Spiral
-     (Ctx    : in out Cairo.Cairo_Context; X, Y : Gdouble;
-      dv, dn : in out Gdouble; Root : P2G.Spiral_Model.Cursor)
+     (Ctx   : in out Cairo.Cairo_Context; X, Y : Gdouble;
+      state : in out Machine_State; Root : P2G.Spiral_Model.Cursor)
    is
 
       Current_Child : P2G.Spiral_Model.Cursor;
@@ -594,7 +593,7 @@ package body Draw_Glyphs is
 
    begin
 
-      Draw_CVSN (Ctx, Root, Xp, Yp, dv, dn);
+      Draw_CVSN (Ctx, Root, Xp, Yp, state);
 
       if not P2G.Spiral_Model.Is_Leaf (Root) then
 
@@ -604,7 +603,7 @@ package body Draw_Glyphs is
 
             E_C := P2G.Spiral_Model.Element (Current_Child);
 
-            Update_Child (Root, Xc, Yc, Xp, Yp, dv, dn);
+            Update_Child (Root, Xc, Yc, Xp, Yp);
 
             if E_C.T = 's' then
                Xc := Xp + dx (E.GlyphName, before);
@@ -619,19 +618,12 @@ package body Draw_Glyphs is
 
             end if;
 
-            Draw_Unrolled_Spiral (Ctx, Xc, Yc, dv, dn, Current_Child);
+            Draw_Unrolled_Spiral (Ctx, Xc, Yc, state, Current_Child);
 
             P2G.Spiral_Model.Next_Sibling (Current_Child);
             I := I + 1;
 
          end loop;
-      end if;
-
-      if E.T = 'v' then
-         dv := dx (E.GlyphName, before);
-
-      elsif E.T = 'n' then
-         dn := dx (E.GlyphName, before);
       end if;
 
    end Draw_Unrolled_Spiral;
