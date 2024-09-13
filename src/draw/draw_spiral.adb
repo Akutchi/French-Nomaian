@@ -101,9 +101,9 @@ package body Draw_Spiral is
 
    end Draw_Spiral_Element;
 
-   ------------------
-   -- Update_Child --
-   ------------------
+   ------------------------------
+   -- Update_Child_Coordinates --
+   ------------------------------
 
    procedure Update_Child_Coordinates
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
@@ -182,13 +182,16 @@ package body Draw_Spiral is
       Parent  : constant P2G.GlyphInfo :=
         P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
       Element : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      Dv      : Gdouble;
+
+      Dv : Gdouble;
+
+      Is_V : constant Boolean := Element.T = P2G.Vowel;
+
+      Is_N : constant Boolean := Element.T = P2G.Numeral;
 
    begin
 
-      if Is_CX (Parent, Element.T, P2G.Vowel)
-        or else Is_SX (Parent, Element.T, P2G.Vowel)
-      then
+      if Is_CS_V (Parent, Element) then
 
          Dv :=
            (if Xp <= state.Xv then (state.Xv - Xp) + 0.2 * R_Poly else 0.0);
@@ -196,22 +199,24 @@ package body Draw_Spiral is
          Draw_Spiral_Element (Ctx, Root, Xp + Dv, Yp - dy);
          state.Xv := Xp + dx (Element.GlyphName, before) + 1.5 * R_Poly;
 
-      elsif Element.T = P2G.Vowel then
+      elsif Is_V then
 
          Draw_Spiral_Element (Ctx, Root, Xp, Yp - dy);
          state.Xv := state.Xv + dx (Element.GlyphName, before);
 
-      elsif Is_CX (Parent, Element.T, P2G.Vowel)
-        or else Is_SX (Parent, Element.T, P2G.Numeral)
-      then
+      elsif Is_CS_N (Parent, Element) then
+
          Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
 
-      elsif Element.T = P2G.Numeral then
+      elsif Is_N then
+
          Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
 
       else
          Draw_Spiral_Element (Ctx, Root, Xp, Yp);
+
       end if;
+
    end Draw_CVSN;
 
    --------------------------

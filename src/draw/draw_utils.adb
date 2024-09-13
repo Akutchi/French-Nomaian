@@ -22,6 +22,32 @@ package body Draw_Utils is
       return E.T = 's' and then Child_Type = X;
    end Is_SX;
 
+   -------------
+   -- Is_CS_V --
+   -------------
+
+   function Is_CS_V
+     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean
+   is
+   begin
+      return
+        (Parent.T = P2G.Consonant or else Parent.T = P2G.Word_Separator)
+        and then Element.T = P2G.Vowel;
+   end Is_CS_V;
+
+   -------------
+   -- Is_CS_N --
+   -------------
+
+   function Is_CS_N
+     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean
+   is
+   begin
+      return
+        (Parent.T = P2G.Consonant or else Parent.T = P2G.Word_Separator)
+        and then Element.T = P2G.Numeral;
+   end Is_CS_N;
+
    ------------------
    -- Is_Start_Dot --
    ------------------

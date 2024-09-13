@@ -45,6 +45,12 @@ package Draw_Utils is
    function Is_SX
      (E : P2G.GlyphInfo; Child_Type, X : Character) return Boolean;
 
+   function Is_CS_V
+     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean;
+
+   function Is_CS_N
+     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean;
+
    function Is_Start_Dot (E : P2G.GlyphInfo) return Boolean;
 
    function dx
