@@ -81,7 +81,11 @@ private
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       X, Y :        Gdouble);
 
-   procedure Update_Child
+   procedure Update_Child_Coordinates
+     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp : Gdouble);
+
+   procedure Restore_To_Parent_Coordinates
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
       Xp, Yp : Gdouble);
 

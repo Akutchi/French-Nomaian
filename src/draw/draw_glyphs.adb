@@ -499,7 +499,7 @@ package body Draw_Glyphs is
    -- Update_Child --
    ------------------
 
-   procedure Update_Child
+   procedure Update_Child_Coordinates
      (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
       Xp, Yp : Gdouble)
    is
@@ -518,17 +518,51 @@ package body Draw_Glyphs is
 
    begin
 
-      if Is_CX (E_Root, Child_Type, 's') then
+      if Is_CX (E_Root, Child_Type, P2G.Word_Separator) then
          Xc := Xp + dx_Root_Before + Line_Words_R_Poly;
 
-      elsif Is_SX (E_Root, Child_Type, 'c') then
+      elsif Is_SX (E_Root, Child_Type, P2G.Consonant) then
          Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
 
       else
          Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
       end if;
 
-   end Update_Child;
+   end Update_Child_Coordinates;
+
+   -----------------------------------
+   -- Restore_To_Parent_Coordinates --
+   -----------------------------------
+
+   procedure Restore_To_Parent_Coordinates
+     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp : Gdouble)
+   is
+
+      Child      : constant P2G.Spiral_Model.Cursor :=
+        P2G.Spiral_Model.First_Child (Root);
+      Child_Type : constant Character := P2G.Spiral_Model.Element (Child).T;
+
+      E_Root  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      E_Child : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
+
+   begin
+
+      if E_Child.T = P2G.Word_Separator then
+         Xc := Xp + dx (E_Root.GlyphName, before);
+
+      elsif Is_SX (E_Root, Child_Type, P2G.Consonant) then
+         Xc :=
+           Xp + dx (E_Root.GlyphName, before) + dx (E_Child.GlyphName, after);
+
+      elsif E_Child.T = P2G.Consonant then
+         Xc :=
+           Xp + dx (E_Root.GlyphName, before) + Line_Words_R_Poly +
+           dx (E_Child.GlyphName, after);
+
+      end if;
+
+   end Restore_To_Parent_Coordinates;
 
    ---------------
    -- Draw_CVSN --
@@ -539,29 +573,34 @@ package body Draw_Glyphs is
       Xp, Yp :        Gdouble; state : in out Machine_State)
    is
 
-      P  : constant P2G.GlyphInfo :=
+      Parent  : constant P2G.GlyphInfo :=
         P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
-      E  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      Dv : Gdouble;
+      Element : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      Dv      : Gdouble;
 
    begin
-      if (P.T = 'c' or else P.T = 's') and then E.T = 'v' then
+
+      if Is_CX (Parent, Element.T, P2G.Vowel)
+        or else Is_SX (Parent, Element.T, P2G.Vowel)
+      then
 
          Dv :=
            (if Xp <= state.Xv then (state.Xv - Xp) + 0.2 * R_Poly else 0.0);
 
          Draw_Spiral_Element (Ctx, Root, Xp + Dv, Yp - dy);
-         state.Xv := Xp + dx (E.GlyphName, before) + 1.5 * R_Poly;
+         state.Xv := Xp + dx (Element.GlyphName, before) + 1.5 * R_Poly;
 
-      elsif E.T = 'v' then
+      elsif Element.T = P2G.Vowel then
 
          Draw_Spiral_Element (Ctx, Root, Xp, Yp - dy);
-         state.Xv := state.Xv + dx (E.GlyphName, before);
+         state.Xv := state.Xv + dx (Element.GlyphName, before);
 
-      elsif (P.T = 'c' or else P.T = 's') and then E.T = 'n' then
+      elsif Is_CX (Parent, Element.T, P2G.Vowel)
+        or else Is_SX (Parent, Element.T, P2G.Numeral)
+      then
          Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
 
-      elsif E.T = 'n' then
+      elsif Element.T = P2G.Numeral then
          Draw_Spiral_Element (Ctx, Root, Xp, Yp + dy);
 
       else
@@ -588,9 +627,6 @@ package body Draw_Glyphs is
 
       I : Positive := 1;
 
-      E   : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      E_C : P2G.GlyphInfo;
-
    begin
 
       Draw_CVSN (Ctx, Root, Xp, Yp, state);
@@ -601,22 +637,8 @@ package body Draw_Glyphs is
 
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
 
-            E_C := P2G.Spiral_Model.Element (Current_Child);
-
-            Update_Child (Root, Xc, Yc, Xp, Yp);
-
-            if E_C.T = 's' then
-               Xc := Xp + dx (E.GlyphName, before);
-
-            elsif E.T = 's' and then E_C.T = 'c' then
-               Xc := Xp + dx (E.GlyphName, before) + dx (E_C.GlyphName, after);
-
-            elsif E_C.T = 'c' then
-               Xc :=
-                 Xp + dx (E.GlyphName, before) + Line_Words_R_Poly +
-                 dx (E_C.GlyphName, after);
-
-            end if;
+            Update_Child_Coordinates (Root, Xc, Yc, Xp, Yp);
+            Restore_To_Parent_Coordinates (Root, Xc, Yc, Xp, Yp);
 
             Draw_Unrolled_Spiral (Ctx, Xc, Yc, state, Current_Child);
 
