@@ -30,8 +30,8 @@ private
       Xp, Yp : Gdouble);
 
    procedure Restore_To_Parent_Coordinates
-     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp : Gdouble);
+     (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp      : Gdouble);
 
    procedure Draw_CVSN
      (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;

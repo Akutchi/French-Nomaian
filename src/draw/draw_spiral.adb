@@ -141,12 +141,10 @@ package body Draw_Spiral is
    -----------------------------------
 
    procedure Restore_To_Parent_Coordinates
-     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp : Gdouble)
+     (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp      : Gdouble)
    is
 
-      Child      : constant P2G.Spiral_Model.Cursor :=
-        P2G.Spiral_Model.First_Child (Root);
       Child_Type : constant Character := P2G.Spiral_Model.Element (Child).T;
 
       E_Root  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
@@ -249,7 +247,8 @@ package body Draw_Spiral is
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
 
             Update_Child_Coordinates (Root, Xc, Yc, Xp, Yp);
-            Restore_To_Parent_Coordinates (Root, Xc, Yc, Xp, Yp);
+            Restore_To_Parent_Coordinates
+              (Root, Current_Child, Xc, Yc, Xp, Yp);
 
             Draw_Unrolled_Spiral (Ctx, Xc, Yc, state, Current_Child);
 
