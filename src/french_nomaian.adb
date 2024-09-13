@@ -8,7 +8,7 @@ with Locations;
 with Sentence2Phonems;
 with Phonems2Glyphs;
 with Tools;
-with Draw_Glyphs;
+with Draw_Spiral;
 
 with Glib; use Glib;
 
@@ -19,7 +19,7 @@ procedure French_Nomaian is
    package C_SVG renames Cairo.SVG;
    package S2P renames Sentence2Phonems;
    package P2G renames Phonems2Glyphs;
-   package DG renames Draw_Glyphs;
+   package DS renames Draw_Spiral;
 
    Sentence   : S_WU.Unbounded_Wide_String;
    Spiral     : P2G.Spiral_Model.Tree;
@@ -41,24 +41,25 @@ begin
 
    declare
 
-      L : constant Float := P2G.Depth (Root_Child, LM);
+      Tree_Length : constant Float := P2G.Depth (Root_Child, LM);
 
-      S : constant Cairo.Cairo_Surface :=
-        C_SVG.Create (Locations.SVG_FILE, 5.0 * Gdouble (L), 13.0);
+      SVG_Surface : constant Cairo.Cairo_Surface :=
+        C_SVG.Create (Locations.SVG_FILE, 5.0 * Gdouble (Tree_Length), 13.0);
 
-      Ctx : Cairo.Cairo_Context := Cairo.Create (S);
+      Ctx : Cairo.Cairo_Context := Cairo.Create (SVG_Surface);
 
-      state : DG.Machine_State;
+      state : DS.Machine_State;
 
    begin
 
       P2G.Print (Root_Child);
 
-      DG.Background (Ctx);
-      DG.Draw_Unrolled_Spiral (Ctx, 5.0, 6.0, state, Root_Child);
-      C_S.Finish (S);
+      DS.Background (Ctx);
+      DS.Draw_Unrolled_Spiral (Ctx, 5.0, 6.0, state, Root_Child);
+
+      C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);
-      C_S.Destroy (S);
+      C_S.Destroy (SVG_Surface);
 
    end;
 
