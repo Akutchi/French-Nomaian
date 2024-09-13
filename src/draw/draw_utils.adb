@@ -159,7 +159,7 @@ package body Draw_Utils is
                when before =>
                   return R_Poly;
                when after =>
-                  return 2.0 * R_Poly;
+                  return 2.5 * R_Poly;
             end case;
 
          when heptahepta =>
@@ -176,7 +176,7 @@ package body Draw_Utils is
             end case;
 
          when hexasquare =>
-            return 0.0;
+            return R_Poly;
 
          when hexapenta =>
 
@@ -261,7 +261,7 @@ package body Draw_Utils is
                when before =>
                   return 0.0;
                when after =>
-                  return 0.0;
+                  return 0.6;
             end case;
 
          when hexaline | hexabend | heptaline | heptabend =>
@@ -304,7 +304,7 @@ package body Draw_Utils is
 
             case dp is
                when before =>
-                  return 0.0;
+                  return 0.3;
                when after =>
                   return 0.0;
             end case;
@@ -323,15 +323,6 @@ package body Draw_Utils is
 
          when hexasquare =>
             return 0.0;
-
-         when hexapenta =>
-
-            case dp is
-               when before =>
-                  return 0.0;
-               when after =>
-                  return 0.0;
-            end case;
 
          when heptasquare =>
             return 0.0;
@@ -405,7 +396,7 @@ package body Draw_Utils is
    is
 
       r     : Gdouble := R_Poly;
-      theta : Gdouble; --  turn in anti-trigonometric sense. I think ?
+      theta : Gdouble := 0.0; --  turn in anti-trigonometric sense. I think ?
    begin
 
       case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
@@ -432,7 +423,7 @@ package body Draw_Utils is
             theta := 3.0 * PI_4;
 
             if not Is_Child then
-               theta := theta + PI_2;
+               theta := PI + 0.7;
             end if;
 
          when pentaline | pentabend =>
@@ -440,13 +431,14 @@ package body Draw_Utils is
             if Is_Child then
                theta := -(PI_4 + 0.5);
             else
-               theta := theta + PI_2 + 0.3;
+               r     := 1.4 * R_Poly;
+               theta := PI_2 - 0.3;
             end if;
 
          when hexaline | hexabend =>
 
             if Is_Child then
-               null;
+               theta := -0.4;
             else
                theta := PI_3 - 0.5;
             end if;
@@ -456,7 +448,7 @@ package body Draw_Utils is
             if Is_Child then
                theta := -PI_7 - 0.4;
             else
-               theta := theta + PI_2;
+               theta := PI_2;
             end if;
 
          when squaresquare =>
@@ -477,13 +469,21 @@ package body Draw_Utils is
                r     := -2.15 * R_Poly;
                theta := 3.0 * PI_4 + 0.4;
             else
-               theta := theta + PI_2 + 0.3;
+               theta := PI_2 + 0.3;
             end if;
 
          when pentasquare =>
 
+            theta := 0.5;
+
             if Is_Child then
                theta := -0.5;
+            end if;
+
+         when hexasquare | hexapenta =>
+
+            if not Is_Child then
+               theta := PI_3 - 0.2;
             end if;
 
          when heptasquare =>
