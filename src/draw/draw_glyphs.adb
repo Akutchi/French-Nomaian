@@ -54,7 +54,7 @@ package body Draw_Glyphs is
 
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp :        Gdouble)
+      Xc, Yc, Xp, Yp :        Gdouble; Unrolled : Boolean)
    is
 
       dx_Parent, dx_Child : Gdouble := 0.0;
@@ -74,8 +74,8 @@ package body Draw_Glyphs is
       Xc_t := Xc + dx_Child;
       Yc_t := Yc + dy_Child;
 
-      Transform (Xp_t, Yp_t);
-      Transform (Xc_t, Yc_t);
+      Transform (Xp_t, Yp_t, No => not Unrolled);
+      Transform (Xc_t, Yc_t, No => not Unrolled);
 
       Dot (Ctx, Xp_t, Yp_t);
 

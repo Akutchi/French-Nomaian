@@ -36,7 +36,7 @@ package body Draw_Spiral is
 
    procedure Draw_Spiral_Element
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      X, Y :        Gdouble)
+      X, Y :        Gdouble; Is_Unrolled : Boolean)
    is
 
       Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
@@ -47,7 +47,7 @@ package body Draw_Spiral is
 
    begin
 
-      Transform (X_t, Y_t);
+      Transform (X_t, Y_t, No => not Is_Unrolled);
 
       case GlyphRep'Value (GN_String_Root) is
 
@@ -112,7 +112,7 @@ package body Draw_Spiral is
 
    procedure Draw_CVSN
      (Ctx    : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      Xp, Yp :        Gdouble; state : in out Machine_State)
+      Xp, Yp :    Gdouble; state : in out Machine_State; Is_Unrolled : Boolean)
    is
 
       Parent  : P2G.GlyphInfo;
@@ -123,7 +123,7 @@ package body Draw_Spiral is
 
    begin
 
-      Draw_Spiral_Element (Ctx, Root, Xp, Yp);
+      Draw_Spiral_Element (Ctx, Root, Xp, Yp, Is_Unrolled);
 
       if not P2G.Spiral_Model.Is_Root (P2G.Spiral_Model.Parent (Root)) then
 
@@ -261,9 +261,9 @@ package body Draw_Spiral is
    -- Draw_Unrolled_Spiral --
    --------------------------
 
-   procedure Draw_Unrolled_Spiral
+   procedure Draw_Spiral
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      X, Y :        Gdouble; state : in out Machine_State)
+      X, Y :    Gdouble; state : in out Machine_State; Is_Unrolled : Boolean)
    is
 
       Current_Child : P2G.Spiral_Model.Cursor;
@@ -288,7 +288,7 @@ package body Draw_Spiral is
          Update_Element_Coordinates (Parent_Elem, Yp, before);
       end if;
 
-      Draw_CVSN (Ctx, Root, Xp, Yp, state);
+      Draw_CVSN (Ctx, Root, Xp, Yp, state, Is_Unrolled);
 
       if Is_Consonant_Or_Word_Sep then
          Update_Element_Coordinates (Parent_Elem, Yp, after);
@@ -305,17 +305,18 @@ package body Draw_Spiral is
 
             Child_Elem := P2G.Spiral_Model.Element (Current_Child);
 
-            Draw_Branch (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
+            Draw_Branch
+              (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
 
             Restore_To_Parent_Coordinates_If_CS
               (Root, Current_Child, Xc, Yc, Xp, Yp);
 
             if Need_Line_Between_Phonems (Root, Current_Child) then
                DG.Line_Between_Words
-                 (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
+                 (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
             end if;
 
-            Draw_Unrolled_Spiral (Ctx, Current_Child, Xc, Yc, state);
+            Draw_Spiral (Ctx, Current_Child, Xc, Yc, state, Is_Unrolled);
 
             P2G.Spiral_Model.Next_Sibling (Current_Child);
             I := I + 1;
@@ -327,9 +328,13 @@ package body Draw_Spiral is
          state.Xn := 0.0; --  Because Prefix traversal V -> C/S -> N
       end if;
 
-   end Draw_Unrolled_Spiral;
+   end Draw_Spiral;
 
-   procedure Draw_Base_Spiral
+   ----------------------------
+   -- Draw_Fibionnaci_Spiral --
+   ----------------------------
+
+   procedure Draw_Fibionnaci_Spiral
      (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble)
    is
       N : constant Positive := 10;
@@ -355,6 +360,6 @@ package body Draw_Spiral is
          end loop;
       end loop;
 
-   end Draw_Base_Spiral;
+   end Draw_Fibionnaci_Spiral;
 
 end Draw_Spiral;

@@ -9,9 +9,6 @@ with Sentence2Phonems;
 with Phonems2Glyphs;
 with Tools;
 with Draw_Spiral;
-with Draw_Utils;
-
-with Glib; use Glib;
 
 procedure French_Nomaian is
 
@@ -21,7 +18,6 @@ procedure French_Nomaian is
    package S2P renames Sentence2Phonems;
    package P2G renames Phonems2Glyphs;
    package DS renames Draw_Spiral;
-   package DU renames Draw_Utils;
 
    Sentence   : S_WU.Unbounded_Wide_String;
    Spiral     : P2G.Spiral_Model.Tree;
@@ -53,8 +49,8 @@ begin
    begin
 
       DS.Background (Ctx);
-      DS.Draw_Unrolled_Spiral (Ctx, Root_Child, 50.0, 50.0, state);
-      --  DS.Draw_Base_Spiral (Ctx, 50.0, 50.0);
+      DS.Draw_Spiral
+        (Ctx, Root_Child, 50.0, 50.0, state, Is_Unrolled => False);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

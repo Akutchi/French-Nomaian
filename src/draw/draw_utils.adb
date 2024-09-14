@@ -683,7 +683,7 @@ package body Draw_Utils is
 
    end Get_Displacement_For_Line;
 
-   procedure Transform (X, Y : in out Gdouble) is
+   procedure Transform (X, Y : in out Gdouble; No : Boolean) is
 
       a   : constant Gdouble := 15.0;
       Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
@@ -693,8 +693,10 @@ package body Draw_Utils is
       Xb, Yb : constant Gdouble := 50.0;
    begin
 
-      X := Xb + Phi**(2.0 * theta / PI) * Cos (theta);
-      Y := Yb + Phi**(2.0 * theta / PI) * Sin (theta);
+      if not No then
+         X := Xb + Phi**(2.0 * theta / PI) * Cos (theta);
+         Y := Yb + Phi**(2.0 * theta / PI) * Sin (theta);
+      end if;
 
    end Transform;
 
@@ -704,7 +706,7 @@ package body Draw_Utils is
 
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble)
+      Xc, Yc, Xp, Yp : Gdouble; Is_Unrolled : Boolean)
    is
 
       dx_root, dy_root   : Gdouble := 0.0;
@@ -733,8 +735,8 @@ package body Draw_Utils is
          Xc_t := Xc + dx_child;
          Yc_t := Yc + dy_child;
 
-         Transform (Xp_t, Yp_t);
-         Transform (Xc_t, Yc_t);
+         Transform (Xp_t, Yp_t, No => not Is_Unrolled);
+         Transform (Xc_t, Yc_t, No => not Is_Unrolled);
 
          Cairo.Move_To (Ctx, Xp_t, Yp_t);
          Cairo.Line_To (Ctx, Xc_t, Yc_t);

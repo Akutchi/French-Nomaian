@@ -15,7 +15,7 @@ package Draw_Glyphs is
 
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp :        Gdouble);
+      Xc, Yc, Xp, Yp :        Gdouble; Unrolled : Boolean);
 
    procedure Line (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 

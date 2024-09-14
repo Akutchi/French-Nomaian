@@ -71,11 +71,11 @@ package Draw_Utils is
    procedure Get_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
 
-   procedure Transform (X, Y : in out Gdouble);
+   procedure Transform (X, Y : in out Gdouble; No : Boolean);
 
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble);
+      Xc, Yc, Xp, Yp : Gdouble; Is_Unrolled : Boolean);
 
 private
 
