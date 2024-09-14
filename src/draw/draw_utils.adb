@@ -233,7 +233,7 @@ package body Draw_Utils is
 
             case dp is
                when before =>
-                  return 0.7 * R_Poly;
+                  return 0.7;
                when after =>
                   return 0.0;
             end case;
@@ -301,12 +301,6 @@ package body Draw_Utils is
                   return 0.0;
             end case;
 
-         when heptahepta =>
-            return 0.0;
-
-         when hexasquare =>
-            return 0.0;
-
          when heptasquare =>
             return 0.0;
 
@@ -314,6 +308,9 @@ package body Draw_Utils is
             return 0.0;
 
          when heptahexa =>
+            return 0.0;
+
+         when heptahepta =>
             return 0.0;
 
          when octa =>
@@ -337,16 +334,16 @@ package body Draw_Utils is
 
    function Offset (Element : P2G.GlyphInfo) return Gdouble is
 
-      de : Gdouble := 1.5 * R_Poly;
+      de_base : constant Gdouble := 1.5 * R_Poly;
    begin
 
       case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
 
-         when hexasquare | hexapenta | heptasquare | heptapenta =>
-            return de + 5.0 * R_Poly;
+         when pentapenta | hexasquare | hexapenta | heptasquare | heptapenta =>
+            return de_base + 3.0 * R_Poly;
 
          when others =>
-            return de;
+            return de_base;
       end case;
 
    end Offset;
@@ -492,7 +489,7 @@ package body Draw_Utils is
             if Is_Vowel then
                theta := -PI_6 - 0.5;
             else
-               null;
+               theta := PI_2 + 0.5;
             end if;
 
          when hepta =>
@@ -511,6 +508,9 @@ package body Draw_Utils is
 
          when octa =>
             theta := PI_2 - 0.8;
+
+         when octaline =>
+            theta := -0.2;
 
          when others =>
             r     := 0.0;
@@ -551,10 +551,9 @@ package body Draw_Utils is
             else
                dx_e := 2.0 * R_Poly;
                dy_e := 0.0;
-
             end if;
 
-         when square | hexa | hexasquare | hexapenta =>
+         when square | hexa | octa =>
 
             dx_e := -R_Poly;
             if dp = after then
@@ -563,11 +562,12 @@ package body Draw_Utils is
 
          when squareline | squarebend =>
 
+            dy_e := 0.7 * R_Poly;
+
             if dp = before then
                dx_e := -1.4 * R_Poly_2;
             else
                dx_e := 1.4 * R_Poly_2;
-               dy_e := 0.7 * R_Poly;
             end if;
 
          when squaresquare =>
@@ -578,7 +578,16 @@ package body Draw_Utils is
                dx_e := dx_e + 3.0 * R_Poly;
             end if;
 
-         when penta | pentasquare =>
+         when penta =>
+
+            if dp = before then
+               dx_e := -0.83 * R_Poly;
+               dy_e := 0.05 * R_Poly;
+            else
+               dx_e := R_Poly;
+            end if;
+
+         when pentasquare =>
 
             if dp = before then
                dx_e := -0.8 * R_Poly;
@@ -612,21 +621,59 @@ package body Draw_Utils is
                dx_e := -dx_e;
             end if;
 
+         when hexasquare =>
+
+            dx_e := -R_Poly;
+            if dp = after then
+               dx_e := 1.9 * R_Poly;
+               dy_e := -0.55;
+            end if;
+
+         when hexapenta =>
+
+            if dp = after then
+               dx_e := 1.9 * R_Poly;
+               dy_e := -0.2;
+            end if;
+
          when hexahexa =>
 
-            null;
+            if dp = before then
+               dx_e := -2.5 * R_Poly;
+               dy_e := -0.6;
+            end if;
 
          when hepta =>
-            null;
+
+            if dp = before then
+               dx_e := -0.90 * R_Poly;
+               dy_e := 0.45;
+            else
+               dx_e := R_Poly;
+            end if;
 
          when heptaline | heptabend =>
 
-            null;
+            if dp = before then
+               dx_e := -R_Poly;
+            else
+               dx_e := 0.9 * R_Poly;
+               dy_e := 0.45;
+
+            end if;
+
          when heptasquare | heptapenta =>
             null;
 
-         when octa =>
-            null;
+         when octaline =>
+
+            dy_e := 0.4;
+
+            if dp = after then
+               dx_e := 0.95 * R_Poly;
+            else
+               dx_e := -0.95 * R_Poly;
+            end if;
 
          when others =>
             dx_e := 0.0;
