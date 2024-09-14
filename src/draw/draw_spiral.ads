@@ -28,8 +28,8 @@ private
       X, Y :        Gdouble);
 
    procedure Update_Child_Coordinates
-     (Root   : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp : Gdouble; state : Machine_State);
+     (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
+      Xp, Yp      : Gdouble; state : Machine_State);
 
    procedure Update_Element_Coordinates
      (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type);

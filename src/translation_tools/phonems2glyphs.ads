@@ -15,6 +15,7 @@ package Phonems2Glyphs is
    Consonant      : constant Character := 'c';
    Numeral        : constant Character := 'n';
    Word_Separator : constant Character := 's';
+   Starting_Dot   : constant Character := '.';
 
    type GlyphInfo is record
 

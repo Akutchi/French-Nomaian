@@ -190,7 +190,7 @@ package body Phonems2Glyphs is
    begin
 
       Spiral_Model.Append_Child
-        (Spiral, Spiral_Root, ('d', S_U.To_Unbounded_String ("dot_start")));
+        (Spiral, Spiral_Root, ('.', S_U.To_Unbounded_String ("dot_start")));
       --  dot_start because when drawing elements, there's also a "Dot"
       --  function which causes an ambiguity with the GlyphType used to
       --  calculate dx/dy displacement for printing. Also, it litteraly
@@ -313,12 +313,13 @@ package body Phonems2Glyphs is
    procedure Print (Position : Spiral_Model.Cursor) is
 
       Value : constant GlyphInfo := Spiral_Model.Element (Position);
-      Tabs  :
-        constant String (1 .. 2 * Integer (Spiral_Model.Depth (Position))) :=
-        (others => ' ');
+      Len   : constant Positive := Positive (Spiral_Model.Depth (Position));
+      Tabs  : constant String (1 .. 2 * Len) := (others => ' ');
    begin
 
-      IO.Put_Line (Tabs & S_U.To_String (Value.GlyphName));
+      IO.Put_Line
+        (Tabs & S_U.To_String (Value.GlyphName) & "(" &
+         Character'Image (Value.T) & ") : " & Positive'Image (Len));
 
       if not Spiral_Model.Is_Leaf (Position) then
 

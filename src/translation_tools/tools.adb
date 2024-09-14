@@ -19,6 +19,7 @@ package body Tools is
          Spiral : Spiral_Model.Tree := Spiral_Model.Empty_Tree;
 
       begin
+
          Construct (Spiral, Glyphs);
          return Spiral;
       end;

@@ -43,16 +43,17 @@ package Draw_Utils is
    dy_vn : constant Gdouble := 3.5;
 
    function Is_CX
-     (E : P2G.GlyphInfo; Child_Type, X : Character) return Boolean;
+     (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
 
    function Is_SX
-     (E : P2G.GlyphInfo; Child_Type, X : Character) return Boolean;
+     (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
 
-   function Is_CS_V
-     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean;
+   function Is_DX
+     (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
 
-   function Is_CS_N
-     (Parent : P2G.GlyphInfo; Element : P2G.GlyphInfo) return Boolean;
+   function Is_CS_V (Parent, Child : P2G.GlyphInfo) return Boolean;
+
+   function Is_CS_N (Parent, Child : P2G.GlyphInfo) return Boolean;
 
    function Is_Start_Dot (E : P2G.GlyphInfo) return Boolean;
 
@@ -66,10 +67,10 @@ package Draw_Utils is
      (Root : P2G.Spiral_Model.Cursor; Root_GlyphName : String) return Boolean;
 
    procedure Get_Displacement_For_Branch
-     (Element  : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
-      Is_Child : Boolean);
+     (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
+      Is_Vowel, Is_Numeral : Boolean);
 
-   procedure Draw_Branch_If_VN
+   procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
       Xc, Yc, Xp, Yp : Gdouble);
 

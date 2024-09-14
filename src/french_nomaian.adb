@@ -35,16 +35,14 @@ begin
 
    Sentence   := S2P.Get_Raw_Sentence;
    Spiral     := Tools.To_Spiral_Model (Sentence, dict, LM);
-   Root_Child :=
-     P2G.Spiral_Model.First_Child
-       (P2G.Spiral_Model.First_Child (P2G.Spiral_Model.Root (Spiral)));
+   Root_Child := P2G.Spiral_Model.First_Child (P2G.Spiral_Model.Root (Spiral));
 
    declare
 
       Tree_Length : constant Float := P2G.Depth (Root_Child, LM);
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
-        C_SVG.Create (Locations.SVG_FILE, 5.0 * Gdouble (Tree_Length), 13.0);
+        C_SVG.Create (Locations.SVG_FILE, 60.0 * Gdouble (Tree_Length), 20.0);
 
       Ctx : Cairo.Cairo_Context := Cairo.Create (SVG_Surface);
 
