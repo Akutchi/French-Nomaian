@@ -53,17 +53,25 @@ package body Draw_Glyphs is
    ------------------------
 
    procedure Line_Between_Words
-     (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble)
+     (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
+      Xc, Yc, Xp, Yp :        Gdouble)
    is
+
+      dx_Parent, dx_Child : Gdouble := 0.0;
+      dy_Parent, dy_Child : Gdouble := 0.0;
+
    begin
 
-      Dot (Ctx, X, Y);
+      Get_Displacement_For_Line (Parent, dx_Parent, dy_Parent, after);
+      Get_Displacement_For_Line (Child, dx_Child, dy_Child, before);
 
-      Cairo.Move_To (Ctx, X, Y);
-      Cairo.Line_To (Ctx, X + Line_Words_R_Poly, Y);
+      Dot (Ctx, Xp + dx_Parent, Yp + dy_Parent);
+
+      Cairo.Move_To (Ctx, Xp + dx_Parent, Yp + dy_Parent);
+      Cairo.Line_To (Ctx, Xc + dx_Child, Yc + dy_Child);
       Cairo.Stroke (Ctx);
 
-      Dot (Ctx, X + Line_Words_R_Poly, Y);
+      Dot (Ctx, Xc + dx_Child, Yc + dy_Child);
 
    end Line_Between_Words;
 

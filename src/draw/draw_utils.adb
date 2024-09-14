@@ -1,5 +1,4 @@
 with Ada.Numerics.Generic_Elementary_Functions;
-with Ada.Containers; use Ada.Containers;
 
 package body Draw_Utils is
 
@@ -177,6 +176,15 @@ package body Draw_Utils is
                   return 2.5 * R_Poly;
             end case;
 
+         when hepta =>
+
+            case dp is
+               when before =>
+                  return R_Poly;
+               when after =>
+                  return 0.9 * R_Poly;
+            end case;
+
          when heptahexa =>
             return 0.0;
 
@@ -212,15 +220,6 @@ package body Draw_Utils is
 
       case GlyphRep'Value (GN_String) is
 
-         when bend =>
-
-            case dp is
-               when before =>
-                  return R_Poly;
-               when after =>
-                  return 0.0;
-            end case;
-
          when linedotline =>
 
             case dp is
@@ -234,7 +233,7 @@ package body Draw_Utils is
 
             case dp is
                when before =>
-                  return -0.7 * R_Poly;
+                  return 0.7 * R_Poly;
                when after =>
                   return 0.0;
             end case;
@@ -335,13 +334,33 @@ package body Draw_Utils is
       end case;
 
    end dy;
+
+   function Offset (Element : P2G.GlyphInfo) return Gdouble is
+
+      de : Gdouble := 1.5 * R_Poly;
+   begin
+
+      case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
+
+         when hexasquare | hexapenta | heptasquare | heptapenta =>
+            return de + 5.0 * R_Poly;
+
+         when others =>
+            return de;
+      end case;
+
+   end Offset;
+
    -------------------------------
    -- Need_Line_Between_Phonems --
    -------------------------------
 
    function Need_Line_Between_Phonems
-     (Root : P2G.Spiral_Model.Cursor; Root_GlyphName : String) return Boolean
+     (Root, Child : P2G.Spiral_Model.Cursor) return Boolean
    is
+      Root_GlyphName : constant String :=
+        S_U.To_String (P2G.Spiral_Model.Element (Root).GlyphName);
+
       Is_Start_Word : constant Boolean :=
         GlyphRep'Value (Root_GlyphName) = linedotline;
 
@@ -353,13 +372,7 @@ package body Draw_Utils is
 
          declare
 
-            --  If element has a vowel it will trigger a line even if 2nd child
-            --  is a word-separator.
-            Child : constant P2G.Spiral_Model.Cursor :=
-              (if P2G.Spiral_Model.Child_Count (Root) > 1 then
-                 P2G.Spiral_Model.Next_Sibling
-                   (P2G.Spiral_Model.First_Child (Root))
-               else P2G.Spiral_Model.First_Child (Root));
+            E_Root : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
 
             E_Child : constant P2G.GlyphInfo :=
               P2G.Spiral_Model.Element (Child);
@@ -371,7 +384,10 @@ package body Draw_Utils is
               GlyphRep'Value (Child_GlyphName) = linedotline;
 
          begin
-            return not (Is_Start_Word or else Is_End_Word);
+            return
+              not
+              (Is_Start_Word or else Is_CS_V (E_Root, E_Child)
+               or else Is_CS_N (E_Root, E_Child) or else Is_End_Word);
          end;
       end if;
 
@@ -379,9 +395,9 @@ package body Draw_Utils is
 
    end Need_Line_Between_Phonems;
 
-   ----------------------
-   -- Get_Displacement --
-   ----------------------
+   ---------------------------------
+   -- Get_Displacement_For_Branch --
+   ---------------------------------
 
    procedure Get_Displacement_For_Branch
      (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
@@ -400,6 +416,10 @@ package body Draw_Utils is
                r     := 1.2 * R_Poly;
                theta := 2.0;
             end if;
+
+         when linedotline =>
+            r     := -R_Poly;
+            theta := -0.23;
 
          when square =>
             theta := PI_2;
@@ -502,6 +522,119 @@ package body Draw_Utils is
       dy_e := -r * Sin (theta);
 
    end Get_Displacement_For_Branch;
+
+   -------------------------------
+   -- Get_Displacement_For_Line --
+   -------------------------------
+
+   procedure Get_Displacement_For_Line
+     (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type)
+   is
+   begin
+
+      dx_e := 0.0;
+      dy_e := 0.0;
+
+      case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
+
+         when line =>
+
+            if dp = after then
+               dx_e := Line_Glyph_R_Poly;
+            end if;
+
+         when bend =>
+
+            if dp = before then
+               dx_e := R_Poly_2;
+               dy_e := -R_Poly;
+            else
+               dx_e := 2.0 * R_Poly;
+               dy_e := 0.0;
+
+            end if;
+
+         when square | hexa | hexasquare | hexapenta =>
+
+            dx_e := -R_Poly;
+            if dp = after then
+               dx_e := -dx_e;
+            end if;
+
+         when squareline | squarebend =>
+
+            if dp = before then
+               dx_e := -1.4 * R_Poly_2;
+            else
+               dx_e := 1.4 * R_Poly_2;
+               dy_e := 0.7 * R_Poly;
+            end if;
+
+         when squaresquare =>
+
+            dx_e := -R_Poly;
+
+            if dp = after then
+               dx_e := dx_e + 3.0 * R_Poly;
+            end if;
+
+         when penta | pentasquare =>
+
+            if dp = before then
+               dx_e := -0.8 * R_Poly;
+               dy_e := 0.6 * R_Poly;
+            else
+               dx_e := R_Poly;
+            end if;
+
+         when pentaline | pentabend =>
+
+            if dp = before then
+               dx_e := -R_Poly;
+            else
+               dx_e := 0.78 * R_Poly;
+            end if;
+
+         when pentapenta =>
+
+            if dp = before then
+               dx_e := -2.5 * R_Poly;
+            else
+               dx_e := R_Poly;
+            end if;
+
+         when hexaline | hexabend =>
+
+            dx_e := -0.9 * R_Poly;
+            dy_e := 0.5 * R_Poly;
+
+            if dp = after then
+               dx_e := -dx_e;
+            end if;
+
+         when hexahexa =>
+
+            null;
+
+         when hepta =>
+            null;
+
+         when heptaline | heptabend =>
+
+            null;
+         when heptasquare | heptapenta =>
+            null;
+
+         when octa =>
+            null;
+
+         when others =>
+            dx_e := 0.0;
+            dy_e := 0.0;
+
+      end case;
+
+   end Get_Displacement_For_Line;
 
    -----------------
    -- Draw_Branch --

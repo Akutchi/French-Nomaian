@@ -40,7 +40,7 @@ package Draw_Utils is
    Offset_Leaf   : constant Gdouble := 0.5 * R_Poly;
    Offset_Branch : constant Gdouble := 1.5 * R_Poly;
 
-   dy_vn : constant Gdouble := 3.5;
+   dy_vn : constant Gdouble := 5.0;
 
    function Is_CX
      (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
@@ -63,15 +63,22 @@ package Draw_Utils is
    function dy
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble;
 
-   function Need_Line_Between_Phonems
-     (Root : P2G.Spiral_Model.Cursor; Root_GlyphName : String) return Boolean;
+   function Offset (Element : P2G.GlyphInfo) return Gdouble;
 
-   procedure Get_Displacement_For_Branch
-     (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
-      Is_Vowel, Is_Numeral : Boolean);
+   function Need_Line_Between_Phonems
+     (Root, Child : P2G.Spiral_Model.Cursor) return Boolean;
+
+   procedure Get_Displacement_For_Line
+     (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
 
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
       Xc, Yc, Xp, Yp : Gdouble);
+
+private
+
+   procedure Get_Displacement_For_Branch
+     (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
+      Is_Vowel, Is_Numeral : Boolean);
 
 end Draw_Utils;

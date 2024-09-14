@@ -42,7 +42,7 @@ begin
       Tree_Length : constant Float := P2G.Depth (Root_Child, LM);
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
-        C_SVG.Create (Locations.SVG_FILE, 60.0 * Gdouble (Tree_Length), 20.0);
+        C_SVG.Create (Locations.SVG_FILE, 20.0 * Gdouble (Tree_Length), 25.0);
 
       Ctx : Cairo.Cairo_Context := Cairo.Create (SVG_Surface);
 
@@ -51,7 +51,7 @@ begin
    begin
 
       DS.Background (Ctx);
-      DS.Draw_Unrolled_Spiral (Ctx, Root_Child, 5.0, 6.0, state);
+      DS.Draw_Unrolled_Spiral (Ctx, Root_Child, 5.0, 9.0, state);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

@@ -4,8 +4,6 @@ with Ada.Containers; use Ada.Containers;
 
 with Draw_Glyphs;
 
-with Ada.Text_IO;
-
 package body Draw_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
@@ -96,10 +94,6 @@ package body Draw_Spiral is
 
       end case;
 
-      if Need_Line_Between_Phonems (Root, GN_String_Root) then
-         DG.Line_Between_Words (Ctx, X + dx (Root_Elem.GlyphName, before), Y);
-      end if;
-
    end Draw_Spiral_Element;
 
    ---------------
@@ -126,16 +120,18 @@ package body Draw_Spiral is
          Parent := P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
 
          if Is_CS_V (Parent, Element) then
-            state.Xv := Xp + dx (Element.GlyphName, before) + 1.5 * R_Poly;
+            state.Xv := Xp + dx (Element.GlyphName, before) + Offset (Element);
 
          elsif Is_CS_N (Parent, Element) then
-            state.Xn := Xp + dx (Element.GlyphName, before) + 1.5 * R_Poly;
+            state.Xn := Xp + dx (Element.GlyphName, before) + Offset (Element);
 
          elsif Is_V then
-            state.Xv := state.Xv + dx (Element.GlyphName, before);
+            state.Xv :=
+              state.Xv + dx (Element.GlyphName, before) + Offset (Element);
 
          elsif Is_N then
-            state.Xn := state.Xn + dx (Element.GlyphName, before);
+            state.Xn :=
+              state.Xn + dx (Element.GlyphName, before) + Offset (Element);
 
          end if;
 
@@ -207,6 +203,7 @@ package body Draw_Spiral is
      (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type)
    is
    begin
+      null;
       Yp := Yp + dy (Parent_Elem.GlyphName, dtype);
    end Update_Element_Coordinates;
 
@@ -297,10 +294,16 @@ package body Draw_Spiral is
               (Root, Current_Child, Xc, Yc, Xp, Yp, state);
 
             Child_Elem := P2G.Spiral_Model.Element (Current_Child);
+
             Draw_Branch (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
 
             Restore_To_Parent_Coordinates_If_CS
               (Root, Current_Child, Xc, Yc, Xp, Yp);
+
+            if Need_Line_Between_Phonems (Root, Current_Child) then
+               DG.Line_Between_Words
+                 (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
+            end if;
 
             Draw_Unrolled_Spiral (Ctx, Current_Child, Xc, Yc, state);
 
