@@ -13,6 +13,9 @@ package Draw_Spiral is
 
       Xv : Gdouble := 0.0;
       Xn : Gdouble := 0.0;
+
+      Increment : Gdouble;
+
    end record;
 
    procedure Background (Ctx : in out Cairo.Cairo_Context);
@@ -20,6 +23,9 @@ package Draw_Spiral is
    procedure Draw_Unrolled_Spiral
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       X, Y :        Gdouble; state : in out Machine_State);
+
+   procedure Draw_Base_Spiral
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble);
 
 private
 

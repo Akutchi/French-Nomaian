@@ -683,6 +683,21 @@ package body Draw_Utils is
 
    end Get_Displacement_For_Line;
 
+   procedure Transform (X, Y : in out Gdouble) is
+
+      a   : constant Gdouble := 15.0;
+      Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
+
+      theta : constant Gdouble := a * Arctan (Y / X);
+
+      Xb, Yb : constant Gdouble := 50.0;
+   begin
+
+      X := Xb + Phi**(2.0 * theta / PI) * Cos (theta);
+      Y := Yb + Phi**(2.0 * theta / PI) * Sin (theta);
+
+   end Transform;
+
    -----------------
    -- Draw_Branch --
    -----------------
@@ -698,6 +713,9 @@ package body Draw_Utils is
       Is_Vowel   : constant Boolean := Child.T = P2G.Vowel;
       Is_Numeral : constant Boolean := Child.T = P2G.Numeral;
 
+      Xp_t, Yp_t : Gdouble;
+      Xc_t, Yc_t : Gdouble;
+
    begin
 
       if Is_CS_V (Parent, Child) or else Is_DX (Parent, Child, P2G.Vowel)
@@ -709,8 +727,17 @@ package body Draw_Utils is
          Get_Displacement_For_Branch
            (Child, dx_child, dy_child, Is_Vowel, Is_Numeral);
 
-         Cairo.Move_To (Ctx, Xp + dx_root, Yp + dy_root);
-         Cairo.Line_To (Ctx, Xc + dx_child, Yc + dy_child);
+         Xp_t := Xp + dx_root;
+         Yp_t := Yp + dy_root;
+
+         Xc_t := Xc + dx_child;
+         Yc_t := Yc + dy_child;
+
+         Transform (Xp_t, Yp_t);
+         Transform (Xc_t, Yc_t);
+
+         Cairo.Move_To (Ctx, Xp_t, Yp_t);
+         Cairo.Line_To (Ctx, Xc_t, Yc_t);
          Cairo.Stroke (Ctx);
 
       end if;

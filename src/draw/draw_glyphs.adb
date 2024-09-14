@@ -60,18 +60,30 @@ package body Draw_Glyphs is
       dx_Parent, dx_Child : Gdouble := 0.0;
       dy_Parent, dy_Child : Gdouble := 0.0;
 
+      Xp_t, Yp_t : Gdouble;
+      Xc_t, Yc_t : Gdouble;
+
    begin
 
       Get_Displacement_For_Line (Parent, dx_Parent, dy_Parent, after);
       Get_Displacement_For_Line (Child, dx_Child, dy_Child, before);
 
-      Dot (Ctx, Xp + dx_Parent, Yp + dy_Parent);
+      Xp_t := Xp + dx_Parent;
+      Yp_t := Yp + dy_Parent;
 
-      Cairo.Move_To (Ctx, Xp + dx_Parent, Yp + dy_Parent);
-      Cairo.Line_To (Ctx, Xc + dx_Child, Yc + dy_Child);
+      Xc_t := Xc + dx_Child;
+      Yc_t := Yc + dy_Child;
+
+      Transform (Xp_t, Yp_t);
+      Transform (Xc_t, Yc_t);
+
+      Dot (Ctx, Xp_t, Yp_t);
+
+      Cairo.Move_To (Ctx, Xp_t, Yp_t);
+      Cairo.Line_To (Ctx, Xc_t, Yc_t);
       Cairo.Stroke (Ctx);
 
-      Dot (Ctx, Xc + dx_Child, Yc + dy_Child);
+      Dot (Ctx, Xc_t, Yc_t);
 
    end Line_Between_Words;
 

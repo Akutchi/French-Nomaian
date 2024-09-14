@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded;
 
 with Ada.Containers; use Ada.Containers;
+with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
 
@@ -9,6 +10,10 @@ package body Draw_Spiral is
    package S_U renames Ada.Strings.Unbounded;
 
    package DG renames Draw_Glyphs;
+
+   package Functions is new Ada.Numerics.Generic_Elementary_Functions
+     (Gdouble);
+   use Functions;
 
    ----------------
    -- Background --
@@ -37,60 +42,65 @@ package body Draw_Spiral is
       Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
       GN_String_Root : constant String := S_U.To_String (Root_Elem.GlyphName);
 
+      X_t : Gdouble := X;
+      Y_t : Gdouble := Y;
+
    begin
+
+      Transform (X_t, Y_t);
 
       case GlyphRep'Value (GN_String_Root) is
 
          when dot_start =>
-            DG.Dot (Ctx, X, Y);
+            DG.Dot (Ctx, X_t, Y_t);
 
          when line =>
-            DG.Line (Ctx, X, Y);
+            DG.Line (Ctx, X_t, Y_t);
 
          when bend =>
-            DG.Bend (Ctx, X, Y);
+            DG.Bend (Ctx, X_t, Y_t);
 
          when linedotline =>
-            DG.Word_Separator (Ctx, X, Y);
+            DG.Word_Separator (Ctx, X_t, Y_t);
 
          when square | penta | hexa | hepta | octa =>
-            DG.Draw_Ngone (Ctx, GN_String_Root, X, Y, False, False);
+            DG.Draw_Ngone (Ctx, GN_String_Root, X_t, Y_t, False, False);
 
          when squareline | pentaline | hexaline | heptaline | octaline =>
-            DG.Draw_Ngone (Ctx, GN_String_Root, X, Y, True, False);
+            DG.Draw_Ngone (Ctx, GN_String_Root, X_t, Y_t, True, False);
 
          when squarebend | pentabend | hexabend | heptabend | octabend =>
-            DG.Draw_Ngone (Ctx, GN_String_Root, X, Y, False, True);
+            DG.Draw_Ngone (Ctx, GN_String_Root, X_t, Y_t, False, True);
 
          when squaresquare =>
-            DG.x2_Square (Ctx, X, Y);
+            DG.x2_Square (Ctx, X_t, Y_t);
 
          when pentapenta =>
-            DG.x2_Penta (Ctx, X, Y);
+            DG.x2_Penta (Ctx, X_t, Y_t);
 
          when hexahexa =>
-            DG.x2_Hexa (Ctx, X, Y);
+            DG.x2_Hexa (Ctx, X_t, Y_t);
 
          when heptahepta =>
-            DG.x2_Penta (Ctx, X, Y);
+            DG.x2_Penta (Ctx, X_t, Y_t);
 
          when pentasquare =>
-            DG.PentaSquare (Ctx, X, Y);
+            DG.PentaSquare (Ctx, X_t, Y_t);
 
          when hexasquare =>
-            DG.HexaSquare (Ctx, X, Y);
+            DG.HexaSquare (Ctx, X_t, Y_t);
 
          when hexapenta =>
-            DG.HexaPenta (Ctx, X, Y);
+            DG.HexaPenta (Ctx, X_t, Y_t);
 
          when heptasquare =>
-            DG.HeptaSquare (Ctx, X, Y);
+            DG.HeptaSquare (Ctx, X_t, Y_t);
 
          when heptapenta =>
-            DG.HeptaPenta (Ctx, X, Y);
+            DG.HeptaPenta (Ctx, X_t, Y_t);
 
          when heptahexa =>
-            DG.HeptaHexa (Ctx, X, Y);
+            DG.HeptaHexa (Ctx, X_t, Y_t);
 
       end case;
 
@@ -318,5 +328,33 @@ package body Draw_Spiral is
       end if;
 
    end Draw_Unrolled_Spiral;
+
+   procedure Draw_Base_Spiral
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble)
+   is
+      N : constant Positive := 10;
+      a : constant Gdouble  := 7.0;
+
+      Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
+   begin
+
+      for I in 1 .. N loop
+         for J in 1 .. N loop
+
+            declare
+               theta : constant Gdouble :=
+                 a * Arctan (Gdouble (J) / Gdouble (I));
+
+               X : constant Gdouble :=
+                 Xb + Phi**(2.0 * theta / PI) * Cos (theta);
+               Y : constant Gdouble :=
+                 Yb + Phi**(2.0 * theta / PI) * Sin (theta);
+            begin
+               DG.Dot (Ctx, X, Y);
+            end;
+         end loop;
+      end loop;
+
+   end Draw_Base_Spiral;
 
 end Draw_Spiral;
