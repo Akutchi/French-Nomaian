@@ -5,6 +5,8 @@ with Draw_Utils; use Draw_Utils;
 
 package Draw_Glyphs is
 
+   procedure Background (Ctx : in out Cairo.Cairo_Context; W, H : Gdouble);
+
    procedure Rotation_Around
      (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble; Angle : Gdouble);
 
@@ -15,7 +17,7 @@ package Draw_Glyphs is
 
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp :        Gdouble; Unrolled : Boolean);
+      Xc, Yc, Xp, Yp :        Gdouble);
 
    procedure Line (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
@@ -59,5 +61,8 @@ package Draw_Glyphs is
    procedure x2_Hexa (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 
    procedure x2_Hepta (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+
+   procedure Choose_Glyph
+     (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble; GN_String : String);
 
 end Draw_Glyphs;

@@ -6,6 +6,21 @@ package body Draw_Glyphs is
      (Gdouble);
    use Functions;
 
+   ----------------
+   -- Background --
+   ----------------
+
+   procedure Background (Ctx : in out Cairo.Cairo_Context; W, H : Gdouble) is
+   begin
+
+      Cairo.Set_Source_Rgb (Ctx, 0.98, 0.92, 0.84);
+      Cairo.Rectangle (Ctx, 0.0, 0.0, W, H);
+      Cairo.Fill (Ctx);
+      Cairo.Set_Source_Rgb (Ctx, 0.06, 0.30, 0.55);
+      Cairo.Set_Line_Width (Ctx, Line_Width);
+
+   end Background;
+
    ---------------------
    -- Rotation_Around --
    ---------------------
@@ -54,28 +69,27 @@ package body Draw_Glyphs is
 
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp :        Gdouble; Unrolled : Boolean)
+      Xc, Yc, Xp, Yp :        Gdouble)
    is
+
+      Xp_t : Gdouble := Xp;
+      Yp_t : Gdouble := Yp;
+      Xc_t : Gdouble := Xc;
+      Yc_t : Gdouble := Yc;
 
       dx_Parent, dx_Child : Gdouble := 0.0;
       dy_Parent, dy_Child : Gdouble := 0.0;
-
-      Xp_t, Yp_t : Gdouble;
-      Xc_t, Yc_t : Gdouble;
 
    begin
 
       Get_Displacement_For_Line (Parent, dx_Parent, dy_Parent, after);
       Get_Displacement_For_Line (Child, dx_Child, dy_Child, before);
 
-      Xp_t := Xp + dx_Parent;
-      Yp_t := Yp + dy_Parent;
+      Xp_t := Xp_t + dx_Parent;
+      Yp_t := Yp_t + dy_Parent;
 
-      Xc_t := Xc + dx_Child;
-      Yc_t := Yc + dy_Child;
-
-      Transform (Xp_t, Yp_t, No => not Unrolled);
-      Transform (Xc_t, Yc_t, No => not Unrolled);
+      Xc_t := Xc_t + dx_Child;
+      Yc_t := Yc_t + dy_Child;
 
       Dot (Ctx, Xp_t, Yp_t);
 
@@ -418,5 +432,71 @@ package body Draw_Glyphs is
       Rotation_Around (Ctx, X, Y, -2.93 * TWO_PI);
 
    end x2_Hepta;
+
+   ------------------
+   -- Choose_Glyph --
+   ------------------
+
+   procedure Choose_Glyph
+     (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble; GN_String : String)
+   is
+   begin
+
+      case GlyphRep'Value (GN_String) is
+
+         when dot_start =>
+            Dot (Ctx, X, Y);
+
+         when line =>
+            Line (Ctx, X, Y);
+
+         when bend =>
+            Bend (Ctx, X, Y);
+
+         when linedotline =>
+            Word_Separator (Ctx, X, Y);
+
+         when square | penta | hexa | hepta | octa =>
+            Draw_Ngone (Ctx, GN_String, X, Y, False, False);
+
+         when squareline | pentaline | hexaline | heptaline | octaline =>
+            Draw_Ngone (Ctx, GN_String, X, Y, True, False);
+
+         when squarebend | pentabend | hexabend | heptabend | octabend =>
+            Draw_Ngone (Ctx, GN_String, X, Y, False, True);
+
+         when squaresquare =>
+            x2_Square (Ctx, X, Y);
+
+         when pentapenta =>
+            x2_Penta (Ctx, X, Y);
+
+         when hexahexa =>
+            x2_Hexa (Ctx, X, Y);
+
+         when heptahepta =>
+            x2_Penta (Ctx, X, Y);
+
+         when pentasquare =>
+            PentaSquare (Ctx, X, Y);
+
+         when hexasquare =>
+            HexaSquare (Ctx, X, Y);
+
+         when hexapenta =>
+            HexaPenta (Ctx, X, Y);
+
+         when heptasquare =>
+            HeptaSquare (Ctx, X, Y);
+
+         when heptapenta =>
+            HeptaPenta (Ctx, X, Y);
+
+         when heptahexa =>
+            HeptaHexa (Ctx, X, Y);
+
+      end case;
+
+   end Choose_Glyph;
 
 end Draw_Glyphs;

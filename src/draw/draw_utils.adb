@@ -683,20 +683,37 @@ package body Draw_Utils is
 
    end Get_Displacement_For_Line;
 
-   procedure Transform (X, Y : in out Gdouble; No : Boolean) is
+   function Sigmoid (x, a : Gdouble) return Gdouble is
+   begin
+      return 1.0 / (1.0 + Exp (a - 0.01 * x));
+   end Sigmoid;
 
-      a   : constant Gdouble := 15.0;
+   ---------------
+   -- Transform --
+   ---------------
+
+   procedure Transform
+     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; Di, theta : Gdouble)
+   is
+      Xb : constant Gdouble := 100.0;
+      Yb : constant Gdouble := 100.0;
+
       Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
+      a   : constant Gdouble := 5.0;
+      r   : constant Gdouble := a * Phi**(2.0 * theta / PI);
 
-      theta : constant Gdouble := a * Arctan (Y / X);
+      Spiral_Side : constant Gdouble :=
+        (if Element.T = P2G.Vowel then 5.0
+         elsif Element.T = P2G.Numeral then -5.0 else 1.0);
 
-      Xb, Yb : constant Gdouble := 50.0;
+      Shift : constant Gdouble :=
+        (if Element.T = P2G.Vowel or else Element.T = P2G.Numeral then 1.0
+         else 0.0);
+
    begin
 
-      if not No then
-         X := Xb + Phi**(2.0 * theta / PI) * Cos (theta);
-         Y := Yb + Phi**(2.0 * theta / PI) * Sin (theta);
-      end if;
+      X := Xb + r * Cos (theta) + Shift;
+      Y := Yb - r * Sin (theta) + Spiral_Side;
 
    end Transform;
 
@@ -706,17 +723,19 @@ package body Draw_Utils is
 
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble; Is_Unrolled : Boolean)
+      Xc, Yc, Xp, Yp : Gdouble)
    is
+
+      Xp_t : Gdouble := Xp;
+      Yp_t : Gdouble := Yp;
+      Xc_t : Gdouble := Xc;
+      Yc_t : Gdouble := Yc;
 
       dx_root, dy_root   : Gdouble := 0.0;
       dx_child, dy_child : Gdouble := 0.0;
 
       Is_Vowel   : constant Boolean := Child.T = P2G.Vowel;
       Is_Numeral : constant Boolean := Child.T = P2G.Numeral;
-
-      Xp_t, Yp_t : Gdouble;
-      Xc_t, Yc_t : Gdouble;
 
    begin
 
@@ -729,14 +748,11 @@ package body Draw_Utils is
          Get_Displacement_For_Branch
            (Child, dx_child, dy_child, Is_Vowel, Is_Numeral);
 
-         Xp_t := Xp + dx_root;
-         Yp_t := Yp + dy_root;
+         Xp_t := Xp_t + dx_root;
+         Yp_t := Yp_t + dy_root;
 
-         Xc_t := Xc + dx_child;
-         Yc_t := Yc + dy_child;
-
-         Transform (Xp_t, Yp_t, No => not Is_Unrolled);
-         Transform (Xc_t, Yc_t, No => not Is_Unrolled);
+         Xc_t := Xc_t + dx_child;
+         Yc_t := Yc_t + dy_child;
 
          Cairo.Move_To (Ctx, Xp_t, Yp_t);
          Cairo.Line_To (Ctx, Xc_t, Yc_t);

@@ -42,6 +42,9 @@ package Draw_Utils is
 
    dy_vn : constant Gdouble := 5.0;
 
+   procedure Transform
+     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; Di, theta : Gdouble);
+
    function Is_CX
      (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
 
@@ -71,11 +74,9 @@ package Draw_Utils is
    procedure Get_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
 
-   procedure Transform (X, Y : in out Gdouble; No : Boolean);
-
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble; Is_Unrolled : Boolean);
+      Xc, Yc, Xp, Yp : Gdouble);
 
 private
 

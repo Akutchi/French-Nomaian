@@ -4,11 +4,16 @@ with Cairo;
 with Cairo.Surface;
 with Cairo.SVG;
 
+with Glib; use Glib;
+
 with Locations;
 with Sentence2Phonems;
 with Phonems2Glyphs;
 with Tools;
+with Draw_Glyphs;
 with Draw_Spiral;
+
+with Draw_Utils; use Draw_Utils;
 
 procedure French_Nomaian is
 
@@ -17,6 +22,7 @@ procedure French_Nomaian is
    package C_SVG renames Cairo.SVG;
    package S2P renames Sentence2Phonems;
    package P2G renames Phonems2Glyphs;
+   package DG renames Draw_Glyphs;
    package DS renames Draw_Spiral;
 
    Sentence   : S_WU.Unbounded_Wide_String;
@@ -37,10 +43,11 @@ begin
 
    declare
 
-      Tree_Length : constant Float := P2G.Depth (Root_Child, LM);
+      W : constant Gdouble := 200.0;
+      H : constant Gdouble := 200.0;
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
-        C_SVG.Create (Locations.SVG_FILE, 150.0, 150.0);
+        C_SVG.Create (Locations.SVG_FILE, W, H);
 
       Ctx : Cairo.Cairo_Context := Cairo.Create (SVG_Surface);
 
@@ -48,9 +55,11 @@ begin
 
    begin
 
-      DS.Background (Ctx);
-      DS.Draw_Spiral
-        (Ctx, Root_Child, 50.0, 50.0, state, Is_Unrolled => False);
+      state.theta     := TWO_PI;
+      state.Increment := TWO_PI / Gdouble (P2G.Depth (Root_Child, LM));
+
+      DG.Background (Ctx, W, H);
+      DS.Draw_Spiral (Ctx, Root_Child, state);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);
