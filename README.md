@@ -35,3 +35,14 @@ What I will be taking from each project is as following :
 I will also keep the way of translating using phonems.
 - evanfields : I will keep the way of creating the spiral and the "3-way" method of the GlyphGrid for organizing information.
 
+Lesson for me :
+- Start your project with a simple example - a model of sorts - whenever possible.
+Here, I could have started with the model (the draw_fibionnaci_spiral function),
+so that I could know what to implement next in a more complex environement.
+
+- Also, as one of my partner once said - was she quoting from someone ? I don't
+remember that much - "Everything's first day is terrible". Refactor only when
+you have a working example **and** that you have commited previous draft work.
+Do not do the inverse process of wanting to optimize everything first, which is
+a tendenccy I have.
+
