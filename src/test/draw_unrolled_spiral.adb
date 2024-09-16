@@ -256,7 +256,20 @@ package body Draw_Unrolled_Spiral is
 
    end Draw_Unrolled_Spiral;
 
-   function ln_smooth
+   ---------------------
+   -- Linearize_Scale --
+   ---------------------
+
+   function Linearize_Scale (x, N : Gdouble) return Gdouble is
+   begin
+      return (1.0 / (N - 1.0)) * (N - 0.5 * (x + 1.0));
+   end Linearize_Scale;
+
+   ---------------
+   -- Ln_Smooth --
+   ---------------
+
+   function Ln_Smooth
      (x : Gdouble; Is_Derived : Boolean := False) return Gdouble
    is
 
@@ -271,14 +284,18 @@ package body Draw_Unrolled_Spiral is
          return s * (Log (e_d, x_t) - 1.0) / (Log (e_d, x_t)**2);
       end if;
 
-   end ln_smooth;
+   end Ln_Smooth;
 
-   function f_angle
-     (x, k, a, N : Gdouble; Is_Derived : Boolean := False) return Gdouble
+   ---------------------
+   -- Linearize_Angle --
+   ---------------------
+
+   function Linearize_Angle
+     (x, N, a, k : Gdouble; Is_Derived : Boolean := False) return Gdouble
    is
 
-      m : constant Gdouble := a * (1.0 - k) / (N - 1.0);
-      p : constant Gdouble := a * (N * k - 1.0) / (N - 1.0);
+      m : constant Gdouble := k * (1.0 - a) / (N - 1.0);
+      p : constant Gdouble := k * (N * a - 1.0) / (N - 1.0);
 
    begin
 
@@ -288,34 +305,52 @@ package body Draw_Unrolled_Spiral is
          return m;
       end if;
 
-   end f_angle;
+   end Linearize_Angle;
 
-   function f_scale (x, N : Gdouble) return Gdouble is
-   begin
-      return (1.0 / (N - 1.0)) * (N - 0.5 * (x + 1.0));
-   end f_scale;
+   -----------
+   -- theta --
+   -----------
 
-   function theta (Start_Angle, I_d, a, k, N_d : Gdouble) return Gdouble is
+   function theta (I, N, Start_Angle, a, k : Gdouble) return Gdouble is
    begin
-      return Start_Angle - ln_smooth (N_d) * f_angle (I_d, a, k, N_d);
+      return Start_Angle - Ln_Smooth (N) * Linearize_Angle (I, N, a, k);
    end theta;
 
-   function theta_prime (x, k, a, N_d : Gdouble) return Gdouble is
+   ------------
+   -- radius --
+   ------------
+
+   function radius (theta_var : Gdouble) return Gdouble is
+   begin
+      return Phi**(2.0 * theta_var / PI);
+   end radius;
+
+   -----------------
+   -- theta_prime --
+   -----------------
+
+   function theta_prime (I, N, a, k : Gdouble) return Gdouble is
 
       lt : constant Gdouble :=
-        ln_smooth (x, Is_Derived => True) * f_angle (x, k, a, N_d);
+        Ln_Smooth (I, Is_Derived => True) * Linearize_Angle (I, N, a, k);
 
       rt : constant Gdouble :=
-        ln_smooth (x) * f_angle (x, k, a, N_d, Is_Derived => True);
+        Ln_Smooth (I) * Linearize_Angle (I, N, a, k, Is_Derived => True);
 
    begin
       return -(lt + rt);
 
    end theta_prime;
 
-   function radius_prime (x, k, a, N_d : Gdouble) return Gdouble is
+   ------------------
+   -- radius_prime --
+   ------------------
+
+   function radius_prime (I, N, Start_Angle, a, k : Gdouble) return Gdouble is
    begin
-      return (2.0 * Log (e_d, Phi) / PI) * theta_prime (x, k, a, N_d);
+      return
+        (2.0 * Log (e_d, Phi) / PI) * theta (I, N, Start_Angle, a, k) *
+        theta_prime (I, N, a, k);
    end radius_prime;
 
    ----------------------------
@@ -340,43 +375,43 @@ package body Draw_Unrolled_Spiral is
 
             I_d : constant Gdouble := Gdouble (I);
 
-            a            : constant Gdouble := 1.0 - TWO_PI;
-            k            : constant Gdouble := 0.4;
-            branch_scale : constant Gdouble := 1.0 + abs (N_d - 20.0) / N_d;
+            a : constant Gdouble := 1.0 - TWO_PI;
+            k : constant Gdouble := 0.4;
 
             theta_var : constant Gdouble :=
-              theta (Start_Angle, I_d, a, k, N_d);
+              theta (I_d, N_d, Start_Angle, a, k);
 
-            X, Y   : Gdouble;
-            dx, dy : Gdouble := 0.0;
+            X, Y        : Gdouble;
+            dr, d_theta : Gdouble := 0.0;
 
-            eps    : constant Gdouble := 0.01;
-            grad_x : Gdouble          := theta_prime (I_d, k, a, N_d);
-            grad_y : Gdouble          := radius_prime (I_d, k, a, N_d);
+            eps        : constant Gdouble := 2.0;
+            grad_r     : constant Gdouble :=
+              radius_prime (I_d, N_d, Start_Angle, a, k);
+            grad_theta : constant Gdouble := theta_prime (I_d, N_d, a, k);
          begin
 
             if I mod 3 = 0 and then not (I = 21) then
                Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
 
-               dx := dx / branch_scale;
-               dy := dy / branch_scale;
+               dr      := eps * grad_r;
+               d_theta := eps * grad_theta;
 
             elsif I mod 7 = 0 then
                Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
 
-               dx := dx * branch_scale;
-               dy := dy * branch_scale;
+               dr      := -eps * grad_r;
+               d_theta := -eps * grad_theta;
 
             end if;
 
-            X := Xb + Phi**(2.0 * theta_var / PI) * Cos (theta_var);
-            Y := Yb - Phi**(2.0 * theta_var / PI) * Sin (theta_var);
+            X := Xb + (radius (theta_var) + dr) * Cos (theta_var + d_theta);
+            Y := Yb - (radius (theta_var) + dr) * Sin (theta_var + d_theta);
 
             DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
             DG.Ngone (Ctx, X, Y, 8);
             DG.Scaling_Around (Ctx, X, Y, 1.0 / Sx, 1.0 / Sx);
 
-            Sx := f_scale (I_d, N_d);
+            Sx := Linearize_Scale (I_d, N_d);
 
          end;
       end loop;
