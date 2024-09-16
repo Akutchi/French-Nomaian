@@ -14,9 +14,7 @@ with Tools;
 with Draw_Glyphs;
 with Draw_Spiral;
 
-with Draw_Unrolled_Spiral;
-
-with Draw_Utils; use Draw_Utils;
+with Math_Constants; use Math_Constants;
 
 procedure French_Nomaian is
 
@@ -77,8 +75,7 @@ begin
       --  DS.Draw_Spiral (Ctx, Root_Child, state);
       DG.Rotation_Around (Ctx, W / 2.0, W / 2.0, PI_2);
 
-      Draw_Unrolled_Spiral.Draw_Fibionnaci_Spiral
-        (Ctx, W / 2.0, W / 2.0, Start_Angle, Depth_N);
+      DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, W / 2.0, Start_Angle, Depth_N);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

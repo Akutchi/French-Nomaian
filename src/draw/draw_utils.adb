@@ -1,3 +1,5 @@
+with Math_Constants; use Math_Constants;
+
 package body Draw_Utils is
 
    -----------

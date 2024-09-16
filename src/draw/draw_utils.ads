@@ -26,19 +26,6 @@ package Draw_Utils is
 
    type dpos_Type is (before, after);
 
-   Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
-
-   e_d : constant Gdouble := Gdouble (Ada.Numerics.e);
-
-   PI     : constant Gdouble := Gdouble (Ada.Numerics.Pi);
-   TWO_PI : constant Gdouble := 2.0 * PI;
-   PI_2   : constant Gdouble := PI / 2.0;
-   PI_3   : constant Gdouble := PI / 3.0;
-   PI_4   : constant Gdouble := PI / 4.0;
-   PI_5   : constant Gdouble := PI / 5.0;
-   PI_6   : constant Gdouble := PI / 6.0;
-   PI_7   : constant Gdouble := PI / 7.0;
-
    R_Poly     : constant Gdouble := 0.5;
    Line_Width : constant Gdouble := 0.1 * R_Poly;
    R_Dot      : constant Gdouble := 0.2 * R_Poly;

@@ -1,5 +1,7 @@
 with Ada.Numerics.Generic_Elementary_Functions;
 
+with Math_Constants; use Math_Constants;
+
 package body Draw_Glyphs is
 
    package Functions is new Ada.Numerics.Generic_Elementary_Functions

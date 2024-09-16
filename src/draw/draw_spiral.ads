@@ -21,6 +21,10 @@ package Draw_Spiral is
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       state : in out Machine_State);
 
+   procedure Draw_Fibionnaci_Spiral
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
+      N   :        Positive);
+
 private
 
    procedure Transform

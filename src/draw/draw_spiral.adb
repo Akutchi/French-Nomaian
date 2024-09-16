@@ -4,7 +4,9 @@ with Ada.Containers; use Ada.Containers;
 with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
-with Draw_Utils; use Draw_Utils;
+
+with Math;           use Math;
+with Math_Constants; use Math_Constants;
 
 package body Draw_Spiral is
 
@@ -15,15 +17,6 @@ package body Draw_Spiral is
    use Functions;
 
    package DG renames Draw_Glyphs;
-
-   -------------
-   -- Sigmoid --
-   -------------
-
-   function Sigmoid (x, a : Gdouble) return Gdouble is
-   begin
-      return 1.0 / (1.0 + Exp (a - x));
-   end Sigmoid;
 
    ---------------
    -- Transform --
@@ -111,11 +104,10 @@ package body Draw_Spiral is
 
       Current_Child : P2G.Spiral_Model.Cursor;
 
-      Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      Child_Elem : P2G.GlyphInfo;
+      Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      --  Child_Elem : P2G.GlyphInfo;
 
-      X_t, Y_t : Gdouble;
-      Depth_i  : constant Gdouble := Gdouble (P2G.Depth (Root, state.LM));
+      X_t, Y_t : Gdouble := 0.0;
 
       theta_Parent : constant Gdouble := state.theta;
       I            : Positive         := 1;
@@ -131,7 +123,8 @@ package body Draw_Spiral is
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
 
             state.theta := state.theta - state.Increment;
-            Child_Elem  := P2G.Spiral_Model.Element (Current_Child);
+
+            --  Child_Elem  := P2G.Spiral_Model.Element (Current_Child);
 
             --  Draw_Branch
             --    (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
@@ -160,5 +153,72 @@ package body Draw_Spiral is
       end if;
 
    end Draw_Spiral;
+
+   ----------------------------
+   -- Draw_Fibionnaci_Spiral --
+   ----------------------------
+
+   procedure Draw_Fibionnaci_Spiral
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
+      N   :        Positive)
+   is
+      Sx  : Gdouble          := 1.0;
+      N_d : constant Gdouble := Gdouble (N);
+
+   begin
+
+      for I in 1 .. N loop
+
+         Cairo.Set_Source_Rgb
+           (Ctx, 1.0 / Gdouble (I), 1.0 / Gdouble (I), 1.0 / Gdouble (I));
+
+         declare
+
+            I_d : constant Gdouble := Gdouble (I);
+
+            k         : constant Gdouble := 0.4;
+            end_space : constant Gdouble := 1.0 - TWO_PI;
+
+            theta_var : constant Gdouble :=
+              theta (I_d, N_d, Start_Angle, a, k);
+
+            X, Y        : Gdouble;
+            dr, d_theta : Gdouble := 0.0;
+
+            eps        : constant Gdouble := 2.0;
+            grad_r     : constant Gdouble :=
+              radius_prime (I_d, N_d, Start_Angle, end_space, k);
+            grad_theta : constant Gdouble :=
+              theta_prime (I_d, N_d, end_space, k);
+
+         begin
+
+            if I mod 3 = 0 and then not (I = 21) then
+               Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
+
+               dr      := eps * grad_r;
+               d_theta := eps * grad_theta;
+
+            elsif I mod 7 = 0 then
+               Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
+
+               dr      := -eps * grad_r;
+               d_theta := -eps * grad_theta;
+
+            end if;
+
+            X := Xb + (radius (theta_var) + dr) * Cos (theta_var + d_theta);
+            Y := Yb - (radius (theta_var) + dr) * Sin (theta_var + d_theta);
+
+            DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
+            DG.Ngone (Ctx, X, Y, 8);
+            DG.Scaling_Around (Ctx, X, Y, 1.0 / Sx, 1.0 / Sx);
+
+            Sx := Linearize_Scale (I_d, N_d);
+
+         end;
+      end loop;
+
+   end Draw_Fibionnaci_Spiral;
 
 end Draw_Spiral;

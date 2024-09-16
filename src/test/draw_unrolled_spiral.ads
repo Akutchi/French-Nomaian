@@ -22,10 +22,6 @@ package Draw_Unrolled_Spiral is
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       X, Y :        Gdouble; state : in out Machine_State);
 
-   procedure Draw_Fibionnaci_Spiral
-     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
-      N   :        Positive);
-
 private
 
    procedure Draw_Spiral_Element
