@@ -12,6 +12,9 @@ package Draw_Spiral is
       theta     : Gdouble;
       Increment : Gdouble;
 
+      LM      : P2G.Language_Model.Map;
+      Depth_N : Gdouble;
+
    end record;
 
    procedure Draw_Spiral
@@ -19,6 +22,9 @@ package Draw_Spiral is
       state : in out Machine_State);
 
 private
+
+   procedure Transform
+     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; state : Machine_State);
 
    procedure Draw_Spiral_Element
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;

@@ -53,11 +53,14 @@ package body Draw_Glyphs is
    -- Dot --
    ---------
 
-   procedure Dot (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble) is
+   procedure Dot
+     (Ctx  : in out Cairo.Cairo_Context; X, Y : Gdouble;
+      Rdot :        Gdouble := R_Dot)
+   is
    begin
 
       Cairo.Move_To (Ctx, X, Y);
-      Cairo.Arc (Ctx, X, Y, R_Dot, 0.0, 360.0);
+      Cairo.Arc (Ctx, X, Y, Rdot, 0.0, 360.0);
       Cairo.Fill (Ctx);
       Cairo.Stroke (Ctx);
 

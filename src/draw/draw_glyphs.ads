@@ -13,7 +13,9 @@ package Draw_Glyphs is
    procedure Scaling_Around
      (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble; Sx, Sy : Gdouble);
 
-   procedure Dot (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
+   procedure Dot
+     (Ctx  : in out Cairo.Cairo_Context; X, Y : Gdouble;
+      Rdot :        Gdouble := R_Dot);
 
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;

@@ -5,6 +5,8 @@ with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
 
+with Ada.Text_IO;
+
 package body Draw_Unrolled_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
@@ -254,15 +256,79 @@ package body Draw_Unrolled_Spiral is
 
    end Draw_Unrolled_Spiral;
 
+   function ln_smooth
+     (x : Gdouble; Is_Derived : Boolean := False) return Gdouble
+   is
+
+      x_t : constant Gdouble := x + 12.0;
+      s   : constant Gdouble := 0.005;
+      f_0 : constant Gdouble := (s * 12.0) / Log (e_d, 12.0);
+   begin
+
+      if not Is_Derived then
+         return (s * x_t) / (Log (e_d, x_t)) + (1.0 - f_0);
+      else
+         return s * (Log (e_d, x_t) - 1.0) / (Log (e_d, x_t)**2);
+      end if;
+
+   end ln_smooth;
+
+   function f_angle
+     (x, k, a, N : Gdouble; Is_Derived : Boolean := False) return Gdouble
+   is
+
+      m : constant Gdouble := a * (1.0 - k) / (N - 1.0);
+      p : constant Gdouble := a * (N * k - 1.0) / (N - 1.0);
+
+   begin
+
+      if not Is_Derived then
+         return m * x + p;
+      else
+         return m;
+      end if;
+
+   end f_angle;
+
+   function f_scale (x, N : Gdouble) return Gdouble is
+   begin
+      return (1.0 / (N - 1.0)) * (N - 0.5 * (x + 1.0));
+   end f_scale;
+
+   function theta (Start_Angle, I_d, a, k, N_d : Gdouble) return Gdouble is
+   begin
+      return Start_Angle - ln_smooth (N_d) * f_angle (I_d, a, k, N_d);
+   end theta;
+
+   function theta_prime (x, k, a, N_d : Gdouble) return Gdouble is
+
+      lt : constant Gdouble :=
+        ln_smooth (x, Is_Derived => True) * f_angle (x, k, a, N_d);
+
+      rt : constant Gdouble :=
+        ln_smooth (x) * f_angle (x, k, a, N_d, Is_Derived => True);
+
+   begin
+      return -(lt + rt);
+
+   end theta_prime;
+
+   function radius_prime (x, k, a, N_d : Gdouble) return Gdouble is
+   begin
+      return (2.0 * Log (e_d, Phi) / PI) * theta_prime (x, k, a, N_d);
+   end radius_prime;
+
    ----------------------------
    -- Draw_Fibionnaci_Spiral --
    ----------------------------
 
    procedure Draw_Fibionnaci_Spiral
-     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble)
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
+      N   :        Positive)
    is
-      N   : constant Positive := 50;
-      Phi : constant Gdouble  := (1.0 + Sqrt (5.0)) / 2.0;
+      Sx  : Gdouble          := 1.0;
+      N_d : constant Gdouble := Gdouble (N);
+
    begin
 
       for I in 1 .. N loop
@@ -271,13 +337,47 @@ package body Draw_Unrolled_Spiral is
            (Ctx, 1.0 / Gdouble (I), 1.0 / Gdouble (I), 1.0 / Gdouble (I));
 
          declare
-            theta : constant Gdouble :=
-              TWO_PI - TWO_PI * Gdouble (I) / Gdouble (N);
 
-            X : constant Gdouble := Xb + Phi**(2.0 * theta / PI) * Cos (theta);
-            Y : constant Gdouble := Yb - Phi**(2.0 * theta / PI) * Sin (theta);
+            I_d : constant Gdouble := Gdouble (I);
+
+            a            : constant Gdouble := 1.0 - TWO_PI;
+            k            : constant Gdouble := 0.4;
+            branch_scale : constant Gdouble := 1.0 + abs (N_d - 20.0) / N_d;
+
+            theta_var : constant Gdouble :=
+              theta (Start_Angle, I_d, a, k, N_d);
+
+            X, Y   : Gdouble;
+            dx, dy : Gdouble := 0.0;
+
+            eps    : constant Gdouble := 0.01;
+            grad_x : Gdouble          := theta_prime (I_d, k, a, N_d);
+            grad_y : Gdouble          := radius_prime (I_d, k, a, N_d);
          begin
-            DG.Dot (Ctx, X, Y);
+
+            if I mod 3 = 0 and then not (I = 21) then
+               Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
+
+               dx := dx / branch_scale;
+               dy := dy / branch_scale;
+
+            elsif I mod 7 = 0 then
+               Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
+
+               dx := dx * branch_scale;
+               dy := dy * branch_scale;
+
+            end if;
+
+            X := Xb + Phi**(2.0 * theta_var / PI) * Cos (theta_var);
+            Y := Yb - Phi**(2.0 * theta_var / PI) * Sin (theta_var);
+
+            DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
+            DG.Ngone (Ctx, X, Y, 8);
+            DG.Scaling_Around (Ctx, X, Y, 1.0 / Sx, 1.0 / Sx);
+
+            Sx := f_scale (I_d, N_d);
+
          end;
       end loop;
 

@@ -1,5 +1,6 @@
 with Ada.Strings.Unbounded;
 with Ada.Numerics;
+with Ada.Numerics.Generic_Elementary_Functions;
 
 with Cairo;
 with Glib; use Glib;
@@ -12,6 +13,10 @@ package Draw_Utils is
 
    package P2G renames Phonems2Glyphs;
 
+   package Functions is new Ada.Numerics.Generic_Elementary_Functions
+     (Gdouble);
+   use Functions;
+
    type GlyphRep is
      (dot_start, line, bend, square, penta, hexa, hepta, octa, squareline,
       pentaline, hexaline, heptaline, octaline, squarebend, pentabend,
@@ -21,18 +26,23 @@ package Draw_Utils is
 
    type dpos_Type is (before, after);
 
+   Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
+
+   e_d : constant Gdouble := Gdouble (Ada.Numerics.e);
+
    PI     : constant Gdouble := Gdouble (Ada.Numerics.Pi);
    TWO_PI : constant Gdouble := 2.0 * PI;
    PI_2   : constant Gdouble := PI / 2.0;
    PI_3   : constant Gdouble := PI / 3.0;
    PI_4   : constant Gdouble := PI / 4.0;
+   PI_5   : constant Gdouble := PI / 5.0;
    PI_6   : constant Gdouble := PI / 6.0;
    PI_7   : constant Gdouble := PI / 7.0;
 
-   Line_Width : constant Gdouble := 0.3;
-   R_Dot      : constant Gdouble := 0.3;
+   R_Poly     : constant Gdouble := 0.5;
+   Line_Width : constant Gdouble := 0.1 * R_Poly;
+   R_Dot      : constant Gdouble := 0.2 * R_Poly;
 
-   R_Poly            : constant Gdouble := 1.0;
    R_Poly_2          : constant Gdouble := R_Poly / 2.0;
    Line_Glyph_R_Poly : constant Gdouble := 1.3 * R_Poly;
    Line_Words_R_Poly : constant Gdouble := 2.0 * R_Poly;
@@ -41,9 +51,6 @@ package Draw_Utils is
    Offset_Branch : constant Gdouble := 1.5 * R_Poly;
 
    dy_vn : constant Gdouble := 5.0;
-
-   procedure Transform
-     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; Di, theta : Gdouble);
 
    function Is_CX
      (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;

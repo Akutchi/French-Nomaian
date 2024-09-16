@@ -1,10 +1,4 @@
-with Ada.Numerics.Generic_Elementary_Functions;
-
 package body Draw_Utils is
-
-   package Functions is new Ada.Numerics.Generic_Elementary_Functions
-     (Gdouble);
-   use Functions;
 
    -----------
    -- Is_CX --
@@ -682,40 +676,6 @@ package body Draw_Utils is
       end case;
 
    end Get_Displacement_For_Line;
-
-   function Sigmoid (x, a : Gdouble) return Gdouble is
-   begin
-      return 1.0 / (1.0 + Exp (a - 0.01 * x));
-   end Sigmoid;
-
-   ---------------
-   -- Transform --
-   ---------------
-
-   procedure Transform
-     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; Di, theta : Gdouble)
-   is
-      Xb : constant Gdouble := 100.0;
-      Yb : constant Gdouble := 100.0;
-
-      Phi : constant Gdouble := (1.0 + Sqrt (5.0)) / 2.0;
-      a   : constant Gdouble := 5.0;
-      r   : constant Gdouble := a * Phi**(2.0 * theta / PI);
-
-      Spiral_Side : constant Gdouble :=
-        (if Element.T = P2G.Vowel then 5.0
-         elsif Element.T = P2G.Numeral then -5.0 else 1.0);
-
-      Shift : constant Gdouble :=
-        (if Element.T = P2G.Vowel or else Element.T = P2G.Numeral then 1.0
-         else 0.0);
-
-   begin
-
-      X := Xb + r * Cos (theta) + Shift;
-      Y := Yb - r * Sin (theta) + Spiral_Side;
-
-   end Transform;
 
    -----------------
    -- Draw_Branch --

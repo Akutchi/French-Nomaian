@@ -2,15 +2,11 @@ with Ada.Characters.Conversions;
 with Ada.Strings.Wide_Fixed;
 with Ada.Strings.Wide_Maps;
 
-with Ada.Wide_Text_IO;
-
 package body Phonems_Utils is
 
    package CC renames Ada.Characters.Conversions;
    package S_WF renames Ada.Strings.Wide_Fixed;
    package S_WM renames Ada.Strings.Wide_Maps;
-
-   package W_IO renames Ada.Wide_Text_IO;
 
    ----------------
    -- Is_Integer --
@@ -23,6 +19,7 @@ package body Phonems_Utils is
 
       begin
          d := Integer'Value (CC.To_String (word));
+         d := d + 1;
 
       exception
          when others =>
@@ -45,6 +42,7 @@ package body Phonems_Utils is
 
       begin
          f := Float'Value (CC.To_String (word));
+         f := f + 1.0;
 
       exception
          when others =>

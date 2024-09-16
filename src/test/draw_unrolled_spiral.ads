@@ -9,6 +9,8 @@ package Draw_Unrolled_Spiral is
 
    package P2G renames Phonems2Glyphs;
 
+   subtype dy_rnd is Integer range -5 .. 5;
+
    type Machine_State is record
 
       Xv : Gdouble := 0.0;
@@ -21,7 +23,8 @@ package Draw_Unrolled_Spiral is
       X, Y :        Gdouble; state : in out Machine_State);
 
    procedure Draw_Fibionnaci_Spiral
-     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble);
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
+      N   :        Positive);
 
 private
 

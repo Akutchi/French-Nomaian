@@ -1,4 +1,5 @@
 with Ada.Strings.Wide_Unbounded;
+with Ada.Numerics.Generic_Elementary_Functions;
 
 with Cairo;
 with Cairo.Surface;
@@ -13,6 +14,8 @@ with Tools;
 with Draw_Glyphs;
 with Draw_Spiral;
 
+with Draw_Unrolled_Spiral;
+
 with Draw_Utils; use Draw_Utils;
 
 procedure French_Nomaian is
@@ -24,6 +27,10 @@ procedure French_Nomaian is
    package P2G renames Phonems2Glyphs;
    package DG renames Draw_Glyphs;
    package DS renames Draw_Spiral;
+
+   package Functions is new Ada.Numerics.Generic_Elementary_Functions
+     (Gdouble);
+   use Functions;
 
    Sentence   : S_WU.Unbounded_Wide_String;
    Spiral     : P2G.Spiral_Model.Tree;
@@ -43,8 +50,14 @@ begin
 
    declare
 
-      W : constant Gdouble := 200.0;
-      H : constant Gdouble := 200.0;
+      Depth_N : constant Positive :=
+        24; --  Gdouble (P2G.Depth (Root_Child, LM));
+
+      Start_Angle : constant Gdouble := TWO_PI;
+      R           : constant Gdouble := Phi**(2.0 * Start_Angle / PI);
+
+      W : constant Gdouble := R + R / Phi + 60.0;
+      H : constant Gdouble := R + 60.0;
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
         C_SVG.Create (Locations.SVG_FILE, W, H);
@@ -56,10 +69,16 @@ begin
    begin
 
       state.theta     := TWO_PI;
-      state.Increment := TWO_PI / Gdouble (P2G.Depth (Root_Child, LM));
+      state.Increment := TWO_PI / 50.0;
+      state.LM        := LM;
+      state.Depth_N   := Gdouble (Depth_N);
 
       DG.Background (Ctx, W, H);
-      DS.Draw_Spiral (Ctx, Root_Child, state);
+      --  DS.Draw_Spiral (Ctx, Root_Child, state);
+      DG.Rotation_Around (Ctx, W / 2.0, W / 2.0, PI_2);
+
+      Draw_Unrolled_Spiral.Draw_Fibionnaci_Spiral
+        (Ctx, W / 2.0, W / 2.0, Start_Angle, Depth_N);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded;
 
 with Ada.Containers; use Ada.Containers;
+with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
 with Draw_Utils; use Draw_Utils;
@@ -9,7 +10,49 @@ package body Draw_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
 
+   package Functions is new Ada.Numerics.Generic_Elementary_Functions
+     (Gdouble);
+   use Functions;
+
    package DG renames Draw_Glyphs;
+
+   -------------
+   -- Sigmoid --
+   -------------
+
+   function Sigmoid (x, a : Gdouble) return Gdouble is
+   begin
+      return 1.0 / (1.0 + Exp (a - x));
+   end Sigmoid;
+
+   ---------------
+   -- Transform --
+   ---------------
+
+   procedure Transform
+     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; state : Machine_State)
+   is
+      Xb : constant Gdouble := 100.0;
+      Yb : constant Gdouble := 100.0;
+
+      a : constant Gdouble := 5.0;
+
+      r : constant Gdouble := a * Phi**(2.0 * state.theta / PI);
+
+      Spiral_Side : constant Gdouble :=
+        (if Element.T = P2G.Vowel then 5.0
+         elsif Element.T = P2G.Numeral then -5.0 else 0.0);
+
+      Shift : constant Gdouble :=
+        (if Element.T = P2G.Vowel or else Element.T = P2G.Numeral then 2.0
+         else 0.0);
+
+   begin
+
+      X := Xb + r * Cos (state.theta) + Shift;
+      Y := Yb - r * Sin (state.theta) + Spiral_Side;
+
+   end Transform;
 
    -------------------------
    -- Draw_Spiral_Element --
@@ -23,12 +66,17 @@ package body Draw_Spiral is
       Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
       GN_String_Root : constant String := S_U.To_String (Root_Elem.GlyphName);
 
-      X_t, Y_t    : Gdouble          := 0.0;
-      Local_Angle : constant Gdouble := 0.0;
+      X_t, Y_t    : Gdouble := 0.0;
+      Local_Angle : Gdouble := 0.0;
 
    begin
 
-      Transform (Root_Elem, X_t, Y_t, 1.0, state.theta);
+      if GN_String_Root = "line" then
+
+         Local_Angle := PI_4 + 0.5;
+      end if;
+
+      Transform (Root_Elem, X_t, Y_t, state);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);
 
@@ -62,7 +110,12 @@ package body Draw_Spiral is
    is
 
       Current_Child : P2G.Spiral_Model.Cursor;
-      Child_Elem    : P2G.GlyphInfo;
+
+      Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      Child_Elem : P2G.GlyphInfo;
+
+      X_t, Y_t : Gdouble;
+      Depth_i  : constant Gdouble := Gdouble (P2G.Depth (Root, state.LM));
 
       theta_Parent : constant Gdouble := state.theta;
       I            : Positive         := 1;
@@ -96,6 +149,8 @@ package body Draw_Spiral is
             --  end if;
 
             Draw_Spiral (Ctx, Current_Child, state);
+
+            Transform (Root_Elem, X_t, Y_t, state);
 
             state.theta := theta_Parent;
             I           := I + 1;
