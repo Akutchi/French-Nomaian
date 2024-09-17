@@ -338,7 +338,7 @@ package body Draw_Glyphs is
 
       Ngone (Ctx, X, Y, 6);
       Rotation_Around (Ctx, X + R_Poly, Y, rad);
-      Ngone (Ctx, X + 0.7 * R_Poly, Y - 0.8 * R_Poly, 5, 0.8 * R_Poly);
+      Ngone (Ctx, X + 0.72 * R_Poly, Y - 0.8 * R_Poly, 5, 0.85 * R_Poly);
       Rotation_Around (Ctx, X + R_Poly, Y, -rad);
 
    end HexaPenta;

@@ -20,5 +20,6 @@ package Math_Constants is
    PI_5   : constant Gdouble := PI / 5.0;
    PI_6   : constant Gdouble := PI / 6.0;
    PI_7   : constant Gdouble := PI / 7.0;
+   PI_15  : constant Gdouble := PI / 15.0;
 
 end Math_Constants;

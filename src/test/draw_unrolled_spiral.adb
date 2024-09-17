@@ -1,11 +1,7 @@
 with Ada.Strings.Unbounded;
-
 with Ada.Containers; use Ada.Containers;
-with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
-
-with Ada.Text_IO;
 
 package body Draw_Unrolled_Spiral is
 
@@ -13,17 +9,13 @@ package body Draw_Unrolled_Spiral is
 
    package DG renames Draw_Glyphs;
 
-   package Functions is new Ada.Numerics.Generic_Elementary_Functions
-     (Gdouble);
-   use Functions;
-
    -------------------------
    -- Draw_Spiral_Element --
    -------------------------
 
    procedure Draw_Spiral_Element
      (Ctx  : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      X, Y :        Gdouble; state : Machine_State)
+      X, Y :        Gdouble)
    is
 
       Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
@@ -52,7 +44,7 @@ package body Draw_Unrolled_Spiral is
 
    begin
 
-      Draw_Spiral_Element (Ctx, Root, Xp, Yp, state);
+      Draw_Spiral_Element (Ctx, Root, Xp, Yp);
 
       if not P2G.Spiral_Model.Is_Root (P2G.Spiral_Model.Parent (Root)) then
 
@@ -78,12 +70,12 @@ package body Draw_Unrolled_Spiral is
    end Draw_CVSN;
 
    ------------------------------
-   -- Update_Child_Coordinates --
+   -- Update_Branch_Coordinates --
    ------------------------------
 
-   procedure Update_Child_Coordinates
-     (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp      : Gdouble; state : in out Machine_State)
+   procedure Update_Branch_Coordinates
+     (Root, Child :        P2G.Spiral_Model.Cursor; Xp, Yp : Gdouble;
+      state       : in out Machine_State)
    is
 
       Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
@@ -107,31 +99,31 @@ package body Draw_Unrolled_Spiral is
    begin
 
       if Vowel_Branching then
-         Dv :=
+         Dv       :=
            (if Xp <= state.Xv then (state.Xv - Xp) + Offset_Leaf
             else Offset_Branch);
-         Xc := Xp + Dv;
-         Yc := Yp - dy_vn;
+         state.Xc := Xp + Dv;
+         state.Yc := Yp - dy_vn;
 
       elsif Numeral_Branching then
 
-         Dn :=
+         Dn       :=
            (if Xp <= state.Xn then (state.Xn - Xp) + Offset_Leaf
             else Offset_Branch);
-         Xc := Xp + Dn;
-         Yc := Yp + dy_vn;
+         state.Xc := Xp + Dn;
+         state.Yc := Yp + dy_vn;
 
       elsif Is_CX (Root_Elem, Child_Elem, P2G.Word_Separator) then
-         Xc := Xp + dx_Root_Before;
+         state.Xc := Xp + dx_Root_Before;
 
       elsif Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
-         Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
+         state.Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
 
       else
-         Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
+         state.Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
       end if;
 
-   end Update_Child_Coordinates;
+   end Update_Branch_Coordinates;
 
    --------------------------------
    -- Update_Element_Coordinates --
@@ -149,8 +141,8 @@ package body Draw_Unrolled_Spiral is
    -----------------------------------
 
    procedure Restore_To_Parent_Coordinates_If_CS
-     (Root, Child : P2G.Spiral_Model.Cursor; Xc, Yc : in out Gdouble;
-      Xp, Yp      : Gdouble)
+     (Root, Child :        P2G.Spiral_Model.Cursor; Xp, Yp : Gdouble;
+      state       : in out Machine_State)
    is
 
       Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
@@ -164,21 +156,33 @@ package body Draw_Unrolled_Spiral is
    begin
 
       if not In_Branch then
-         Yc := Yp;
+         state.Yc := Yp;
       end if;
 
       if Child_Elem.T = P2G.Word_Separator then
-         Xc := Xp + dx (Root_Elem.GlyphName, before);
+         state.Xc := Xp + dx (Root_Elem.GlyphName, before);
 
       elsif Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
-         Xc :=
+         state.Xc :=
            Xp + dx (Root_Elem.GlyphName, before) +
            dx (Child_Elem.GlyphName, after);
 
       elsif Child_Elem.T = P2G.Consonant then
-         Xc :=
+         state.Xc :=
            Xp + dx (Root_Elem.GlyphName, before) + Line_Words_R_Poly +
            dx (Child_Elem.GlyphName, after);
+      end if;
+
+      if Is_SX (Root_Elem, Child_Elem, 's') then
+         state.Yc := Yp + 0.4 * R_Poly;
+      end if;
+
+      if Is_SX (Root_Elem, Child_Elem, 'c') then
+         state.Yc := Yp + dy (Child_Elem.GlyphName, before);
+      end if;
+
+      if Is_CX (Root_Elem, Child_Elem, 's') then
+         state.Yc := Yp + dy (Root_Elem.GlyphName, after);
 
       end if;
 
@@ -196,30 +200,23 @@ package body Draw_Unrolled_Spiral is
       Current_Child : P2G.Spiral_Model.Cursor;
 
       Parent_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      Child_Elem  : P2G.GlyphInfo;
+      First_Child_Elem : P2G.GlyphInfo;
+      Child_Elem       : P2G.GlyphInfo;
 
-      Is_Consonant_Or_Word_Sep : constant Boolean :=
-        Parent_Elem.T /= P2G.Vowel and then Parent_Elem.T /= P2G.Numeral;
+      Is_Parent_Word_Sep : constant Boolean :=
+        Parent_Elem.T = P2G.Word_Separator;
 
       Xp : constant Gdouble := X;
       Yp : Gdouble          := Y;
-
-      Xc : Gdouble := X;
-      Yc : Gdouble := Y;
 
       I : Positive := 1;
 
    begin
 
-      if Is_Consonant_Or_Word_Sep then
-         Update_Element_Coordinates (Parent_Elem, Yp, before);
-      end if;
+      state.Xc := X;
+      state.Yc := Y;
 
       Draw_CVSN (Ctx, Root, Xp, Yp, state);
-
-      if Is_Consonant_Or_Word_Sep then
-         Update_Element_Coordinates (Parent_Elem, Yp, after);
-      end if;
 
       if not P2G.Spiral_Model.Is_Leaf (Root) then
 
@@ -227,22 +224,23 @@ package body Draw_Unrolled_Spiral is
 
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
 
-            Update_Child_Coordinates
-              (Root, Current_Child, Xc, Yc, Xp, Yp, state);
+            Update_Branch_Coordinates (Root, Current_Child, Xp, Yp, state);
 
             Child_Elem := P2G.Spiral_Model.Element (Current_Child);
 
-            Draw_Branch (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
+            Draw_Branch
+              (Ctx, Parent_Elem, Child_Elem, state.Xc, state.Yc, Xp, Yp);
 
             Restore_To_Parent_Coordinates_If_CS
-              (Root, Current_Child, Xc, Yc, Xp, Yp);
+              (Root, Current_Child, Xp, Yp, state);
 
             if Need_Line_Between_Phonems (Root, Current_Child) then
                DG.Line_Between_Words
-                 (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp);
+                 (Ctx, Parent_Elem, Child_Elem, state.Xc, state.Yc, Xp, Yp);
             end if;
 
-            Draw_Unrolled_Spiral (Ctx, Current_Child, Xc, Yc, state);
+            Draw_Unrolled_Spiral
+              (Ctx, Current_Child, state.Xc, state.Yc, state);
 
             P2G.Spiral_Model.Next_Sibling (Current_Child);
             I := I + 1;

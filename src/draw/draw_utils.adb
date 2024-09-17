@@ -77,7 +77,12 @@ package body Draw_Utils is
       case GlyphRep'Value (GN_String) is
 
          when line =>
-            return Line_Glyph_R_Poly;
+            case dp is
+               when after =>
+                  return 0.0;
+               when before =>
+                  return Line_Glyph_R_Poly;
+            end case;
 
          when bend =>
 
@@ -85,7 +90,7 @@ package body Draw_Utils is
                when before =>
                   return 2.0 * R_Poly;
                when after =>
-                  return -0.5;
+                  return -0.5 * R_Poly;
             end case;
 
          when linedotline =>
@@ -216,29 +221,36 @@ package body Draw_Utils is
 
       case GlyphRep'Value (GN_String) is
 
-         when linedotline =>
-
+         when bend =>
             case dp is
                when before =>
-                  return 0.0;
+                  return 1.4 * R_Poly;
                when after =>
-                  return 0.4;
+                  return 0.0;
+            end case;
+
+         when line | square =>
+            case dp is
+               when before =>
+                  return 0.4 * R_Poly;
+               when after =>
+                  return 0.0;
             end case;
 
          when squareline | squarebend =>
 
             case dp is
                when before =>
-                  return 0.7;
+                  return -0.3 * R_Poly;
                when after =>
-                  return 0.0;
+                  return 0.73 * R_Poly;
             end case;
 
          when squaresquare =>
 
             case dp is
                when before =>
-                  return 0.0;
+                  return 0.4 * R_Poly;
                when after =>
                   return R_Poly;
             end case;
@@ -247,7 +259,7 @@ package body Draw_Utils is
 
             case dp is
                when before =>
-                  return -1.1 * R_Poly_2;
+                  return -0.2 * R_Poly;
                when after =>
                   return 0.0;
             end case;
@@ -256,9 +268,9 @@ package body Draw_Utils is
 
             case dp is
                when before =>
-                  return 0.0;
+                  return 0.4 * R_Poly;
                when after =>
-                  return 0.6;
+                  return 0.3;
             end case;
 
          when pentasquare =>
@@ -284,15 +296,6 @@ package body Draw_Utils is
             case dp is
                when before =>
                   return 0.0;
-               when after =>
-                  return 0.0;
-            end case;
-
-         when hexahexa =>
-
-            case dp is
-               when before =>
-                  return 0.3;
                when after =>
                   return 0.0;
             end case;
@@ -398,7 +401,7 @@ package body Draw_Utils is
    is
 
       r     : Gdouble := R_Poly;
-      theta : Gdouble := 0.0; --  turn in anti-trigonometric sense. I think ?
+      theta : Gdouble := 0.0; --  turn in anti-trigonometric sense.
    begin
 
       case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
@@ -558,12 +561,11 @@ package body Draw_Utils is
 
          when squareline | squarebend =>
 
-            dy_e := 0.7 * R_Poly;
+            dx_e := R_Poly * Cos (PI_4);
+            dy_e := R_Poly * Sin (PI_4);
 
             if dp = before then
-               dx_e := -1.4 * R_Poly_2;
-            else
-               dx_e := 1.4 * R_Poly_2;
+               dx_e := -dx_e;
             end if;
 
          when squaresquare =>
@@ -574,22 +576,13 @@ package body Draw_Utils is
                dx_e := dx_e + 3.0 * R_Poly;
             end if;
 
-         when penta =>
+         when penta | pentasquare =>
+
+            dx_e := R_Poly;
 
             if dp = before then
-               dx_e := -0.83 * R_Poly;
-               dy_e := 0.05 * R_Poly;
-            else
-               dx_e := R_Poly;
-            end if;
-
-         when pentasquare =>
-
-            if dp = before then
-               dx_e := -0.8 * R_Poly;
-               dy_e := 0.6 * R_Poly;
-            else
-               dx_e := R_Poly;
+               dx_e := R_Poly * Cos (4.0 * PI_5);
+               dy_e := R_Poly * Sin (4.0 * PI_5);
             end if;
 
          when pentaline | pentabend =>
@@ -597,7 +590,8 @@ package body Draw_Utils is
             if dp = before then
                dx_e := -R_Poly;
             else
-               dx_e := 0.78 * R_Poly;
+               dx_e := R_Poly * Cos (PI_5);
+               dy_e := R_Poly * Sin (PI_5);
             end if;
 
          when pentapenta =>
@@ -610,8 +604,8 @@ package body Draw_Utils is
 
          when hexaline | hexabend =>
 
-            dx_e := -0.9 * R_Poly;
-            dy_e := 0.5 * R_Poly;
+            dx_e := R_Poly * Cos (5.0 * PI_6);
+            dy_e := R_Poly * Sin (5.0 * PI_6);
 
             if dp = after then
                dx_e := -dx_e;
@@ -621,31 +615,31 @@ package body Draw_Utils is
 
             dx_e := -R_Poly;
             if dp = after then
-               dx_e := 1.9 * R_Poly;
-               dy_e := -0.55;
+               dx_e := R_Poly * (1.0 + Cos (PI_6));
+               dy_e := -R_Poly * Sin (PI_6);
             end if;
 
          when hexapenta =>
 
+            dx_e := -R_Poly;
             if dp = after then
-               dx_e := 1.9 * R_Poly;
-               dy_e := -0.2;
+               dx_e := R_Poly * (1.0 + Cos (PI_15));
+               dy_e := -R_Poly * Sin (PI_15);
             end if;
 
          when hexahexa =>
 
             if dp = before then
-               dx_e := -2.5 * R_Poly;
-               dy_e := -0.6;
+               dx_e := -R_Poly * (2.0 + Cos (-PI_3));
+               dy_e := -R_Poly * Sin (PI_3);
             end if;
 
          when hepta =>
 
+            dx_e := R_Poly;
             if dp = before then
-               dx_e := -0.90 * R_Poly;
-               dy_e := 0.45;
-            else
-               dx_e := R_Poly;
+               dx_e := R_Poly * Cos (6.0 * PI_7);
+               dy_e := R_Poly * Sin (6.0 * PI_7);
             end if;
 
          when heptaline | heptabend =>
@@ -653,22 +647,18 @@ package body Draw_Utils is
             if dp = before then
                dx_e := -R_Poly;
             else
-               dx_e := 0.9 * R_Poly;
-               dy_e := 0.45;
+               dx_e := R_Poly * Cos (5.0 * PI_7);
+               dy_e := R_Poly * Sin (5.0 * PI_7);
 
             end if;
 
-         when heptasquare | heptapenta =>
-            null;
-
          when octaline =>
 
-            dy_e := 0.4;
+            dx_e := R_Poly * Cos (5.0 * PI_6);
+            dy_e := R_Poly * Sin (5.0 * PI_6);
 
             if dp = after then
-               dx_e := 0.95 * R_Poly;
-            else
-               dx_e := -0.95 * R_Poly;
+               dx_e := -dx_e;
             end if;
 
          when others =>

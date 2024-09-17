@@ -180,7 +180,7 @@ package body Draw_Spiral is
             end_space : constant Gdouble := 1.0 - TWO_PI;
 
             theta_var : constant Gdouble :=
-              theta (I_d, N_d, Start_Angle, a, k);
+              theta (I_d, N_d, Start_Angle, end_space, k);
 
             X, Y        : Gdouble;
             dr, d_theta : Gdouble := 0.0;

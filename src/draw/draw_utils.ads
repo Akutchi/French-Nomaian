@@ -37,7 +37,7 @@ package Draw_Utils is
    Offset_Leaf   : constant Gdouble := 0.5 * R_Poly;
    Offset_Branch : constant Gdouble := 1.5 * R_Poly;
 
-   dy_vn : constant Gdouble := 5.0;
+   dy_vn : constant Gdouble := 3.0;
 
    function Is_CX
      (Parent, Child : P2G.GlyphInfo; X : Character) return Boolean;
@@ -67,10 +67,14 @@ package Draw_Utils is
 
    procedure Get_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
+   --  Turn in the anti-trigonometric sense.
+   --  Some values were not implemented because not necessary at the time of
+   --  writing (17/09/24)
 
    procedure Draw_Branch
      (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
       Xc, Yc, Xp, Yp : Gdouble);
+   --  Also turn in the anti-trigonometric sense.
 
 private
 

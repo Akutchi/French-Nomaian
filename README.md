@@ -46,3 +46,7 @@ you have a working example **and** that you have commited previous draft work.
 Do not do the inverse process of wanting to optimize everything first, which is
 a tendenccy I have.
 
+- Finally, try to plan ahead a bit more than what you did. You did well doing
+the five major steps, but you could have gone into a bit more details about
+the printing one _before_ coding it.
+
