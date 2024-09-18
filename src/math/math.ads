@@ -34,4 +34,9 @@ private
 
    function radius_prime (I, N : Gdouble) return Gdouble;
 
+   function eps (N : Gdouble) return Gdouble;
+   --  This function is used to adapt the gradient epsilon to the curve length.
+   --  I would need to adapt to the scaling also, but this is not an important
+   --  optimization.
+
 end Math;

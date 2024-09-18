@@ -41,8 +41,8 @@ package body Draw_Spiral is
          Grad := Calculate_Gradient (I, N, Is_Vowel => False);
       end if;
 
-      X := state.Xb + (radius_var + Grad.dx) * Cos (theta_var);
-      Y := state.Yb - (radius_var + Grad.dx) * Sin (theta_var);
+      X := state.Xb + (radius_var + Grad.dx) * Cos (theta_var - Grad.dy);
+      Y := state.Yb - (radius_var + Grad.dx) * Sin (theta_var - Grad.dy);
 
    end Transform;
 
@@ -61,13 +61,20 @@ package body Draw_Spiral is
       X_t, Y_t    : Gdouble := 0.0;
       Local_Angle : Gdouble := 0.0;
 
-      Depth_I : constant Gdouble := Gdouble (P2G.Spiral_Model.Depth (Root));
+      Spiral_Side : constant Gdouble :=
+        (if Root_Elem.T = P2G.Vowel or else Root_Elem.T = P2G.Numeral then 1.0
+         else 0.0);
+
+      Depth_I : constant Gdouble :=
+        Gdouble (P2G.Spiral_Model.Depth (Root)) - Spiral_Side;
       --  The way multiway trees are implemented their "depth function" start
       --  with the root at the maximum depth (it has the most of children).
 
       Sx : constant Gdouble := Linearize_Scale (Depth_I, state.Depth_N);
 
    begin
+
+      Ada.Text_IO.Put_Line (Gdouble'Image (state.Depth_N));
 
       if GN_String_Root = "line" then
 

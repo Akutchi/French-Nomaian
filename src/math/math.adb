@@ -75,6 +75,15 @@ package body Math is
       return s (N) * a * (theta_prime (N)) * radius (theta (I, N), N);
    end radius_prime;
 
+   ---------
+   -- eps --
+   ---------
+
+   function eps (N : Gdouble) return Gdouble is
+   begin
+      return 0.55 * Exp (-0.05 * N) + 0.067;
+   end eps;
+
    ------------------------
    -- Calculate_Gradient --
    ------------------------
@@ -85,7 +94,7 @@ package body Math is
 
       Gradient_Point : gradient;
 
-      epsilon : constant Gdouble := 0.1;
+      epsilon : constant Gdouble := eps (N);
 
       grad_r     : constant Gdouble := radius_prime (I, N);
       grad_theta : constant Gdouble := theta_prime (N);
