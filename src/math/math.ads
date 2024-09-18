@@ -7,36 +7,31 @@ package Math is
 
    end record;
 
-   function Linearize_Angle
-     (I, N, a, k : Gdouble; Is_Derived : Boolean := False) return Gdouble;
-   --  cut the interval [a, ka] in N parts to smooth the stretching of N
-   --  elements. I is here to specify which value to get, knowing that
-   --  f(1) = ka
-   --  f(N) = a
-   --
-   --  this function contains its derivate for simplicity when calculating
-   --  gradients.
-
-   function Ln_Smooth (x : Gdouble) return Gdouble;
-   --  Smooth the value f (I) as described above in Lienarize_Angle so that
-   --  for greater set of points, the streching between E_i and E_i_1 is not
-   --  as much reduced.
-
    function Linearize_Scale (x, N : Gdouble) return Gdouble;
-   --  Akin to Linearize_Angle, but for scaling elements.
+   --  This function is used to adapt the scaling from 1.0 to 0.5 to the
+   --  interval [|1; N|]
 
-   function theta (I, N, a, k, Start_Angle : Gdouble) return Gdouble;
+   function theta (I, N : Gdouble) return Gdouble;
 
-   function radius (theta_var, N : Gdouble) return Gdouble;
+   function radius (I, N : Gdouble) return Gdouble;
 
    function Calculate_Gradient
-     (I, N, a, k, Start_Angle : Gdouble; Is_Vowel : Boolean := False)
-      return gradient;
-
-   function theta_prime (I, N, a, k : Gdouble) return Gdouble;
-
-   function radius_prime (I, N, a, k, Start_Angle : Gdouble) return Gdouble;
+     (I, N : Gdouble; Is_Vowel : Boolean := False) return gradient;
 
 private
+
+   function k (N : Gdouble) return Gdouble;
+   --  This function is used to adapt the angle to the length of the spiral.
+   --  The longer the spiral, the greater k will be, also increasing the
+   --  interval between two elements.
+
+   function s (N : Gdouble) return Gdouble;
+   --  This function is used to adapt the spiral's radius to the length of said
+   --  structure. The longer the spiral, the greater s will be, in turn also
+   --  increasing the distance to the spiral's arm.
+
+   function theta_prime (N : Gdouble) return Gdouble;
+
+   function radius_prime (I, N : Gdouble) return Gdouble;
 
 end Math;

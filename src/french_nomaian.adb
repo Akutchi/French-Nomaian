@@ -48,14 +48,11 @@ begin
 
    declare
 
-      Depth_N : constant Positive :=
-        100; --  Gdouble (P2G.Depth (Root_Child, LM));
+      Depth_N : constant Positive := Positive (P2G.Depth (Root_Child, LM));
 
-      Start_Angle : constant Gdouble := TWO_PI;
-      R           : constant Gdouble := Phi**(2.0 * Start_Angle / PI);
-
+      R : constant Gdouble := Phi**2.0;
       W : constant Gdouble := R + R / Phi + Gdouble (Depth_N) * Phi;
-      H : constant Gdouble := R + Gdouble (Depth_N);
+      H : constant Gdouble := R + Gdouble (Depth_N) * Phi;
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
         C_SVG.Create (Locations.SVG_FILE, W, H);
@@ -73,8 +70,7 @@ begin
 
       DG.Background (Ctx, W, H);
       --  DS.Draw_Spiral (Ctx, Root_Child, state);
-      --  DG.Rotation_Around (Ctx, W / 2.0, W / 2.0, -PI);
-      DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, H / 2.0, Start_Angle, Depth_N);
+      DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, H / 2.0, Depth_N);
 
       --  DG.Background (Ctx, 100.0, 30.0);
       --  Draw_Unrolled_Spiral.Draw_Unrolled_Spiral

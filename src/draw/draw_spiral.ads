@@ -22,8 +22,7 @@ package Draw_Spiral is
       state : in out Machine_State);
 
    procedure Draw_Fibionnaci_Spiral
-     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
-      N   :        Positive);
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble; N : Positive);
 
 private
 

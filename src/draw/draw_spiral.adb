@@ -159,14 +159,11 @@ package body Draw_Spiral is
    ----------------------------
 
    procedure Draw_Fibionnaci_Spiral
-     (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
-      N   :        Positive)
+     (Ctx : in out Cairo.Cairo_Context; Xb, Yb : Gdouble; N : Positive)
    is
 
-      end_space : constant Gdouble := 1.0 - TWO_PI;
-      k         : constant Gdouble := 0.4;
-      N_d       : constant Gdouble := Gdouble (N);
-      Sx        : Gdouble          := 1.0;
+      N_d : constant Gdouble := Gdouble (N);
+      Sx  : Gdouble          := 1.0;
 
    begin
 
@@ -177,9 +174,9 @@ package body Draw_Spiral is
 
          declare
 
-            I_d       : constant Gdouble := Gdouble (I);
-            theta_var : constant Gdouble :=
-              theta (I_d, N_d, end_space, k, Start_Angle);
+            I_d        : constant Gdouble := Gdouble (I);
+            radius_var : constant Gdouble := radius (I_d, N_d);
+            theta_var  : constant Gdouble := theta (I_d, N_d);
 
             X, Y : Gdouble;
             Grad : gradient;
@@ -192,21 +189,17 @@ package body Draw_Spiral is
             if I mod 3 = 0 and then not (I = 21) then
 
                Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
-               Grad :=
-                 Calculate_Gradient
-                   (I_d, N_d, end_space, k, Start_Angle, Is_Vowel => True);
+               Grad := Calculate_Gradient (I_d, N_d, Is_Vowel => True);
 
             elsif I mod 7 = 0 then
 
                Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
-               Grad :=
-                 Calculate_Gradient
-                   (I_d, N_d, end_space, k, Start_Angle, False);
+               Grad := Calculate_Gradient (I_d, N_d, False);
 
             end if;
 
-            X := Xb + radius (theta_var, N_d) * Cos (theta_var) + Grad.dx;
-            Y := Yb - radius (theta_var, N_d) * Sin (theta_var) - Grad.dy;
+            X := Xb + radius_var * Cos (theta_var) + Grad.dx;
+            Y := Yb - radius_var * Sin (theta_var) - Grad.dy;
 
             DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
             DG.Ngone (Ctx, X, Y, 8);
