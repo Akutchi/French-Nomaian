@@ -48,7 +48,7 @@ begin
 
    declare
 
-      Depth_N : constant Positive := Positive (P2G.Depth (Root_Child, LM));
+      Depth_N : constant Positive := Positive (P2G.Max_Depth (Root_Child, LM));
 
       R : constant Gdouble := Phi**2.0;
       W : constant Gdouble := R + R / Phi + Gdouble (Depth_N) * Phi;
@@ -63,18 +63,13 @@ begin
 
    begin
 
-      state.theta     := TWO_PI;
-      state.Increment := TWO_PI / 50.0;
-      state.LM        := LM;
-      state.Depth_N   := Gdouble (Depth_N);
+      state.Xb      := W / 2.0;
+      state.Yb      := H / 2.0;
+      state.LM      := LM;
+      state.Depth_N := Gdouble (Depth_N);
 
       DG.Background (Ctx, W, H);
-      --  DS.Draw_Spiral (Ctx, Root_Child, state);
-      DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, H / 2.0, Depth_N);
-
-      --  DG.Background (Ctx, 100.0, 30.0);
-      --  Draw_Unrolled_Spiral.Draw_Unrolled_Spiral
-      --    (Ctx, Root_Child, 2.0, 8.0, state);
+      DS.Draw_Spiral (Ctx, Root_Child, state);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);

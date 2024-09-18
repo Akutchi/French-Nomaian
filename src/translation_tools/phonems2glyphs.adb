@@ -269,7 +269,7 @@ package body Phonems2Glyphs is
    -- Depth --
    -----------
 
-   function Depth
+   function Max_Depth
      (Elem : Spiral_Model.Cursor; LM : Language_Model.Map) return Float
    is
 
@@ -287,14 +287,14 @@ package body Phonems2Glyphs is
 
          while Spiral_Model.Has_Element (Current_Child) loop
 
-            Current_Depth := Current_Depth + Depth (Current_Child, LM);
+            Current_Depth := Current_Depth + Max_Depth (Current_Child, LM);
             Current_Child := Spiral_Model.Next_Sibling (Current_Child);
          end loop;
       end if;
 
       return Current_Depth;
 
-   end Depth;
+   end Max_Depth;
 
    -----------
    -- Print --

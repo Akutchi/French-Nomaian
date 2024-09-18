@@ -3,7 +3,7 @@ with Glib; use Glib;
 package Math is
 
    type gradient is record
-      dx, dy : Gdouble;
+      dx, dy : Gdouble := 0.0;
 
    end record;
 

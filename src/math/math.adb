@@ -2,8 +2,6 @@ with Ada.Numerics.Generic_Elementary_Functions;
 
 with Math_Constants; use Math_Constants;
 
-with Ada.Text_IO;
-
 package body Math is
 
    package Functions is new Ada.Numerics.Generic_Elementary_Functions
@@ -19,10 +17,18 @@ package body Math is
       return (1.0 / (N - 1.0)) * (N - 0.5 * (x + 1.0));
    end Linearize_Scale;
 
+   -------
+   -- k --
+   -------
+
    function k (N : Gdouble) return Gdouble is
    begin
       return 0.05 * Sqrt (N);
    end k;
+
+   -------
+   -- s --
+   -------
 
    function s (N : Gdouble) return Gdouble is
    begin
@@ -79,7 +85,7 @@ package body Math is
 
       Gradient_Point : gradient;
 
-      epsilon : constant Gdouble := 0.0;
+      epsilon : constant Gdouble := 0.1;
 
       grad_r     : constant Gdouble := radius_prime (I, N);
       grad_theta : constant Gdouble := theta_prime (N);
@@ -87,12 +93,9 @@ package body Math is
       grad_x : constant Gdouble := grad_r * Cos (grad_theta);
       grad_y : constant Gdouble := grad_r * Sin (grad_theta);
 
-      Spiral_Side : constant Gdouble := (if Is_Vowel then 1.0 else -1.0);
+      Spiral_Side : constant Gdouble := (if Is_Vowel then -1.0 else 1.0);
 
    begin
-
-      Ada.Text_IO.Put_Line
-        (Gdouble'Image (grad_r) & ", " & Gdouble'Image (grad_theta));
 
       Gradient_Point.dx := Spiral_Side * epsilon * grad_x;
       Gradient_Point.dy := Spiral_Side * epsilon * grad_y;

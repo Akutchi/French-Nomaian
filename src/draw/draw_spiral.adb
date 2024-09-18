@@ -5,8 +5,9 @@ with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
 
-with Math;           use Math;
-with Math_Constants; use Math_Constants;
+with Math; use Math;
+
+with Ada.Text_IO;
 
 package body Draw_Spiral is
 
@@ -23,27 +24,25 @@ package body Draw_Spiral is
    ---------------
 
    procedure Transform
-     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; state : Machine_State)
+     (Element : P2G.GlyphInfo; I, N : Gdouble; X, Y : in out Gdouble;
+      state   : Machine_State)
    is
-      Xb : constant Gdouble := 100.0;
-      Yb : constant Gdouble := 100.0;
 
-      a : constant Gdouble := 5.0;
+      radius_var : constant Gdouble := radius (I, N);
+      theta_var  : constant Gdouble := theta (I, N);
 
-      r : constant Gdouble := a * Phi**(2.0 * state.theta / PI);
-
-      Spiral_Side : constant Gdouble :=
-        (if Element.T = P2G.Vowel then 5.0
-         elsif Element.T = P2G.Numeral then -5.0 else 0.0);
-
-      Shift : constant Gdouble :=
-        (if Element.T = P2G.Vowel or else Element.T = P2G.Numeral then 2.0
-         else 0.0);
+      Grad : gradient;
 
    begin
 
-      X := Xb + r * Cos (state.theta) + Shift;
-      Y := Yb - r * Sin (state.theta) + Spiral_Side;
+      if Element.T = P2G.Vowel then
+         Grad := Calculate_Gradient (I, N, Is_Vowel => True);
+      elsif Element.T = P2G.Numeral then
+         Grad := Calculate_Gradient (I, N, Is_Vowel => False);
+      end if;
+
+      X := state.Xb + radius_var * Cos (theta_var) + Grad.dx;
+      Y := state.Yb - radius_var * Sin (theta_var) - Grad.dy;
 
    end Transform;
 
@@ -62,19 +61,27 @@ package body Draw_Spiral is
       X_t, Y_t    : Gdouble := 0.0;
       Local_Angle : Gdouble := 0.0;
 
+      Depth_I : constant Gdouble := Gdouble (P2G.Spiral_Model.Depth (Root));
+      --  The way multiway trees are implemented their "depth function" start
+      --  with the root at the maximum depth (it has the most of children).
+
+      Sx : constant Gdouble := Linearize_Scale (Depth_I, state.Depth_N);
+
    begin
 
       if GN_String_Root = "line" then
 
-         Local_Angle := PI_4 + 0.5;
+         Local_Angle := theta (Depth_I, state.Depth_N);
       end if;
 
-      Transform (Root_Elem, X_t, Y_t, state);
+      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);
+      DG.Scaling_Around (Ctx, X_t, Y_t, Sx, Sx);
 
       DG.Choose_Glyph (Ctx, X_t, Y_t, GN_String_Root);
 
+      DG.Scaling_Around (Ctx, X_t, Y_t, 1.0 / Sx, 1.0 / Sx);
       DG.Rotation_Around (Ctx, X_t, Y_t, -Local_Angle);
 
    end Draw_Spiral_Element;
@@ -97,20 +104,24 @@ package body Draw_Spiral is
    -- Draw_Spiral --
    -----------------
 
+   --  Child_Elem  := P2G.Spiral_Model.Element (Current_Child);
+
+   --  Draw_Branch
+   --    (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
+
+   --  if Need_Line_Between_Phonems (Root, Current_Child) then
+   --     DG.Line_Between_Words
+   --       (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Di,
+   --        Is_Unrolled);
+   --  end if;
+
    procedure Draw_Spiral
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       state : in out Machine_State)
    is
 
       Current_Child : P2G.Spiral_Model.Cursor;
-
-      Root_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      --  Child_Elem : P2G.GlyphInfo;
-
-      X_t, Y_t : Gdouble := 0.0;
-
-      theta_Parent : constant Gdouble := state.theta;
-      I            : Positive         := 1;
+      I             : Positive := 1;
 
    begin
 
@@ -122,31 +133,9 @@ package body Draw_Spiral is
 
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
 
-            state.theta := state.theta - state.Increment;
-
-            --  Child_Elem  := P2G.Spiral_Model.Element (Current_Child);
-
-            --  Draw_Branch
-            --    (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
-
-            --  if Need_Line_Between_Phonems (Root, Current_Child) then
-            --     DG.Line_Between_Words
-            --       (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Di,
-            --        Is_Unrolled);
-            --  end if;
-
-            --  if Need_Line_Between_Phonems (Root, Current_Child) then
-            --     DG.Line_Between_Words
-            --       (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Di,
-            --        Is_Unrolled);
-            --  end if;
-
             Draw_Spiral (Ctx, Current_Child, state);
 
-            Transform (Root_Elem, X_t, Y_t, state);
-
-            state.theta := theta_Parent;
-            I           := I + 1;
+            I := I + 1;
             P2G.Spiral_Model.Next_Sibling (Current_Child);
 
          end loop;

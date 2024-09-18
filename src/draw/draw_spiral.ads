@@ -9,8 +9,7 @@ package Draw_Spiral is
 
    type Machine_State is record
 
-      theta     : Gdouble;
-      Increment : Gdouble;
+      Xb, Yb : Gdouble;
 
       LM      : P2G.Language_Model.Map;
       Depth_N : Gdouble;
@@ -27,7 +26,8 @@ package Draw_Spiral is
 private
 
    procedure Transform
-     (Element : P2G.GlyphInfo; X, Y : in out Gdouble; state : Machine_State);
+     (Element : P2G.GlyphInfo; I, N : Gdouble; X, Y : in out Gdouble;
+      state   : Machine_State);
 
    procedure Draw_Spiral_Element
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;

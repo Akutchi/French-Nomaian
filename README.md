@@ -36,9 +36,8 @@ I will also keep the way of translating using phonems.
 - evanfields : I will keep the way of creating the spiral and the "3-way" method of the GlyphGrid for organizing information.
 
 Lesson for me :
-- Start your project with a simple example - a model of sorts - whenever possible.
-Here, I could have started with the model (the draw_fibionnaci_spiral function),
-so that I could know what to implement next in a more complex environement.
+- Most important of all, start your project with a simple example - a model of sorts - whenever possible.
+Here, I could have started with the model (the draw_fibionnaci_spiral function), so that I could know what to implement next in a more complex environement.
 
 - Also, as one of my partner once said - was she quoting from someone ? I don't
 remember that much - "Everything's first day is terrible". Refactor only when

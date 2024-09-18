@@ -45,7 +45,7 @@ package Phonems2Glyphs is
    procedure Construct
      (Spiral : in out Spiral_Model.Tree; GlyphList : List_GlyphInfo.Vector);
 
-   function Depth
+   function Max_Depth
      (Elem : Spiral_Model.Cursor; LM : Language_Model.Map) return Float;
 
    procedure Print (List_Glyphs : List_GlyphInfo.Vector);
