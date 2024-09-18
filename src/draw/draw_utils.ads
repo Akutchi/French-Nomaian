@@ -54,18 +54,24 @@ package Draw_Utils is
 
    function Is_Start_Dot (E : P2G.GlyphInfo) return Boolean;
 
-   function dx
+   function dx_For_Word_Separator
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble;
 
-   function dy
+   function dy_For_Word_Separator
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble;
+   --  I would only need one displacement function for lines if I allowed
+   --  to draw lines between glyphs and word separators. However, I don't
+   --  don't feel like there's a need for that*, thus I need another function
+   --  to handle C-> S / S -> S and S -> C displacements.
+   --
+   --  *It's kinda ugly and useless.
 
-   function Offset (Element : P2G.GlyphInfo) return Gdouble;
+   function Branch_Offset (Element : P2G.GlyphInfo) return Gdouble;
 
    function Need_Line_Between_Phonems
      (Root, Child : P2G.Spiral_Model.Cursor) return Boolean;
 
-   procedure Get_Displacement_For_Line
+   procedure Get_Element_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
    --  Turn in the anti-trigonometric sense.
    --  Some values were not implemented because not necessary at the time of

@@ -3,8 +3,6 @@ with Glib; use Glib;
 
 with Phonems2Glyphs;
 
-with Draw_Utils; use Draw_Utils;
-
 package Draw_Unrolled_Spiral is
 
    package P2G renames Phonems2Glyphs;
@@ -35,9 +33,6 @@ private
    procedure Update_Branch_Coordinates
      (Root, Child :        P2G.Spiral_Model.Cursor; Xp, Yp : Gdouble;
       state       : in out Machine_State);
-
-   procedure Update_Element_Coordinates
-     (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type);
 
    procedure Restore_To_Parent_Coordinates_If_CS
      (Root, Child :        P2G.Spiral_Model.Cursor; Xp, Yp : Gdouble;

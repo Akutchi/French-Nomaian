@@ -3,6 +3,8 @@ with Ada.Containers; use Ada.Containers;
 
 with Draw_Glyphs;
 
+with Draw_Utils; use Draw_Utils;
+
 package body Draw_Unrolled_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
@@ -39,6 +41,11 @@ package body Draw_Unrolled_Spiral is
       Parent  : P2G.GlyphInfo;
       Element : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
 
+      --  before / after the word separator  because some glyphs
+      --  are not symmetric.
+      dx_Elem_Before : constant Gdouble :=
+        dx_For_Word_Separator (Element.GlyphName, before);
+
       Is_V : constant Boolean := Element.T = P2G.Vowel;
       Is_N : constant Boolean := Element.T = P2G.Numeral;
 
@@ -51,18 +58,16 @@ package body Draw_Unrolled_Spiral is
          Parent := P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
 
          if Is_CS_V (Parent, Element) then
-            state.Xv := Xp + dx (Element.GlyphName, before) + Offset (Element);
+            state.Xv := Xp + dx_Elem_Before + Branch_Offset (Element);
 
          elsif Is_CS_N (Parent, Element) then
-            state.Xn := Xp + dx (Element.GlyphName, before) + Offset (Element);
+            state.Xn := Xp + dx_Elem_Before + Branch_Offset (Element);
 
          elsif Is_V then
-            state.Xv :=
-              state.Xv + dx (Element.GlyphName, before) + Offset (Element);
+            state.Xv := state.Xv + dx_Elem_Before + Branch_Offset (Element);
 
          elsif Is_N then
-            state.Xn :=
-              state.Xn + dx (Element.GlyphName, before) + Offset (Element);
+            state.Xn := state.Xn + dx_Elem_Before + Branch_Offset (Element);
 
          end if;
       end if;
@@ -81,10 +86,12 @@ package body Draw_Unrolled_Spiral is
       Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
       Child_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
 
-      --  before / after the line that separates glyphs because some glyphs
+      --  before / after the the word separator because some glyphs
       --  are not symmetric.
-      dx_Root_Before : constant Gdouble := dx (Root_Elem.GlyphName, before);
-      dx_Child_After : constant Gdouble := dx (Child_Elem.GlyphName, after);
+      dx_Root_Before : constant Gdouble :=
+        dx_For_Word_Separator (Root_Elem.GlyphName, before);
+      dx_Child_After : constant Gdouble :=
+        dx_For_Word_Separator (Child_Elem.GlyphName, after);
 
       Vowel_Branching : constant Boolean :=
         Is_CS_V (Root_Elem, Child_Elem)
@@ -125,17 +132,6 @@ package body Draw_Unrolled_Spiral is
 
    end Update_Branch_Coordinates;
 
-   --------------------------------
-   -- Update_Element_Coordinates --
-   --------------------------------
-
-   procedure Update_Element_Coordinates
-     (Parent_Elem : P2G.GlyphInfo; Yp : in out Gdouble; dtype : dpos_Type)
-   is
-   begin
-      Yp := Yp + dy (Parent_Elem.GlyphName, dtype);
-   end Update_Element_Coordinates;
-
    -----------------------------------
    -- Restore_To_Parent_Coordinates --
    -----------------------------------
@@ -153,6 +149,15 @@ package body Draw_Unrolled_Spiral is
         or else Is_DX (Root_Elem, Child_Elem, P2G.Vowel)
         or else Is_DX (Root_Elem, Child_Elem, P2G.Numeral);
 
+      dx_Root_Before  : constant Gdouble :=
+        dx_For_Word_Separator (Root_Elem.GlyphName, before);
+      dx_Child_After  : constant Gdouble :=
+        dx_For_Word_Separator (Child_Elem.GlyphName, after);
+      dy_Child_Before : constant Gdouble :=
+        dy_For_Word_Separator (Child_Elem.GlyphName, before);
+      dy_Root_After   : constant Gdouble :=
+        dy_For_Word_Separator (Root_Elem.GlyphName, after);
+
    begin
 
       if not In_Branch then
@@ -160,29 +165,23 @@ package body Draw_Unrolled_Spiral is
       end if;
 
       if Child_Elem.T = P2G.Word_Separator then
-         state.Xc := Xp + dx (Root_Elem.GlyphName, before);
+         state.Xc := Xp + dx_Root_Before;
 
       elsif Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
-         state.Xc :=
-           Xp + dx (Root_Elem.GlyphName, before) +
-           dx (Child_Elem.GlyphName, after);
+         state.Xc := Xp + dx_Root_Before + dx_Child_After;
 
       elsif Child_Elem.T = P2G.Consonant then
-         state.Xc :=
-           Xp + dx (Root_Elem.GlyphName, before) + Line_Words_R_Poly +
-           dx (Child_Elem.GlyphName, after);
+         state.Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
       end if;
 
       if Is_SX (Root_Elem, Child_Elem, 's') then
          state.Yc := Yp + 0.4 * R_Poly;
-      end if;
 
-      if Is_SX (Root_Elem, Child_Elem, 'c') then
-         state.Yc := Yp + dy (Child_Elem.GlyphName, before);
-      end if;
+      elsif Is_SX (Root_Elem, Child_Elem, 'c') then
+         state.Yc := Yp + dy_Child_Before;
 
-      if Is_CX (Root_Elem, Child_Elem, 's') then
-         state.Yc := Yp + dy (Root_Elem.GlyphName, after);
+      elsif Is_CX (Root_Elem, Child_Elem, 's') then
+         state.Yc := Yp + dy_Root_After;
 
       end if;
 
@@ -200,14 +199,10 @@ package body Draw_Unrolled_Spiral is
       Current_Child : P2G.Spiral_Model.Cursor;
 
       Parent_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      First_Child_Elem : P2G.GlyphInfo;
-      Child_Elem       : P2G.GlyphInfo;
-
-      Is_Parent_Word_Sep : constant Boolean :=
-        Parent_Elem.T = P2G.Word_Separator;
+      Child_Elem  : P2G.GlyphInfo;
 
       Xp : constant Gdouble := X;
-      Yp : Gdouble          := Y;
+      Yp : constant Gdouble := Y;
 
       I : Positive := 1;
 

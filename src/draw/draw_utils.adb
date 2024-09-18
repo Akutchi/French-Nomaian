@@ -63,11 +63,11 @@ package body Draw_Utils is
       return E.T = P2G.Starting_Dot;
    end Is_Start_Dot;
 
-   --------
-   -- dx --
-   --------
+   ---------------------------
+   -- dx_For_Word_Separator --
+   ---------------------------
 
-   function dx
+   function dx_For_Word_Separator
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble
    is
 
@@ -206,13 +206,13 @@ package body Draw_Utils is
 
       end case;
 
-   end dx;
+   end dx_For_Word_Separator;
 
-   --------
-   -- dy --
-   --------
+   ---------------------------
+   -- dy_For_Word_Separator --
+   ---------------------------
 
-   function dy
+   function dy_For_Word_Separator
      (GlyphName : S_U.Unbounded_String; dp : dpos_Type) return Gdouble
    is
 
@@ -291,47 +291,18 @@ package body Draw_Utils is
                   return 0.0;
             end case;
 
-         when hexaline | hexabend | heptaline | heptabend =>
-
-            case dp is
-               when before =>
-                  return 0.0;
-               when after =>
-                  return 0.0;
-            end case;
-
-         when heptasquare =>
-            return 0.0;
-
-         when heptapenta =>
-            return 0.0;
-
-         when heptahexa =>
-            return 0.0;
-
-         when heptahepta =>
-            return 0.0;
-
-         when octa =>
-            return 0.0;
-
-         when octaline =>
-
-            case dp is
-               when before =>
-                  return 0.0;
-               when after =>
-                  return 0.0;
-            end case;
-
          when others =>
             return 0.0;
 
       end case;
 
-   end dy;
+   end dy_For_Word_Separator;
 
-   function Offset (Element : P2G.GlyphInfo) return Gdouble is
+   -------------------
+   -- Branch_Offset --
+   -------------------
+
+   function Branch_Offset (Element : P2G.GlyphInfo) return Gdouble is
 
       de_base : constant Gdouble := 1.5 * R_Poly;
    begin
@@ -339,13 +310,13 @@ package body Draw_Utils is
       case GlyphRep'Value (S_U.To_String (Element.GlyphName)) is
 
          when pentapenta | hexasquare | hexapenta | heptasquare | heptapenta =>
-            return de_base + 3.0 * R_Poly;
+            return de_base + R_Poly;
 
          when others =>
             return de_base;
       end case;
 
-   end Offset;
+   end Branch_Offset;
 
    -------------------------------
    -- Need_Line_Between_Phonems --
@@ -382,8 +353,9 @@ package body Draw_Utils is
          begin
             return
               not
-              (Is_Start_Word or else Is_CS_V (E_Root, E_Child)
-               or else Is_CS_N (E_Root, E_Child) or else Is_End_Word);
+              (Is_Start_Word or else Is_End_Word
+               or else Is_CS_V (E_Root, E_Child)
+               or else Is_CS_N (E_Root, E_Child));
          end;
       end if;
 
@@ -522,11 +494,11 @@ package body Draw_Utils is
 
    end Get_Displacement_For_Branch;
 
-   -------------------------------
-   -- Get_Displacement_For_Line --
-   -------------------------------
+   ---------------------------------------
+   -- Get_Element_Displacement_For_Line --
+   ---------------------------------------
 
-   procedure Get_Displacement_For_Line
+   procedure Get_Element_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type)
    is
    begin
@@ -570,10 +542,13 @@ package body Draw_Utils is
 
          when squaresquare =>
 
-            dx_e := -R_Poly;
+            if dp = before then
+               dx_e := -R_Poly;
 
-            if dp = after then
-               dx_e := dx_e + 3.0 * R_Poly;
+            elsif dp = after then
+               dx_e := dx_e + 2.0 * R_Poly;
+               dy_e := R_Poly;
+
             end if;
 
          when penta | pentasquare =>
@@ -667,7 +642,7 @@ package body Draw_Utils is
 
       end case;
 
-   end Get_Displacement_For_Line;
+   end Get_Element_Displacement_For_Line;
 
    -----------------
    -- Draw_Branch --

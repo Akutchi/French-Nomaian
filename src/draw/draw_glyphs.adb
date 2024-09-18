@@ -87,8 +87,8 @@ package body Draw_Glyphs is
 
    begin
 
-      Get_Displacement_For_Line (Parent, dx_Parent, dy_Parent, after);
-      Get_Displacement_For_Line (Child, dx_Child, dy_Child, before);
+      Get_Element_Displacement_For_Line (Parent, dx_Parent, dy_Parent, after);
+      Get_Element_Displacement_For_Line (Child, dx_Child, dy_Child, before);
 
       Xp_t := Xp_t + dx_Parent;
       Yp_t := Yp_t + dy_Parent;

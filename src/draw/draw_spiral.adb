@@ -162,8 +162,11 @@ package body Draw_Spiral is
      (Ctx : in out Cairo.Cairo_Context; Xb, Yb, Start_Angle : Gdouble;
       N   :        Positive)
    is
-      Sx  : Gdouble          := 1.0;
-      N_d : constant Gdouble := Gdouble (N);
+
+      end_space : constant Gdouble := 1.0 - TWO_PI;
+      k         : constant Gdouble := 0.4;
+      N_d       : constant Gdouble := Gdouble (N);
+      Sx        : Gdouble          := 1.0;
 
    begin
 
@@ -174,41 +177,36 @@ package body Draw_Spiral is
 
          declare
 
-            I_d : constant Gdouble := Gdouble (I);
-
-            k         : constant Gdouble := 0.4;
-            end_space : constant Gdouble := 1.0 - TWO_PI;
-
+            I_d       : constant Gdouble := Gdouble (I);
             theta_var : constant Gdouble :=
-              theta (I_d, N_d, Start_Angle, end_space, k);
+              theta (I_d, N_d, end_space, k, Start_Angle);
 
-            X, Y        : Gdouble;
-            dr, d_theta : Gdouble := 0.0;
-
-            eps        : constant Gdouble := 2.0;
-            grad_r     : constant Gdouble :=
-              radius_prime (I_d, N_d, Start_Angle, end_space, k);
-            grad_theta : constant Gdouble :=
-              theta_prime (I_d, N_d, end_space, k);
+            X, Y : Gdouble;
+            Grad : gradient;
 
          begin
 
-            if I mod 3 = 0 and then not (I = 21) then
-               Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
+            Grad.dx := 0.0;
+            Grad.dy := 0.0;
 
-               dr      := eps * grad_r;
-               d_theta := eps * grad_theta;
+            if I mod 3 = 0 and then not (I = 21) then
+
+               Cairo.Set_Source_Rgb (Ctx, 1.0, 0.0, 0.0);
+               Grad :=
+                 Calculate_Gradient
+                   (I_d, N_d, end_space, k, Start_Angle, Is_Vowel => True);
 
             elsif I mod 7 = 0 then
-               Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
 
-               dr      := -eps * grad_r;
-               d_theta := -eps * grad_theta;
+               Cairo.Set_Source_Rgb (Ctx, 0.0, 0.0, 1.0);
+               Grad :=
+                 Calculate_Gradient
+                   (I_d, N_d, end_space, k, Start_Angle, False);
 
             end if;
 
-            X := Xb + (radius (theta_var) + dr) * Cos (theta_var + d_theta);
-            Y := Yb - (radius (theta_var) + dr) * Sin (theta_var + d_theta);
+            X := Xb + radius (theta_var, N_d) * Cos (theta_var) + Grad.dx;
+            Y := Yb - radius (theta_var, N_d) * Sin (theta_var) - Grad.dy;
 
             DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
             DG.Ngone (Ctx, X, Y, 8);

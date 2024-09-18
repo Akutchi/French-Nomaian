@@ -16,8 +16,6 @@ with Draw_Spiral;
 
 with Math_Constants; use Math_Constants;
 
-with Draw_Unrolled_Spiral;
-
 procedure French_Nomaian is
 
    package S_WU renames Ada.Strings.Wide_Unbounded;
@@ -51,37 +49,36 @@ begin
    declare
 
       Depth_N : constant Positive :=
-        24; --  Gdouble (P2G.Depth (Root_Child, LM));
+        100; --  Gdouble (P2G.Depth (Root_Child, LM));
 
       Start_Angle : constant Gdouble := TWO_PI;
       R           : constant Gdouble := Phi**(2.0 * Start_Angle / PI);
 
-      W : constant Gdouble := R + R / Phi + 60.0;
-      H : constant Gdouble := R + 60.0;
+      W : constant Gdouble := R + R / Phi + Gdouble (Depth_N) * Phi;
+      H : constant Gdouble := R + Gdouble (Depth_N);
 
       SVG_Surface : constant Cairo.Cairo_Surface :=
-        C_SVG.Create (Locations.SVG_FILE, 100.0, 30.0);
+        C_SVG.Create (Locations.SVG_FILE, W, H);
 
       Ctx : Cairo.Cairo_Context := Cairo.Create (SVG_Surface);
 
-      state : Draw_Unrolled_Spiral.Machine_State;
+      state : DS.Machine_State;
 
    begin
 
-      --  state.theta     := TWO_PI;
-      --  state.Increment := TWO_PI / 50.0;
-      --  state.LM        := LM;
-      --  state.Depth_N   := Gdouble (Depth_N);
+      state.theta     := TWO_PI;
+      state.Increment := TWO_PI / 50.0;
+      state.LM        := LM;
+      state.Depth_N   := Gdouble (Depth_N);
 
-      --  DG.Background (Ctx, W, H);
-      --  --  DS.Draw_Spiral (Ctx, Root_Child, state);
-      --  DG.Rotation_Around (Ctx, W / 2.0, W / 2.0, PI_2);
-      --  DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, W / 2.0, Start_Angle,
-      --  Depth_N);
+      DG.Background (Ctx, W, H);
+      --  DS.Draw_Spiral (Ctx, Root_Child, state);
+      --  DG.Rotation_Around (Ctx, W / 2.0, W / 2.0, -PI);
+      DS.Draw_Fibionnaci_Spiral (Ctx, W / 2.0, H / 2.0, Start_Angle, Depth_N);
 
-      DG.Background (Ctx, 100.0, 30.0);
-      Draw_Unrolled_Spiral.Draw_Unrolled_Spiral
-        (Ctx, Root_Child, 2.0, 8.0, state);
+      --  DG.Background (Ctx, 100.0, 30.0);
+      --  Draw_Unrolled_Spiral.Draw_Unrolled_Spiral
+      --    (Ctx, Root_Child, 2.0, 8.0, state);
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);
