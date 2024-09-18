@@ -41,8 +41,8 @@ package body Draw_Spiral is
          Grad := Calculate_Gradient (I, N, Is_Vowel => False);
       end if;
 
-      X := state.Xb + radius_var * Cos (theta_var) + Grad.dx;
-      Y := state.Yb - radius_var * Sin (theta_var) - Grad.dy;
+      X := state.Xb + (radius_var + Grad.dx) * Cos (theta_var);
+      Y := state.Yb - (radius_var + Grad.dx) * Sin (theta_var);
 
    end Transform;
 

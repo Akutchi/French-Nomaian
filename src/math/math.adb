@@ -90,15 +90,12 @@ package body Math is
       grad_r     : constant Gdouble := radius_prime (I, N);
       grad_theta : constant Gdouble := theta_prime (N);
 
-      grad_x : constant Gdouble := grad_r * Cos (grad_theta);
-      grad_y : constant Gdouble := grad_r * Sin (grad_theta);
-
       Spiral_Side : constant Gdouble := (if Is_Vowel then -1.0 else 1.0);
 
    begin
 
-      Gradient_Point.dx := Spiral_Side * epsilon * grad_x;
-      Gradient_Point.dy := Spiral_Side * epsilon * grad_y;
+      Gradient_Point.dx := Spiral_Side * epsilon * grad_r;
+      Gradient_Point.dy := Spiral_Side * epsilon * grad_theta;
 
       return Gradient_Point;
 
