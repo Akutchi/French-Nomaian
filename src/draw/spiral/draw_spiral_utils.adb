@@ -24,25 +24,26 @@ package body Draw_Spiral_Utils is
      (Ctx : Cairo.Cairo_Context; X, Y, I, N, radius_var, theta_var : Gdouble)
    is
 
-      Grad, Tan_v : gradient;
+      Grad          : gradient;
+      Grad_v, Tan_v : vector;
 
    begin
 
       Grad := Calculate_Gradient (I, N);
 
-      Grad  := (Grad.dr, Grad.dtheta);
-      Tan_v := (Grad.dr, Grad.dtheta + PI_2);
+      Grad_v   := Normalize ((Grad.dr, Grad.dtheta));
+      Tan_v    := Normalize ((Grad.dr, Grad.dtheta));
+      Tan_v.p2 := Tan_v.p2 - PI_2;
 
       Cairo.Move_To (Ctx, X, Y);
       Cairo.Line_To
-        (Ctx, X + 0.1 * (radius_var + Grad.dr) * Cos (theta_var - Grad.dtheta),
-         Y - 0.1 * (radius_var + Grad.dr) * Sin (theta_var - Grad.dtheta));
+        (Ctx, X + Grad_v.p1 * Cos (theta_var - Grad_v.p2),
+         Y - Grad_v.p1 * Sin (theta_var - Grad_v.p2));
 
       Cairo.Move_To (Ctx, X, Y);
       Cairo.Line_To
-        (Ctx,
-         X + 0.1 * (radius_var + Tan_v.dr) * Cos (theta_var - Tan_v.dtheta),
-         Y - 0.1 * (radius_var + Tan_v.dr) * Sin (theta_var - Tan_v.dtheta));
+        (Ctx, X + Tan_v.p1 * Cos (theta_var - Tan_v.p2),
+         Y - Tan_v.p1 * Sin (theta_var - Tan_v.p2));
 
       Cairo.Move_To (Ctx, X, Y);
       Cairo.Line_To (Ctx, X + 1.0, Y);

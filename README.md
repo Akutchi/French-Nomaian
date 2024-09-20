@@ -1,5 +1,7 @@
 # French-Nomaian
-A nomai's language generator adapted for french.
+
+| ![Title image](./doc/visuals/Title_Image.png) |
+
 
 # Context
 
@@ -36,7 +38,7 @@ I will also keep the way of translating using phonems.
 - evanfields : I will keep the way of creating the spiral and the "3-way" method of the GlyphGrid for organizing information.
 
 
-Note : I still kept the linear version for historic reasons, but it's not very useful
+Note about the linear module : I still kept the linear version for historic reasons, but it's not very useful
 and one should consider it deprecated.
 
 

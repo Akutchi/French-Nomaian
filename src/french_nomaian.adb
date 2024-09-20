@@ -3,6 +3,7 @@ with Ada.Strings.Wide_Unbounded;
 with Sentence2Phonems;
 with Phonems2Glyphs;
 with Tools;
+with Tui;
 
 procedure French_Nomaian is
 
@@ -19,6 +20,9 @@ begin
 
    S2P.Init_Cmudict (dict);
    P2G.Init_Language_Model (LM);
+
+   Tui.Print_Title;
+   Tui.Propose;
 
    Sentence := S2P.Get_Raw_Sentence;
    Tools.Create_Spiral_SVG (Sentence, dict, LM);

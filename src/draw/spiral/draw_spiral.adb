@@ -79,7 +79,8 @@ package body Draw_Spiral is
 
    begin
 
-      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx);
+      Transform
+        (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx, True);
       Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);
@@ -162,7 +163,7 @@ package body Draw_Spiral is
 
             Child_Elem := P2G.Spiral_Model.Element (Current_Child);
 
-            Draw_Lines (Ctx, Root, Current_Child, state);
+            --  Draw_Lines (Ctx, Root, Current_Child, state);
 
             Draw_Spiral (Ctx, Current_Child, state);
 

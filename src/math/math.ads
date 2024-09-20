@@ -23,6 +23,8 @@ package Math is
 
    procedure Adjust_Element (Angle : in out Gdouble; I, N : Gdouble);
 
+   function Normalize (u : vector) return vector;
+
 private
 
    function k (N : Gdouble) return Gdouble;
@@ -45,8 +47,6 @@ private
    --  optimization.
 
    function norm (Point : vector) return Gdouble;
-
-   function Normalize (u : vector) return vector;
 
    function dot (u : vector; v : vector) return Gdouble;
 

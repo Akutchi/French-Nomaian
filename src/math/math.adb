@@ -1,5 +1,7 @@
 with Ada.Numerics.Generic_Elementary_Functions;
 
+with Ada.Text_IO;
+
 with Math_Constants; use Math_Constants;
 
 package body Math is
@@ -133,7 +135,7 @@ package body Math is
 
       u_n := norm (u);
 
-      if u_n >= 0.01 then
+      if u_n >= 0.001 then
 
          v.p1 := u.p1 / u_n;
          v.p2 := u.p2 / u_n;
@@ -166,13 +168,16 @@ package body Math is
       Element_vector : constant vector := (1.0, 0.0);
 
       Grad    : constant gradient := Calculate_Gradient (I, N);
-      Tangent : constant vector   := Normalize ((Grad.dr, Grad.dtheta + PI_2));
+      Tangent : vector            := Normalize ((Grad.dr, Grad.dtheta));
 
       scalar : constant Gdouble := dot (Tangent, Element_vector);
 
    begin
 
-      Angle := Arccos (scalar) - PI_7;
+      Tangent.p2 := Tangent.p2 - PI_2;
+      Angle      := Arccos (scalar);
+
+      --  Ada.Text_IO.Put_Line (Gdouble'Image (scalar));
 
    end Adjust_Element;
 

@@ -11,3 +11,4 @@ tags = ["ada", "gtkada", "ow", "nomai", "language"]
 
 [[depends-on]]
 gtkada = "^22.0.0"
+
