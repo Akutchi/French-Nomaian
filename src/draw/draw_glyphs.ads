@@ -1,9 +1,13 @@
 with Cairo;
 with Glib; use Glib;
 
-with Draw_Utils; use Draw_Utils;
+with Phonems2Glyphs;
+
+with Draw_Constants; use Draw_Constants;
 
 package Draw_Glyphs is
+
+   package P2G renames Phonems2Glyphs;
 
    procedure Background (Ctx : in out Cairo.Cairo_Context; W, H : Gdouble);
 
@@ -16,10 +20,6 @@ package Draw_Glyphs is
    procedure Dot
      (Ctx  : in out Cairo.Cairo_Context; X, Y : Gdouble;
       Rdot :        Gdouble := R_Dot);
-
-   procedure Line_Between_Words
-     (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp :        Gdouble);
 
    procedure Line (Ctx : in out Cairo.Cairo_Context; X, Y : Gdouble);
 

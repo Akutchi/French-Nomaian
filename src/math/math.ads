@@ -2,9 +2,12 @@ with Glib; use Glib;
 
 package Math is
 
-   type gradient is record
-      dx, dy : Gdouble := 0.0;
+   type vector is record
+      p1, p2 : Gdouble := 0.0;
+   end record;
 
+   type gradient is record
+      dr, dtheta : Gdouble := 0.0;
    end record;
 
    function Linearize_Scale (x, N : Gdouble) return Gdouble;
@@ -17,6 +20,8 @@ package Math is
 
    function Calculate_Gradient
      (I, N : Gdouble; Is_Vowel : Boolean := False) return gradient;
+
+   procedure Adjust_Element (Angle : in out Gdouble; I, N : Gdouble);
 
 private
 
@@ -38,5 +43,11 @@ private
    --  This function is used to adapt the gradient epsilon to the curve length.
    --  I would need to adapt to the scaling also, but this is not an important
    --  optimization.
+
+   function norm (Point : vector) return Gdouble;
+
+   function Normalize (u : vector) return vector;
+
+   function dot (u : vector; v : vector) return Gdouble;
 
 end Math;

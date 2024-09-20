@@ -2,14 +2,18 @@ with Ada.Strings.Unbounded;
 with Ada.Containers; use Ada.Containers;
 
 with Draw_Glyphs;
+with Draw_Unrolled_Utils;
+with Draw_Utils;
 
-with Draw_Utils; use Draw_Utils;
+with Draw_Constants; use Draw_Constants;
 
 package body Draw_Unrolled_Spiral is
 
    package S_U renames Ada.Strings.Unbounded;
 
    package DG renames Draw_Glyphs;
+   package DUU renames Draw_Unrolled_Utils;
+   package DU renames Draw_Utils;
 
    -------------------------
    -- Draw_Spiral_Element --
@@ -44,7 +48,7 @@ package body Draw_Unrolled_Spiral is
       --  before / after the word separator  because some glyphs
       --  are not symmetric.
       dx_Elem_Before : constant Gdouble :=
-        dx_For_Word_Separator (Element.GlyphName, before);
+        DUU.dx_For_Word_Separator (Element.GlyphName, before);
 
       Is_V : constant Boolean := Element.T = P2G.Vowel;
       Is_N : constant Boolean := Element.T = P2G.Numeral;
@@ -57,17 +61,19 @@ package body Draw_Unrolled_Spiral is
 
          Parent := P2G.Spiral_Model.Element (P2G.Spiral_Model.Parent (Root));
 
-         if Is_CS_V (Parent, Element) then
-            state.Xv := Xp + dx_Elem_Before + Branch_Offset (Element);
+         if DU.Is_CS_V (Parent, Element) then
+            state.Xv := Xp + dx_Elem_Before + DUU.Branch_Offset (Element);
 
-         elsif Is_CS_N (Parent, Element) then
-            state.Xn := Xp + dx_Elem_Before + Branch_Offset (Element);
+         elsif DU.Is_CS_N (Parent, Element) then
+            state.Xn := Xp + dx_Elem_Before + DUU.Branch_Offset (Element);
 
          elsif Is_V then
-            state.Xv := state.Xv + dx_Elem_Before + Branch_Offset (Element);
+            state.Xv :=
+              state.Xv + dx_Elem_Before + DUU.Branch_Offset (Element);
 
          elsif Is_N then
-            state.Xn := state.Xn + dx_Elem_Before + Branch_Offset (Element);
+            state.Xn :=
+              state.Xn + dx_Elem_Before + DUU.Branch_Offset (Element);
 
          end if;
       end if;
@@ -89,17 +95,17 @@ package body Draw_Unrolled_Spiral is
       --  before / after the the word separator because some glyphs
       --  are not symmetric.
       dx_Root_Before : constant Gdouble :=
-        dx_For_Word_Separator (Root_Elem.GlyphName, before);
+        DUU.dx_For_Word_Separator (Root_Elem.GlyphName, before);
       dx_Child_After : constant Gdouble :=
-        dx_For_Word_Separator (Child_Elem.GlyphName, after);
+        DUU.dx_For_Word_Separator (Child_Elem.GlyphName, after);
 
       Vowel_Branching : constant Boolean :=
-        Is_CS_V (Root_Elem, Child_Elem)
-        or else Is_DX (Root_Elem, Child_Elem, P2G.Vowel);
+        DU.Is_CS_V (Root_Elem, Child_Elem)
+        or else DU.Is_DX (Root_Elem, Child_Elem, P2G.Vowel);
 
       Numeral_Branching : constant Boolean :=
-        Is_CS_N (Root_Elem, Child_Elem)
-        or else Is_DX (Root_Elem, Child_Elem, P2G.Numeral);
+        DU.Is_CS_N (Root_Elem, Child_Elem)
+        or else DU.Is_DX (Root_Elem, Child_Elem, P2G.Numeral);
 
       Dv, Dn : Gdouble;
 
@@ -120,10 +126,10 @@ package body Draw_Unrolled_Spiral is
          state.Xc := Xp + Dn;
          state.Yc := Yp + dy_vn;
 
-      elsif Is_CX (Root_Elem, Child_Elem, P2G.Word_Separator) then
+      elsif DU.Is_CX (Root_Elem, Child_Elem, P2G.Word_Separator) then
          state.Xc := Xp + dx_Root_Before;
 
-      elsif Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
+      elsif DU.Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
          state.Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
 
       else
@@ -145,18 +151,19 @@ package body Draw_Unrolled_Spiral is
       Child_Elem : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
 
       In_Branch : constant Boolean :=
-        Is_CS_V (Root_Elem, Child_Elem) or else Is_CS_N (Root_Elem, Child_Elem)
-        or else Is_DX (Root_Elem, Child_Elem, P2G.Vowel)
-        or else Is_DX (Root_Elem, Child_Elem, P2G.Numeral);
+        DU.Is_CS_V (Root_Elem, Child_Elem)
+        or else DU.Is_CS_N (Root_Elem, Child_Elem)
+        or else DU.Is_DX (Root_Elem, Child_Elem, P2G.Vowel)
+        or else DU.Is_DX (Root_Elem, Child_Elem, P2G.Numeral);
 
       dx_Root_Before  : constant Gdouble :=
-        dx_For_Word_Separator (Root_Elem.GlyphName, before);
+        DUU.dx_For_Word_Separator (Root_Elem.GlyphName, before);
       dx_Child_After  : constant Gdouble :=
-        dx_For_Word_Separator (Child_Elem.GlyphName, after);
+        DUU.dx_For_Word_Separator (Child_Elem.GlyphName, after);
       dy_Child_Before : constant Gdouble :=
-        dy_For_Word_Separator (Child_Elem.GlyphName, before);
+        DUU.dy_For_Word_Separator (Child_Elem.GlyphName, before);
       dy_Root_After   : constant Gdouble :=
-        dy_For_Word_Separator (Root_Elem.GlyphName, after);
+        DUU.dy_For_Word_Separator (Root_Elem.GlyphName, after);
 
    begin
 
@@ -167,20 +174,20 @@ package body Draw_Unrolled_Spiral is
       if Child_Elem.T = P2G.Word_Separator then
          state.Xc := Xp + dx_Root_Before;
 
-      elsif Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
+      elsif DU.Is_SX (Root_Elem, Child_Elem, P2G.Consonant) then
          state.Xc := Xp + dx_Root_Before + dx_Child_After;
 
       elsif Child_Elem.T = P2G.Consonant then
          state.Xc := Xp + dx_Root_Before + Line_Words_R_Poly + dx_Child_After;
       end if;
 
-      if Is_SX (Root_Elem, Child_Elem, 's') then
+      if DU.Is_SX (Root_Elem, Child_Elem, 's') then
          state.Yc := Yp + 0.4 * R_Poly;
 
-      elsif Is_SX (Root_Elem, Child_Elem, 'c') then
+      elsif DU.Is_SX (Root_Elem, Child_Elem, 'c') then
          state.Yc := Yp + dy_Child_Before;
 
-      elsif Is_CX (Root_Elem, Child_Elem, 's') then
+      elsif DU.Is_CX (Root_Elem, Child_Elem, 's') then
          state.Yc := Yp + dy_Root_After;
 
       end if;
@@ -223,14 +230,14 @@ package body Draw_Unrolled_Spiral is
 
             Child_Elem := P2G.Spiral_Model.Element (Current_Child);
 
-            Draw_Branch
+            DUU.Draw_Branch
               (Ctx, Parent_Elem, Child_Elem, state.Xc, state.Yc, Xp, Yp);
 
             Restore_To_Parent_Coordinates_If_CS
               (Root, Current_Child, Xp, Yp, state);
 
-            if Need_Line_Between_Phonems (Root, Current_Child) then
-               DG.Line_Between_Words
+            if DU.Need_Line_Between_Phonems (Root, Current_Child) then
+               DUU.Line_Between_Words
                  (Ctx, Parent_Elem, Child_Elem, state.Xc, state.Yc, Xp, Yp);
             end if;
 

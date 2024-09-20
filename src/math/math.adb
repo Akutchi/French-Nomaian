@@ -103,11 +103,77 @@ package body Math is
 
    begin
 
-      Gradient_Point.dx := Spiral_Side * epsilon * grad_r;
-      Gradient_Point.dy := Spiral_Side * epsilon * grad_theta;
+      Gradient_Point.dr     := Spiral_Side * epsilon * grad_r;
+      Gradient_Point.dtheta := Spiral_Side * epsilon * grad_theta;
 
       return Gradient_Point;
 
    end Calculate_Gradient;
+
+   ----------
+   -- norm --
+   ----------
+
+   function norm (Point : vector) return Gdouble is
+   begin
+
+      return Sqrt (Point.p1**2 + Point.p2**2);
+   end norm;
+
+   ---------------
+   -- Normalize --
+   ---------------
+
+   function Normalize (u : vector) return vector is
+
+      u_n : Gdouble;
+      v   : vector := (0.0, 0.0);
+
+   begin
+
+      u_n := norm (u);
+
+      if u_n >= 0.01 then
+
+         v.p1 := u.p1 / u_n;
+         v.p2 := u.p2 / u_n;
+
+         return v;
+
+      else
+         return (0.0, 0.0);
+      end if;
+
+   end Normalize;
+
+   ---------
+   -- dot --
+   ---------
+
+   function dot (u : vector; v : vector) return Gdouble is
+   begin
+
+      return u.p1 * v.p1 + u.p2 * v.p2;
+
+   end dot;
+
+   --------------------
+   -- Adjust_Element --
+   --------------------
+
+   procedure Adjust_Element (Angle : in out Gdouble; I, N : Gdouble) is
+
+      Element_vector : constant vector := (1.0, 0.0);
+
+      Grad    : constant gradient := Calculate_Gradient (I, N);
+      Tangent : constant vector   := Normalize ((Grad.dr, Grad.dtheta + PI_2));
+
+      scalar : constant Gdouble := dot (Tangent, Element_vector);
+
+   begin
+
+      Angle := Arccos (scalar) - PI_7;
+
+   end Adjust_Element;
 
 end Math;

@@ -5,9 +5,9 @@ with Ada.Numerics.Generic_Elementary_Functions;
 
 with Draw_Glyphs;
 
-with Math; use Math;
-
-with Ada.Text_IO;
+with Draw_Utils;        use Draw_Utils;
+with Draw_Spiral_Utils; use Draw_Spiral_Utils;
+with Math;              use Math;
 
 package body Draw_Spiral is
 
@@ -18,14 +18,15 @@ package body Draw_Spiral is
    use Functions;
 
    package DG renames Draw_Glyphs;
+   package DSU renames Draw_Spiral_Utils;
 
    ---------------
    -- Transform --
    ---------------
 
    procedure Transform
-     (Element : P2G.GlyphInfo; I, N : Gdouble; X, Y : in out Gdouble;
-      state   : Machine_State)
+     (Ctx  : in out Cairo.Cairo_Context; Element : P2G.GlyphInfo;
+      I, N :        Gdouble; X, Y : in out Gdouble; state : Machine_State)
    is
 
       radius_var : constant Gdouble := radius (I, N);
@@ -41,8 +42,28 @@ package body Draw_Spiral is
          Grad := Calculate_Gradient (I, N, Is_Vowel => False);
       end if;
 
-      X := state.Xb + (radius_var + Grad.dx) * Cos (theta_var - Grad.dy);
-      Y := state.Yb - (radius_var + Grad.dx) * Sin (theta_var - Grad.dy);
+      X := state.Xb + (radius_var + Grad.dr) * Cos (theta_var + Grad.dtheta);
+      Y := state.Yb - (radius_var + Grad.dr) * Sin (theta_var + Grad.dtheta);
+
+      --  Grad := Calculate_Gradient (I, N);
+
+      --  Grad  := (Grad.dr, Grad.dtheta);
+      --  Tan_v := (Grad.dr, Grad.dtheta + PI_2);
+
+      --  Cairo.Move_To (Ctx, X, Y);
+      --  Cairo.Line_To
+      --    (Ctx, X + 0.1 * (radius_var + Grad.dr) * Cos (theta_var - Grad.dtheta),
+      --     Y - 0.1 * (radius_var + Grad.dr) * Sin (theta_var - Grad.dtheta));
+
+      --  Cairo.Move_To (Ctx, X, Y);
+      --  Cairo.Line_To
+      --    (Ctx,
+      --     X + 0.1 * (radius_var + Tan_v.dr) * Cos (theta_var - Tan_v.dtheta),
+      --     Y - 0.1 * (radius_var + Tan_v.dr) * Sin (theta_var - Tan_v.dtheta));
+
+      --  Cairo.Move_To (Ctx, X, Y);
+      --  Cairo.Line_To (Ctx, X + 1.0, Y);
+      --  Cairo.Stroke (Ctx);
 
    end Transform;
 
@@ -74,14 +95,8 @@ package body Draw_Spiral is
 
    begin
 
-      Ada.Text_IO.Put_Line (Gdouble'Image (state.Depth_N));
-
-      if GN_String_Root = "line" then
-
-         Local_Angle := theta (Depth_I, state.Depth_N);
-      end if;
-
-      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state);
+      Transform (Ctx, Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state);
+      --  Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);
       DG.Scaling_Around (Ctx, X_t, Y_t, Sx, Sx);
@@ -93,52 +108,75 @@ package body Draw_Spiral is
 
    end Draw_Spiral_Element;
 
-   ---------------
-   -- Draw_CVSN --
-   ---------------
+   ----------------
+   -- Draw_Lines --
+   ----------------
 
-   procedure Draw_CVSN
-     (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
-      state :        Machine_State)
+   procedure Draw_Lines
+     (Ctx           : in out Cairo.Cairo_Context;
+      Parent, Child :        P2G.Spiral_Model.Cursor; state : Machine_State)
    is
+
+      Parent_Elem : constant P2G.GlyphInfo :=
+        P2G.Spiral_Model.Element (Parent);
+      Child_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
+
+      Spiral_Side : constant Gdouble :=
+        (if Parent_Elem.T = P2G.Vowel or else Parent_Elem.T = P2G.Numeral then
+           1.0
+         else 0.0);
+
+      Depth_I : constant Gdouble :=
+        Gdouble (P2G.Spiral_Model.Depth (Parent)) - Spiral_Side;
+      --  The way multiway trees are implemented their "depth function" start
+      --  with the root at the maximum depth (it has the most of children).
+
+      Xp_t, Yp_t : Gdouble := 0.0;
+      Xc_t, Yc_t : Gdouble := 0.0;
+
    begin
 
-      Draw_Spiral_Element (Ctx, Root, state);
+      Draw_Branch (Ctx, Parent_Elem, Child_Elem, Xc_t, Yc_t, Xp_t, Yp_t);
 
-   end Draw_CVSN;
+      if Need_Line_Between_Phonems (Parent, Child)
+        and then Depth_I < state.Depth_N - 1.0
+      then
+
+         DSU.Line_Between_Words
+           (Ctx, Parent_Elem, Child_Elem, Xc_t, Yc_t, Xp_t, Yp_t);
+      end if;
+
+   end Draw_Lines;
 
    -----------------
    -- Draw_Spiral --
    -----------------
-
-   --  Child_Elem  := P2G.Spiral_Model.Element (Current_Child);
-
-   --  Draw_Branch
-   --    (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Is_Unrolled);
-
-   --  if Need_Line_Between_Phonems (Root, Current_Child) then
-   --     DG.Line_Between_Words
-   --       (Ctx, Parent_Elem, Child_Elem, Xc, Yc, Xp, Yp, Di,
-   --        Is_Unrolled);
-   --  end if;
 
    procedure Draw_Spiral
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;
       state : in out Machine_State)
    is
 
+      Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
+      Child_Elem : P2G.GlyphInfo;
+
       Current_Child : P2G.Spiral_Model.Cursor;
-      I             : Positive := 1;
+
+      I : Positive := 1;
 
    begin
 
-      Draw_CVSN (Ctx, Root, state);
+      Draw_Spiral_Element (Ctx, Root, state);
 
       if not P2G.Spiral_Model.Is_Leaf (Root) then
 
          Current_Child := P2G.Spiral_Model.First_Child (Root);
 
          while Count_Type (I) <= P2G.Spiral_Model.Child_Count (Root) loop
+
+            Child_Elem := P2G.Spiral_Model.Element (Current_Child);
+
+            Draw_Lines (Ctx, Root, Current_Child, state);
 
             Draw_Spiral (Ctx, Current_Child, state);
 
@@ -179,8 +217,8 @@ package body Draw_Spiral is
 
          begin
 
-            Grad.dx := 0.0;
-            Grad.dy := 0.0;
+            Grad.dr     := 0.0;
+            Grad.dtheta := 0.0;
 
             if I mod 3 = 0 and then not (I = 21) then
 
@@ -194,8 +232,8 @@ package body Draw_Spiral is
 
             end if;
 
-            X := Xb + radius_var * Cos (theta_var) + Grad.dx;
-            Y := Yb - radius_var * Sin (theta_var) - Grad.dy;
+            X := Xb + (radius_var + Grad.dr) * Cos (theta_var - Grad.dtheta);
+            Y := Yb - (radius_var + Grad.dr) * Sin (theta_var - Grad.dtheta);
 
             DG.Scaling_Around (Ctx, X, Y, Sx, Sx);
             DG.Ngone (Ctx, X, Y, 8);
