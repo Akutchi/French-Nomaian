@@ -1,17 +1,58 @@
 with Ada.Strings.Unbounded;
 with Ada.Numerics.Generic_Elementary_Functions;
 
-with Glib; use Glib;
+with Draw_Glyphs;
 
 with Math_Constants; use Math_Constants;
+with Math;           use Math;
 
 package body Draw_Spiral_Utils is
 
    package S_U renames Ada.Strings.Unbounded;
 
+   package DG renames Draw_Glyphs;
+
    package Functions is new Ada.Numerics.Generic_Elementary_Functions
      (Gdouble);
    use Functions;
+
+   -----------------------
+   -- Draw_Vector_Field --
+   -----------------------
+
+   procedure Draw_Vector_Field
+     (Ctx : Cairo.Cairo_Context; X, Y, I, N, radius_var, theta_var : Gdouble)
+   is
+
+      Grad, Tan_v : gradient;
+
+   begin
+
+      Grad := Calculate_Gradient (I, N);
+
+      Grad  := (Grad.dr, Grad.dtheta);
+      Tan_v := (Grad.dr, Grad.dtheta + PI_2);
+
+      Cairo.Move_To (Ctx, X, Y);
+      Cairo.Line_To
+        (Ctx, X + 0.1 * (radius_var + Grad.dr) * Cos (theta_var - Grad.dtheta),
+         Y - 0.1 * (radius_var + Grad.dr) * Sin (theta_var - Grad.dtheta));
+
+      Cairo.Move_To (Ctx, X, Y);
+      Cairo.Line_To
+        (Ctx,
+         X + 0.1 * (radius_var + Tan_v.dr) * Cos (theta_var - Tan_v.dtheta),
+         Y - 0.1 * (radius_var + Tan_v.dr) * Sin (theta_var - Tan_v.dtheta));
+
+      Cairo.Move_To (Ctx, X, Y);
+      Cairo.Line_To (Ctx, X + 1.0, Y);
+      Cairo.Stroke (Ctx);
+
+   end Draw_Vector_Field;
+
+   ----------------------------------------
+   --  Get_Element_Displacement_For_Line --
+   ----------------------------------------
 
    procedure Get_Element_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type)
@@ -166,6 +207,10 @@ package body Draw_Spiral_Utils is
 
    end Get_Element_Displacement_For_Line;
 
+   ------------------------
+   -- Line_Between_Words --
+   ------------------------
+
    procedure Line_Between_Words
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
       Xc, Yc, Xp, Yp :        Gdouble)
@@ -174,20 +219,45 @@ package body Draw_Spiral_Utils is
       null;
    end Line_Between_Words;
 
-   procedure Get_Displacement_For_Branch
-     (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
-      Is_Vowel, Is_Numeral : Boolean)
-   is
-   begin
-      null;
-   end Get_Displacement_For_Branch;
+   ---------------------------
+   -- Draw_With_Coordinates --
+   ---------------------------
 
-   procedure Draw_Branch
-     (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble)
+   procedure Draw_With_Coordinates
+     (I, N :        Gdouble; Line_Info : in out LineInfo;
+      Ctx  : in out Cairo.Cairo_Context)
    is
+
+      dx_Parent, dx_Child : Gdouble := 0.0;
+      dy_Parent, dy_Child : Gdouble := 0.0;
+
+      Sx : constant Gdouble := Linearize_Scale (I, N);
+
    begin
-      null;
-   end Draw_Branch;
+
+      Get_Element_Displacement_For_Line
+        (Line_Info.Parent, dx_Parent, dy_Parent, after);
+      Get_Element_Displacement_For_Line
+        (Line_Info.Child, dx_Child, dy_Child, before);
+
+      Line_Info.Xp := Line_Info.Xp + dx_Parent;
+      Line_Info.Yp := Line_Info.Yp + dy_Parent;
+
+      Line_Info.Xc := Line_Info.Xc + dx_Child;
+      Line_Info.Yc := Line_Info.Yc + dy_Child;
+
+      DG.Scaling_Around (Ctx, Line_Info.Xp, Line_Info.Yp, Sx, Sx);
+
+      DG.Dot (Ctx, Line_Info.Xp, Line_Info.Yp);
+
+      Cairo.Move_To (Ctx, Line_Info.Xp, Line_Info.Yp);
+      Cairo.Line_To (Ctx, Line_Info.Xc, Line_Info.Yc);
+      Cairo.Stroke (Ctx);
+
+      DG.Dot (Ctx, Line_Info.Xc, Line_Info.Yc);
+
+      DG.Scaling_Around (Ctx, Line_Info.Xp, Line_Info.Yp, 1.0 / Sx, 1.0 / Sx);
+
+   end Draw_With_Coordinates;
 
 end Draw_Spiral_Utils;

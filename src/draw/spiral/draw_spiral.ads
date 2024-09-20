@@ -26,8 +26,9 @@ package Draw_Spiral is
 private
 
    procedure Transform
-     (Ctx  : in out Cairo.Cairo_Context; Element : P2G.GlyphInfo;
-      I, N :        Gdouble; X, Y : in out Gdouble; state : Machine_State);
+     (Element    : P2G.GlyphInfo; I, N : Gdouble; X, Y : in out Gdouble;
+      state      : Machine_State; Ctx : in out Cairo.Cairo_Context;
+      Show_Field : Boolean := False);
 
    procedure Draw_Spiral_Element
      (Ctx   : in out Cairo.Cairo_Context; Root : P2G.Spiral_Model.Cursor;

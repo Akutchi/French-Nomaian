@@ -10,6 +10,17 @@ package Draw_Spiral_Utils is
 
    package P2G renames Phonems2Glyphs;
 
+   type LineInfo is record
+
+      Parent, Child : P2G.GlyphInfo;
+      Xp, Yp        : Gdouble := 0.0;
+      Xc, Yc        : Gdouble := 0.0;
+
+   end record;
+
+   procedure Draw_Vector_Field
+     (Ctx : Cairo.Cairo_Context; X, Y, I, N, radius_var, theta_var : Gdouble);
+
    procedure Get_Element_Displacement_For_Line
      (Element : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble; dp : dpos_Type);
    --  Turn in the anti-trigonometric sense.
@@ -20,13 +31,8 @@ package Draw_Spiral_Utils is
      (Ctx : in out Cairo.Cairo_Context; Parent, Child : P2G.GlyphInfo;
       Xc, Yc, Xp, Yp :        Gdouble);
 
-   procedure Get_Displacement_For_Branch
-     (Element              : P2G.GlyphInfo; dx_e, dy_e : in out Gdouble;
-      Is_Vowel, Is_Numeral : Boolean);
-
-   procedure Draw_Branch
-     (Ctx : Cairo.Cairo_Context; Parent : P2G.GlyphInfo; Child : P2G.GlyphInfo;
-      Xc, Yc, Xp, Yp : Gdouble);
-   --  Also turn in the anti-trigonometric sense.
+   procedure Draw_With_Coordinates
+     (I, N :        Gdouble; Line_Info : in out LineInfo;
+      Ctx  : in out Cairo.Cairo_Context);
 
 end Draw_Spiral_Utils;

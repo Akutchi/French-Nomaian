@@ -35,6 +35,11 @@ What I will be taking from each project is as following :
 I will also keep the way of translating using phonems.
 - evanfields : I will keep the way of creating the spiral and the "3-way" method of the GlyphGrid for organizing information.
 
+
+Note : I still kept the linear version for historic reasons, but it's not very useful
+and one should consider it deprecated.
+
+
 Lesson for me :
 - Most important of all, start your project with a simple example - a model of sorts - whenever possible.
 Here, I could have started with the model (the draw_fibionnaci_spiral function), so that I could know what to implement next in a more complex environement.

@@ -18,15 +18,15 @@ package body Draw_Spiral is
    use Functions;
 
    package DG renames Draw_Glyphs;
-   package DSU renames Draw_Spiral_Utils;
 
    ---------------
    -- Transform --
    ---------------
 
    procedure Transform
-     (Ctx  : in out Cairo.Cairo_Context; Element : P2G.GlyphInfo;
-      I, N :        Gdouble; X, Y : in out Gdouble; state : Machine_State)
+     (Element    : P2G.GlyphInfo; I, N : Gdouble; X, Y : in out Gdouble;
+      state      : Machine_State; Ctx : in out Cairo.Cairo_Context;
+      Show_Field : Boolean := False)
    is
 
       radius_var : constant Gdouble := radius (I, N);
@@ -45,25 +45,9 @@ package body Draw_Spiral is
       X := state.Xb + (radius_var + Grad.dr) * Cos (theta_var + Grad.dtheta);
       Y := state.Yb - (radius_var + Grad.dr) * Sin (theta_var + Grad.dtheta);
 
-      --  Grad := Calculate_Gradient (I, N);
-
-      --  Grad  := (Grad.dr, Grad.dtheta);
-      --  Tan_v := (Grad.dr, Grad.dtheta + PI_2);
-
-      --  Cairo.Move_To (Ctx, X, Y);
-      --  Cairo.Line_To
-      --    (Ctx, X + 0.1 * (radius_var + Grad.dr) * Cos (theta_var - Grad.dtheta),
-      --     Y - 0.1 * (radius_var + Grad.dr) * Sin (theta_var - Grad.dtheta));
-
-      --  Cairo.Move_To (Ctx, X, Y);
-      --  Cairo.Line_To
-      --    (Ctx,
-      --     X + 0.1 * (radius_var + Tan_v.dr) * Cos (theta_var - Tan_v.dtheta),
-      --     Y - 0.1 * (radius_var + Tan_v.dr) * Sin (theta_var - Tan_v.dtheta));
-
-      --  Cairo.Move_To (Ctx, X, Y);
-      --  Cairo.Line_To (Ctx, X + 1.0, Y);
-      --  Cairo.Stroke (Ctx);
+      if Show_Field then
+         Draw_Vector_Field (Ctx, X, Y, I, N, radius_var, theta_var);
+      end if;
 
    end Transform;
 
@@ -83,7 +67,7 @@ package body Draw_Spiral is
       Local_Angle : Gdouble := 0.0;
 
       Spiral_Side : constant Gdouble :=
-        (if Root_Elem.T = P2G.Vowel or else Root_Elem.T = P2G.Numeral then 1.0
+        (if Root_Elem.T = P2G.Vowel or else Root_Elem.T = P2G.Numeral then 0.5
          else 0.0);
 
       Depth_I : constant Gdouble :=
@@ -95,8 +79,8 @@ package body Draw_Spiral is
 
    begin
 
-      Transform (Ctx, Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state);
-      --  Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
+      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx);
+      Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);
       DG.Scaling_Around (Ctx, X_t, Y_t, Sx, Sx);
@@ -121,29 +105,33 @@ package body Draw_Spiral is
         P2G.Spiral_Model.Element (Parent);
       Child_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Child);
 
-      Spiral_Side : constant Gdouble :=
-        (if Parent_Elem.T = P2G.Vowel or else Parent_Elem.T = P2G.Numeral then
-           1.0
-         else 0.0);
+      Depth_I : constant Gdouble := Gdouble (P2G.Spiral_Model.Depth (Parent));
 
-      Depth_I : constant Gdouble :=
-        Gdouble (P2G.Spiral_Model.Depth (Parent)) - Spiral_Side;
-      --  The way multiway trees are implemented their "depth function" start
-      --  with the root at the maximum depth (it has the most of children).
+      Elem_Type : constant Gdouble :=
+        (if
+           Is_CS_V (Parent_Elem, Child_Elem)
+           or else Is_CS_N (Parent_Elem, Child_Elem)
+         then 0.5
+         else 1.0);
 
-      Xp_t, Yp_t : Gdouble := 0.0;
-      Xc_t, Yc_t : Gdouble := 0.0;
+      Line_Info : LineInfo;
 
    begin
 
-      Draw_Branch (Ctx, Parent_Elem, Child_Elem, Xc_t, Yc_t, Xp_t, Yp_t);
+      if Depth_I < state.Depth_N - 1.0 then
 
-      if Need_Line_Between_Phonems (Parent, Child)
-        and then Depth_I < state.Depth_N - 1.0
-      then
+         Transform
+           (Parent_Elem, Depth_I, state.Depth_N, Line_Info.Xp, Line_Info.Yp,
+            state, Ctx);
+         Transform
+           (Child_Elem, Depth_I + Elem_Type, state.Depth_N, Line_Info.Xc,
+            Line_Info.Yc, state, Ctx);
 
-         DSU.Line_Between_Words
-           (Ctx, Parent_Elem, Child_Elem, Xc_t, Yc_t, Xp_t, Yp_t);
+         Line_Info.Parent := Parent_Elem;
+         Line_Info.Child  := Child_Elem;
+
+         Draw_With_Coordinates (Depth_I, state.Depth_N, Line_Info, Ctx);
+
       end if;
 
    end Draw_Lines;
@@ -157,9 +145,7 @@ package body Draw_Spiral is
       state : in out Machine_State)
    is
 
-      Root_Elem  : constant P2G.GlyphInfo := P2G.Spiral_Model.Element (Root);
-      Child_Elem : P2G.GlyphInfo;
-
+      Child_Elem    : P2G.GlyphInfo;
       Current_Child : P2G.Spiral_Model.Cursor;
 
       I : Positive := 1;
