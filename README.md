@@ -1,6 +1,6 @@
 # French-Nomaian
 
-| ![Title image](./doc/visuals/Title_Image.png) |
+![Title image](./doc/visuals/Title_Image.png)
 
 
 # Context
