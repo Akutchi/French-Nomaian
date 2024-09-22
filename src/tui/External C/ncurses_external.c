@@ -9,9 +9,10 @@ int InitScr_Wrp () {
       endwin ();
       return -1;
    }
+
+   curs_set (INVISIBLE);
    cbreak ();
    noecho ();
-   keypad (stdscr, TRUE);
    start_color ();
 
    return 0;
@@ -63,10 +64,8 @@ int Menu (int y) {
 
    int N = sizeof (Choices) / sizeof (Choices[0]);
    Item_List = Allocate_List (N, Choices);
-
    Option_Menu = new_menu (Item_List);
 
-   mvprintw (16, 0, "q pour quitter");
    set_menu_win (Option_Menu, menu_win);
    set_menu_sub (Option_Menu, menu_win);
    post_menu (Option_Menu);
@@ -75,32 +74,40 @@ int Menu (int y) {
 
    int character;
    int Choosen_Option = 0;
-   bool Has_Choosen = FALSE;
 
    menu_driver (Option_Menu, REQ_FIRST_ITEM);
-   while ((character = getch ()) != 'q') {
+   do {
+
+      character = wgetch (menu_win);
 
       switch (character) {
 
       case KEY_UP:
          Choosen_Option = Choosen_Option > 0 ? Choosen_Option - 1 : 0;
-         menu_driver (Option_Menu, REQ_PREV_ITEM);
-
-      case KEY_DOWN:
-         Choosen_Option = (Choosen_Option + 1) % N;
-         menu_driver (Option_Menu, REQ_NEXT_ITEM);
-
-
-      case KEY_ENTER:
-         Has_Choosen = TRUE;
+         menu_driver (Option_Menu, REQ_UP_ITEM);
          break;
 
+      case KEY_DOWN:
+         Choosen_Option = Choosen_Option < N ? Choosen_Option + 1 : N;
+         menu_driver (Option_Menu, REQ_DOWN_ITEM);
+         break;
       }
-   }
+
+   } while (character != ENTER_CODE);
 
    Free (N, Item_List, Option_Menu);
+   delwin (menu_win);
 
-   return Has_Choosen ? Choosen_Option : -1;
+   Enter_Sentence (y);
+
+   return Choosen_Option;
+
+}
+
+char* Enter_Sentence (int y) {
+
+   mvwprintw (stdscr, y, 0, "Entrer une phrase à traduire");
+   return "";
 
 }
 

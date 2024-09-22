@@ -1,6 +1,6 @@
 with Interfaces.C;
 
-package Tui_Ncurses is
+package Ncurses_Interface is
 
    package I_C renames Interfaces.C;
 
@@ -20,4 +20,4 @@ package Tui_Ncurses is
    procedure EndScr with
      Import => True, Convention => C, External_Name => "EndScr_Wrp";
 
-end Tui_Ncurses;
+end Ncurses_Interface;

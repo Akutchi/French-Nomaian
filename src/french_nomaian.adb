@@ -1,5 +1,3 @@
-with Ada.Strings.Wide_Unbounded;
-
 with Sentence2Phonems;
 with Phonems2Glyphs;
 with Tools;
@@ -7,30 +5,29 @@ with Tui;
 
 procedure French_Nomaian is
 
-   package S_WU renames Ada.Strings.Wide_Unbounded;
    package S2P renames Sentence2Phonems;
    package P2G renames Phonems2Glyphs;
-
-   Sentence : S_WU.Unbounded_Wide_String;
 
    dict : S2P.Cmudict.Map;
    LM   : P2G.Language_Model.Map;
 
-   Current_Y, Ret_Value : Integer;
+   Was_Initialized : Boolean;
+   Current_Y       : Integer;
+   Response        : Tui.Choice_State;
 
 begin
 
    S2P.Init_Cmudict (dict);
    P2G.Init_Language_Model (LM);
+   Was_Initialized := Tui.Init_Curses;
 
-   Ret_Value := Tui.Init_Curses;
-
-   if Ret_Value = 0 then
+   if Was_Initialized then
       Current_Y := Tui.Print_Title;
-      Tui.Propose (Current_Y);
+      Response  := Tui.Propose (Current_Y);
    end if;
 
-   Sentence := S2P.Get_Raw_Sentence;
-   Tools.Create_Spiral_SVG (Sentence, dict, LM);
+   if not Response.Quit then
+      Tools.Create_Spiral_SVG (Response.Sentence, dict, LM);
+   end if;
 
 end French_Nomaian;

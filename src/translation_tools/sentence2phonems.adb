@@ -175,6 +175,7 @@ package body Sentence2Phonems is
             W_IO.Put_Line
               ("Warning : '" & word &
                "' is not in the dictionnary. Consider adding it.");
+
          end if;
 
          if Has_Comma and then not Has (Apostrophe_Char, word) then

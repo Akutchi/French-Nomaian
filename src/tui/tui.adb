@@ -1,6 +1,6 @@
 with Ada.Text_IO;
 
-with Tui_Ncurses;
+with Ncurses_Interface;
 
 with Tui_Constants; use Tui_Constants;
 with Locations;     use Locations;
@@ -8,20 +8,24 @@ with Locations;     use Locations;
 package body Tui is
 
    package IO renames Ada.Text_IO;
-   package T_N renames Tui_Ncurses;
+   package N_I renames Ncurses_Interface;
 
    -----------------
    -- Init_Curses --
    -----------------
 
-   function Init_Curses return Integer is
+   function Init_Curses return Boolean is
 
       Ret_Value : I_C.int;
    begin
 
-      Ret_Value := T_N.InitScr;
+      Ret_Value := N_I.InitScr;
 
-      return Integer (Ret_Value);
+      if Integer (Ret_Value) = -1 then
+         return False;
+      end if;
+
+      return True;
 
    end Init_Curses;
 
@@ -56,7 +60,6 @@ package body Tui is
       F : IO.File_Type;
       I : Positive := 1;
 
-      End_Line : constant I_C.char_array := I_C.To_C ("");
    begin
 
       IO.Open (F, IO.In_File, Title_Location);
@@ -68,14 +71,14 @@ package body Tui is
             Color : constant I_C.short      := Get_Title_Line_Color (I);
             Y     : constant I_C.int        := I_C.int (I);
          begin
-            T_N.Colored_Line (Line, Color, Y);
+            N_I.Colored_Line (Line, Color, Y);
          end;
 
          I := I + 1;
 
       end loop;
 
-      T_N.Refresh;
+      N_I.Refresh;
 
       return Integer (I + 1);
 
@@ -85,15 +88,29 @@ package body Tui is
    -- Propose --
    -------------
 
-   procedure Propose (Y : Integer) is
+   function Propose (Y : Integer) return Choice_State is
+
+      c_Y : constant I_C.int := I_C.int (Y);
 
       Choosen_Choice : I_C.int;
-      c_Y            : constant I_C.int := I_C.int (Y);
+      Response       : Choice_State;
 
    begin
 
-      Choosen_Choice := T_N.Menu (c_Y);
-      T_N.EndScr;
+      Choosen_Choice := N_I.Menu (c_Y);
+
+      case Choosen_Choice is
+
+         when 0 =>
+            Response.Sentence := S_WU.To_Unbounded_Wide_String ("hey");
+         when 1 =>
+            Response.Sentence := S_WU.To_Unbounded_Wide_String ("hey");
+         when others =>
+            Response.Quit := True;
+            N_I.EndScr;
+      end case;
+
+      return Response;
 
    end Propose;
 

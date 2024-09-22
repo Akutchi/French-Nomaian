@@ -1,14 +1,23 @@
 with Interfaces.C;
+with Ada.Strings.Wide_Unbounded;
 
 package Tui is
 
    package I_C renames Interfaces.C;
+   package S_WU renames Ada.Strings.Wide_Unbounded;
 
-   function Init_Curses return Integer;
+   type Choice_State is record
+
+      Sentence : S_WU.Unbounded_Wide_String := S_WU.Null_Unbounded_Wide_String;
+      Quit     : Boolean                    := False;
+
+   end record;
+
+   function Init_Curses return Boolean;
 
    function Print_Title return Integer;
 
-   procedure Propose (Y : Integer);
+   function Propose (Y : Integer) return Choice_State;
 
 private
 

@@ -4,7 +4,8 @@ with Cairo;
 with Cairo.Surface;
 with Cairo.SVG;
 
-with Glib; use Glib;
+with Ada.Containers; use Ada.Containers;
+with Glib;           use Glib;
 
 with Locations;
 with Draw_Glyphs;
@@ -51,7 +52,10 @@ package body Tools is
 
       begin
 
-         P2G.Construct (Spiral, Glyphs);
+         if P2G.List_GlyphInfo.Length (Glyphs) /= Count_Type (0) then
+            P2G.Construct (Spiral, Glyphs);
+         end if;
+
          return Spiral;
       end;
 
@@ -89,7 +93,10 @@ package body Tools is
    begin
 
       DG.Background (Ctx, W, H);
-      DUS.Draw_Unrolled_Spiral (Ctx, Root_Child, 5.0, H / 2.0, state);
+
+      if not P2G.Spiral_Model.Is_Empty (Spiral) then
+         DUS.Draw_Unrolled_Spiral (Ctx, Root_Child, 5.0, H / 2.0, state);
+      end if;
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);
@@ -114,7 +121,7 @@ package body Tools is
       Root_Child : constant P2G.Spiral_Model.Cursor :=
         P2G.Spiral_Model.First_Child (Root);
 
-      Depth_N : constant Positive := Positive (P2G.Max_Depth (Root_Child, LM));
+      Depth_N : constant Natural := Natural (P2G.Max_Depth (Root_Child, LM));
 
       R : constant Gdouble := Phi**2.0;
       W : constant Gdouble := R + R / Phi + Gdouble (Depth_N) * Phi;
@@ -135,7 +142,12 @@ package body Tools is
       state.Depth_N := Gdouble (Depth_N);
 
       DG.Background (Ctx, W, H);
-      DS.Draw_Spiral (Ctx, Root_Child, state);
+
+      if not P2G.Spiral_Model.Is_Empty (Spiral) then
+         DS.Draw_Spiral (Ctx, Root_Child, state);
+      end if;
+      --  If no words are in the dictionnary, S2P return "" and so the tree
+      --  is empty.
 
       C_S.Finish (SVG_Surface);
       Cairo.Destroy (Ctx);
