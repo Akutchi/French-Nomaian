@@ -1,11 +1,17 @@
+with Interfaces.C;
+
 package Tui is
 
-   procedure Print_Title;
+   package I_C renames Interfaces.C;
 
-   procedure Propose;
+   function Init_Curses return Integer;
+
+   function Print_Title return Integer;
+
+   procedure Propose (Y : Integer);
 
 private
 
-   procedure Colored_Line (Line, Color : String);
+   function Get_Title_Line_Color (I : Natural) return I_C.short;
 
 end Tui;

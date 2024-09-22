@@ -1,5 +1,6 @@
 with Ada.Text_IO;
-with Ada.Characters.Latin_1;
+
+with Tui_Ncurses;
 
 with Tui_Constants; use Tui_Constants;
 with Locations;     use Locations;
@@ -7,49 +8,55 @@ with Locations;     use Locations;
 package body Tui is
 
    package IO renames Ada.Text_IO;
-   package CL renames Ada.Characters.Latin_1;
+   package T_N renames Tui_Ncurses;
 
-   ------------------
-   -- Colored_Line --
-   ------------------
+   -----------------
+   -- Init_Curses --
+   -----------------
 
-   procedure Colored_Line (Line, Color : String) is
+   function Init_Curses return Integer is
+
+      Ret_Value : I_C.int;
    begin
 
-      IO.Put_Line (CL.ESC & Color & Line & CL.ESC & Color);
+      Ret_Value := T_N.InitScr;
 
-   end Colored_Line;
+      return Integer (Ret_Value);
+
+   end Init_Curses;
 
    ---------------
    -- Get_Color --
    ---------------
 
-   function Get_Color (I : Natural) return String is
+   function Get_Title_Line_Color (I : Natural) return I_C.short is
    begin
 
       case I is
 
-         when 0 | 1 | 2 =>
+         when L1 | L2 | L3 =>
             return GOLD;
-         when 3 | 4 | 5 | 6 =>
+         when L4 | L5 | L6 =>
             return RED;
-         when 7 | 8 =>
+         when L7 | L8 =>
             return GREEN;
          when others =>
             return RESET;
 
       end case;
 
-   end Get_Color;
+   end Get_Title_Line_Color;
 
    -----------------
    -- Print_Title --
    -----------------
 
-   procedure Print_Title is
+   function Print_Title return Integer is
 
       F : IO.File_Type;
-      I : Natural := 0;
+      I : Positive := 1;
+
+      End_Line : constant I_C.char_array := I_C.To_C ("");
    begin
 
       IO.Open (F, IO.In_File, Title_Location);
@@ -57,17 +64,20 @@ package body Tui is
       while not IO.End_Of_File (F) loop
 
          declare
-            Line  : constant String := IO.Get_Line (F);
-            Color : constant String := Get_Color (I);
+            Line  : constant I_C.char_array := I_C.To_C (IO.Get_Line (F));
+            Color : constant I_C.short      := Get_Title_Line_Color (I);
+            Y     : constant I_C.int        := I_C.int (I);
          begin
-            Colored_Line (Line, Color);
+            T_N.Colored_Line (Line, Color, Y);
          end;
 
          I := I + 1;
 
       end loop;
 
-      Colored_Line ("", RESET);
+      T_N.Refresh;
+
+      return Integer (I + 1);
 
    end Print_Title;
 
@@ -75,13 +85,15 @@ package body Tui is
    -- Propose --
    -------------
 
-   procedure Propose is
+   procedure Propose (Y : Integer) is
+
+      Choosen_Choice : I_C.int;
+      c_Y            : constant I_C.int := I_C.int (Y);
+
    begin
 
-      IO.Put_Line
-        ("Tapper une phrase à traduire (veuillez mettre des guillemets au " &
-         "début et à la fin de votre message): ");
-      IO.Put ("> ");
+      Choosen_Choice := T_N.Menu (c_Y);
+      T_N.EndScr;
 
    end Propose;
 

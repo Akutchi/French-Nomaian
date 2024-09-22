@@ -16,13 +16,19 @@ procedure French_Nomaian is
    dict : S2P.Cmudict.Map;
    LM   : P2G.Language_Model.Map;
 
+   Current_Y, Ret_Value : Integer;
+
 begin
 
    S2P.Init_Cmudict (dict);
    P2G.Init_Language_Model (LM);
 
-   Tui.Print_Title;
-   Tui.Propose;
+   Ret_Value := Tui.Init_Curses;
+
+   if Ret_Value = 0 then
+      Current_Y := Tui.Print_Title;
+      Tui.Propose (Current_Y);
+   end if;
 
    Sentence := S2P.Get_Raw_Sentence;
    Tools.Create_Spiral_SVG (Sentence, dict, LM);
