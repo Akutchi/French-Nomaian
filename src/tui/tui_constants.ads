@@ -18,4 +18,7 @@ package Tui_Constants is
    L7 : constant Natural := 7;
    L8 : constant Natural := 8;
 
+   SENTENCE : constant I_C.int := 0;
+   FILE_STR : constant I_C.int := 1;
+
 end Tui_Constants;

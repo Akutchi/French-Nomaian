@@ -1,8 +1,15 @@
 #include <ncurses_external.h>
+#include <ncursesw/ncurses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+
+#define NCURSES_WIDECHAR 1
 
 int InitScr_Wrp () {
+
+   setlocale (LC_ALL, "fr_FR.UTF-8");
+
    initscr ();
 
    if (has_colors () == FALSE) {
@@ -14,6 +21,7 @@ int InitScr_Wrp () {
    cbreak ();
    noecho ();
    start_color ();
+   keypad (stdscr, TRUE);
 
    return 0;
 }
@@ -96,18 +104,55 @@ int Menu (int y) {
    } while (character != ENTER_CODE);
 
    Free (N, Item_List, Option_Menu);
-   delwin (menu_win);
+   wclear (menu_win);
+   wrefresh (menu_win);
 
-   Enter_Sentence (y);
+   delwin (menu_win);
 
    return Choosen_Option;
 
 }
 
-char* Enter_Sentence (int y) {
+wint_t* Get (int type, int y) {
 
-   mvwprintw (stdscr, y, 0, "Entrer une phrase à traduire");
-   return "";
+   if (type == SENTENCE) {
+      mvwprintw (stdscr, y, 0, "Entrer une phrase à traduire :");
+   }
+   else {
+      mvwprintw (stdscr, y, 0, "Entrer un fichier à décoder :");
+   }
+
+   mvwprintw (stdscr, y + 1, 0, "> ");
+   wrefresh (stdscr);
+   curs_set (VISIBLE);
+   echo ();
+
+   wint_t* response = NULL;
+   size_t N = 0;
+   size_t curr_end_size = 255;
+   size_t Block = 16;
+
+   response = (wint_t*)realloc (NULL, sizeof (*response) * curr_end_size);
+
+   if (!response) return response;
+
+   wint_t character;
+   do {
+
+      get_wch (&character);
+
+      response[N] = character;
+      N++;
+
+      if (N == curr_end_size) {
+         curr_end_size += Block;
+         response = (wint_t*)realloc (response, sizeof (*response) * curr_end_size);
+         if (!response) return response;
+      }
+
+   } while (character != ENTER_CODE);
+
+   return response;
 
 }
 

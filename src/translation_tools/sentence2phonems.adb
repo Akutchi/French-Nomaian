@@ -217,25 +217,29 @@ package body Sentence2Phonems is
 
    begin
 
-      while Index in 1 .. S_WU.Length (Sentence) loop
+      if S_WU.Length (Sentence) > 1 then
 
-         S_WU.Find_Token
-           (Source => Sentence, Set => Whitespace, From => Index,
-            Test   => Str.Outside, First => F, Last => L);
+         while Index in 1 .. S_WU.Length (Sentence) loop
 
-         exit when L = 0;
+            S_WU.Find_Token
+              (Source => Sentence, Set => Whitespace, From => Index,
+               Test   => Str.Outside, First => F, Last => L);
 
-         declare
-            word : constant Wide_String :=
-              CC.To_Wide_String
-                (CH.To_Lower (CC.To_String (S_WU.Slice (Sentence, F, L))));
-         begin
-            Word2Phonem (Phonems_Version, dict, word);
-         end;
+            exit when L = 0;
 
-         Index := L + 1;
+            declare
+               word : constant Wide_String :=
+                 CC.To_Wide_String
+                   (CH.To_Lower (CC.To_String (S_WU.Slice (Sentence, F, L))));
+            begin
+               Word2Phonem (Phonems_Version, dict, word);
+            end;
 
-      end loop;
+            Index := L + 1;
+
+         end loop;
+
+      end if;
 
       return S_WU.To_Wide_String (Phonems_Version);
 

@@ -2,7 +2,9 @@
 #include <menu.h>
 
 #define INVISIBLE 0
+#define VISIBLE 1
 #define ENTER_CODE 10
+#define SENTENCE 0
 
 char* Choices[] = {
    "Traduire (FR->NO)",
@@ -18,7 +20,9 @@ void Colored_Line (char Line[], short Color, int y);
 
 int Menu (int y);
 
-char* Enter_Sentence ();
+wint_t* Get (int type, int y);
+// the wint_t errors (underlined in an IDE) are IDE's specific error. Program
+// compile.
 
 void EndScr_Wrp ();
 
