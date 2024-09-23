@@ -1,4 +1,4 @@
-#include <ncurses_external.h>
+#include "ncurses_external.h"
 #include <ncursesw/ncurses.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +8,7 @@
 
 int InitScr_Wrp () {
 
-   setlocale (LC_ALL, "fr_FR.UTF-8");
+   setlocale (LC_ALL, "");
 
    initscr ();
 
@@ -159,3 +159,4 @@ wint_t* Get (int type, int y) {
 void EndScr_Wrp () {
    endwin ();
 }
+

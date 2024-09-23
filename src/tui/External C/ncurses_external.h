@@ -5,6 +5,7 @@
 #define VISIBLE 1
 #define ENTER_CODE 10
 #define SENTENCE 0
+#define FILE_STR 1
 
 char* Choices[] = {
    "Traduire (FR->NO)",
