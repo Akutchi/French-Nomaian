@@ -202,7 +202,7 @@ In our case, the glyphs' linear representation of our sentence is\
 Those are not the final images
 
 ![Traduction 1](./doc/draw/butler_sentence.png) ![Traduction 2](./doc/draw/miano_sentence.png)|
-![Traduction 3](./doc/draw/wittig_sentence.png) ![Traduction 4](./doc/draw/circlude_sentence.png)
+![Traduction 3](./doc/draw/wittig_sentence.png) ![Traduction 4](./doc/draw/circlude_sentence100.png)
 
 From top to down :
 - _Si le sexe devenait une catégorie dépendante du genre, la définition même du genre comme interprétation culturelle du sexe perdrait tout son sens. - Trouble dans le genre; J. Butler_
