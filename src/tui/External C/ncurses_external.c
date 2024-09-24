@@ -113,7 +113,7 @@ int Menu (int y) {
 
 }
 
-wint_t* Get (int type, int y) {
+wchar_t* Get (int type, int y) {
 
    if (type == SENTENCE) {
       mvwprintw (stdscr, y, 0, "Entrer une phrase à traduire :");
@@ -127,17 +127,17 @@ wint_t* Get (int type, int y) {
    curs_set (VISIBLE);
    echo ();
 
-   wint_t* response = NULL;
+   wchar_t* response = NULL;
    size_t N = 0;
    size_t curr_end_size = 255;
    size_t Block = 16;
 
-   response = (wint_t*)realloc (NULL, sizeof (*response) * curr_end_size);
+   response = (wchar_t*)realloc (NULL, sizeof (*response) * curr_end_size);
 
    if (!response) return response;
 
-   wint_t character;
-   do {
+   wchar_t character = 0;
+   while (character != ENTER_CODE) {
 
       get_wch (&character);
 
@@ -146,11 +146,14 @@ wint_t* Get (int type, int y) {
 
       if (N == curr_end_size) {
          curr_end_size += Block;
-         response = (wint_t*)realloc (response, sizeof (*response) * curr_end_size);
+         response = (wchar_t*)realloc (response, sizeof (*response) * curr_end_size);
          if (!response) return response;
       }
 
-   } while (character != ENTER_CODE);
+   }
+
+   response[N - 1] = '\0';
+   response = (wchar_t*)realloc (response, sizeof (*response) * (N - 1));
 
    return response;
 

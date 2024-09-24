@@ -21,7 +21,7 @@ void Colored_Line (char Line[], short Color, int y);
 
 int Menu (int y);
 
-wint_t* Get (int type, int y);
+wchar_t* Get (int type, int y);
 // the wint_t errors (underlined in an IDE) are IDE's specific error. Program
 // compile.
 

@@ -1,6 +1,5 @@
 with Ada.Text_IO;
 with Ada.Characters.Conversions;
-with Interfaces.C.Strings;
 
 with Ncurses_Interface;
 
@@ -11,7 +10,6 @@ package body Tui is
 
    package IO renames Ada.Text_IO;
    package CC renames Ada.Characters.Conversions;
-   package I_CS renames Interfaces.C.Strings;
 
    package N_I renames Ncurses_Interface;
 
@@ -106,35 +104,49 @@ package body Tui is
 
       case Choosen_Choice is
 
-         when 0 =>
+         when SENTENCE =>
 
             declare
-               Raw_Ptr : I_CS.chars_ptr      := N_I.Get (SENTENCE, c_Y);
-               N       : constant I_C.size_t := I_CS.Strlen (Raw_Ptr);
+
+               Raw_Ptr : constant N_I.wchar_t_Ptr.Pointer :=
+                 N_I.Get (SENTENCE, c_Y);
+
+               N_Raw : constant I_C.ptrdiff_t :=
+                 N_I.wchar_t_Ptr.Virtual_Length (Raw_Ptr);
+
+               N : Natural := Natural (N_Raw);
+
+               Wide_Container : Wide_String (1 .. N);
 
             begin
 
-               Response.Sentence :=
-                 S_WU.To_Unbounded_Wide_String
-                   (CC.To_Wide_String (I_CS.Value (Raw_Ptr, N)));
+               I_C.To_Ada (N_I.wchar_t_Ptr.Value (Raw_Ptr), Wide_Container, N);
 
-               I_CS.Free (Raw_Ptr);
+               Response.Sentence :=
+                 S_WU.To_Unbounded_Wide_String (Wide_Container);
 
             end;
 
-         when 1 =>
+         when FILE_STR =>
 
             declare
-               Raw_Ptr : I_CS.chars_ptr      := N_I.Get (FILE_STR, c_Y);
-               N       : constant I_C.size_t := I_CS.Strlen (Raw_Ptr);
+
+               Raw_Ptr : constant N_I.wchar_t_Ptr.Pointer :=
+                 N_I.Get (FILE_STR, c_Y);
+
+               N_Raw : constant I_C.ptrdiff_t :=
+                 N_I.wchar_t_Ptr.Virtual_Length (Raw_Ptr);
+
+               N : Natural := Natural (N_Raw);
+
+               Wide_Container : Wide_String (1 .. N);
 
             begin
 
-               Response.Sentence :=
-                 S_WU.To_Unbounded_Wide_String
-                   (CC.To_Wide_String (I_CS.Value (Raw_Ptr, N)));
+               I_C.To_Ada (N_I.wchar_t_Ptr.Value (Raw_Ptr), Wide_Container, N);
 
-               I_CS.Free (Raw_Ptr);
+               Response.Sentence :=
+                 S_WU.To_Unbounded_Wide_String (Wide_Container);
 
             end;
 
