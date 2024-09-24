@@ -162,10 +162,7 @@ package body Sentence2Phonems is
 
             Is_Apostrophe_Sentence := True;
 
-         elsif Is_Integer (Sliced_Word) then
-            S_WU.Append (Phonems, Split_Number (Sliced_Word));
-
-         elsif Is_Float (Sliced_Word) then
+         elsif Is_Integer (Sliced_Word) or else Is_Float (Sliced_Word) then
             S_WU.Append (Phonems, Split_Number (Sliced_Word));
 
          elsif Has_Ellipsis (word) then
@@ -192,7 +189,7 @@ package body Sentence2Phonems is
             S_WU.Append (Phonems, Space_Char);
 
          end if;
-         --  because then, the sentence is inserted midway in which would
+         --  because the sentence is inserted midway, which would
          --  result in the addition of gibberish
       end;
 

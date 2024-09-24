@@ -122,7 +122,7 @@ wchar_t* Get (int type, int y) {
       mvwprintw (stdscr, y, 0, "Entrer un fichier à décoder :");
    }
 
-   mvwprintw (stdscr, y + 1, 0, "> ");
+   mvwprintw (stdscr, y + 1, 0, "");
    wrefresh (stdscr);
    curs_set (VISIBLE);
    echo ();
@@ -144,8 +144,11 @@ wchar_t* Get (int type, int y) {
       switch (character) {
 
       case KEY_BACKSPACE:
-         response[N - 1] = ' ';
-         N--;
+
+         if (N > 0) {
+            response[N - 1] = ' ';
+            N--;
+         }
          break;
 
       default:
@@ -163,10 +166,9 @@ wchar_t* Get (int type, int y) {
    }
 
    response[N - 1] = '\0';
-   response = (wchar_t*)realloc (response, sizeof (*response) * (N - 1));
+   response = (wchar_t*)realloc (response, sizeof (*response) * (N));
 
    return response;
-
 }
 
 void EndScr_Wrp () {
