@@ -1,5 +1,4 @@
 with Ada.Text_IO;
-with Ada.Characters.Conversions;
 
 with Ncurses_Interface;
 
@@ -9,7 +8,6 @@ with Locations;     use Locations;
 package body Tui is
 
    package IO renames Ada.Text_IO;
-   package CC renames Ada.Characters.Conversions;
 
    package N_I renames Ncurses_Interface;
 
@@ -154,10 +152,6 @@ package body Tui is
             Response.Quit := True;
       end case;
       N_I.EndScr;
-
-      IO.Put_Line
-        ("your string : '" &
-         CC.To_String (S_WU.To_Wide_String (Response.Sentence)) & "'");
 
       return Response;
 

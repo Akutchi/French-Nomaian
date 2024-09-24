@@ -141,8 +141,18 @@ wchar_t* Get (int type, int y) {
 
       get_wch (&character);
 
-      response[N] = character;
-      N++;
+      switch (character) {
+
+      case KEY_BACKSPACE:
+         response[N - 1] = ' ';
+         N--;
+         break;
+
+      default:
+         response[N] = character;
+         N++;
+         break;
+      }
 
       if (N == curr_end_size) {
          curr_end_size += Block;
