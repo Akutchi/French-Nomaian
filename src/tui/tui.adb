@@ -119,9 +119,8 @@ package body Tui is
             begin
 
                I_C.To_Ada (N_I.wchar_t_Ptr.Value (Raw_Ptr), Wide_Container, N);
-
                Response.Sentence :=
-                 S_WU.To_Unbounded_Wide_String (Wide_Container);
+                 S_WU.To_Unbounded_Wide_String (Wide_Container (1 .. N));
 
             end;
 
@@ -142,15 +141,16 @@ package body Tui is
             begin
 
                I_C.To_Ada (N_I.wchar_t_Ptr.Value (Raw_Ptr), Wide_Container, N);
-
                Response.Sentence :=
-                 S_WU.To_Unbounded_Wide_String (Wide_Container);
+                 S_WU.To_Unbounded_Wide_String (Wide_Container (1 .. N));
 
             end;
 
          when others =>
             Response.Quit := True;
+
       end case;
+
       N_I.EndScr;
 
       return Response;

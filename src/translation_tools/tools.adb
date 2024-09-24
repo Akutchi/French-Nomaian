@@ -13,6 +13,8 @@ with Draw_Spiral;
 
 with Math_Constants; use Math_Constants;
 
+with Ada.Wide_Text_IO;
+
 package body Tools is
 
    package C_S renames Cairo.Surface;
@@ -21,6 +23,8 @@ package body Tools is
    package DG renames Draw_Glyphs;
    package DUS renames Draw_Unrolled_Spiral;
    package DS renames Draw_Spiral;
+
+   package W_IO renames Ada.Wide_Text_IO;
 
    package Functions is new Ada.Numerics.Generic_Elementary_Functions
      (Gdouble);
@@ -42,15 +46,17 @@ package body Tools is
 
       declare
          Phonems : constant Wide_String :=
-           S2P.To_Phonems (Sentence, Phonems_Version, dict);
+           P2G.Simplify (S2P.To_Phonems (Sentence, Phonems_Version, dict));
 
          Glyphs : P2G.List_GlyphInfo.Vector;
          Spiral : P2G.Spiral_Model.Tree := P2G.Spiral_Model.Empty_Tree;
 
       begin
 
+         W_IO.Put_Line (Phonems);
+
          if Phonems'Length > 0 then
-            Glyphs := P2G.To_Glyphs (P2G.Simplify (Phonems), LM);
+            Glyphs := P2G.To_Glyphs (Phonems, LM);
             P2G.Construct (Spiral, Glyphs);
          end if;
 

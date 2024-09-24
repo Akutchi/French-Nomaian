@@ -29,33 +29,48 @@ package body Phonems2Glyphs is
       Simplified_Phonems : S_WU.Unbounded_Wide_String :=
         S_WU.Null_Unbounded_Wide_String;
 
+      Empty_Wide_String : constant Wide_String := "";
+
       I : Natural := 1;
       F : Positive;
       L : Natural;
 
    begin
 
-      while I in Phonems'Range loop
+      --  If it has a length of 3, it means that the string is " | " which
+      --  also means that no words in the sentence are in the dictionnary.
+      if Phonems'Length > 3 then
 
-         S_WU.Find_Token
-           (Source => S_WU.To_Unbounded_Wide_String (Phonems), From => I,
-            Set    => S_WM.To_Set (' '), Test => Str.Outside, First => F,
-            Last   => L);
+         while I in Phonems'Range loop
 
-         exit when L = 0;
+            S_WU.Find_Token
+              (Source => S_WU.To_Unbounded_Wide_String (Phonems), From => I,
+               Set    => S_WM.To_Set (' '), Test => Str.Outside, First => F,
+               Last   => L);
 
-         if Phonems (F) = Phonems (L) then
-            S_WU.Append (Simplified_Phonems, " " & Phonems (F) & " ");
+            exit when L = 0;
 
-         else
-            S_WU.Append (Simplified_Phonems, " " & Phonems (F .. L) & " ");
-         end if;
+            if Phonems (F) = Phonems (L) then
+               S_WU.Append (Simplified_Phonems, " " & Phonems (F) & " ");
 
-         I := L + 1;
+            else
+               S_WU.Append (Simplified_Phonems, " " & Phonems (F .. L) & " ");
+            end if;
 
-      end loop;
+            I := L + 1;
 
-      return S_WU.To_Wide_String (Simplified_Phonems);
+         end loop;
+
+         --  Get rid of ending word separator
+         return
+           S_WU.Slice
+             (Simplified_Phonems, 1, S_WU.Length (Simplified_Phonems) - 3);
+
+      else
+
+         return Empty_Wide_String;
+
+      end if;
 
    end Simplify;
 
