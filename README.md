@@ -41,7 +41,7 @@ As of now, the binary file must be executed in the ./bin folder, but I will
 make it possible to execute it elsewhere in another version.
 
 It very much possible that some sentences you will wrote will display warnings like so :\
-Warning : <X> is not in the dictionnary. Please consider adding it.
+```Warning : <X> is not in the dictionnary. Please consider adding it.```
 
 It is because the dictionnary used does not contain your word. If this is the
 case, I encourage you to submit a merge request so that we can collectively make
