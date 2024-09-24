@@ -12,7 +12,7 @@ There is a game called [outer wilds](<https://store.steampowered.com/app/753640/
 
  But, most importantly, for many of us... outer wilds is an experience. Outer wilds is a unique game loaded with charming characters and a **lot** of emotions; and if you haven't played it : _Stop what you're doing and go play it_ (preferably without looking anything about it).
 
-But more specifically, this game is about finding more about the nomais, an ancien alient spieces that dewelled in our solar system long ago.\
+But more specifically, this game is about finding more about the nomais, an ancien alient spieces that dewelled in our solar system long ago.
 The nomais had a way of communicating that was not linear like french or english is. On the contrary, their writing system was composed of spirals that could connect one to another.
 
 | ![writing example](./doc/visuals/nomai_writing.png) |
@@ -25,9 +25,9 @@ The nomais had a way of communicating that was not linear like french or english
 
 Instead of saying each time what parts I took from where, I prefered to dedicate a full sub-section to the people that made this project possible.
 Thus, I want to thank [36CornDog](https://www.reddit.com/r/outerwilds/comments/15fj6yu/took_a_shot_at_a_nomai_writing_system/) from who I took the
-language model in order to create my french nomaiain dialect.
+language model in order to create my french nomaian dialect.
 I also want to thank [YanWittman](https://github.com/YanWittmann/ow-written-nomai-lang) and [evanfield](https://github.com/evanfields/NomaiText.jl)
-who has already created fully functionnal project that I could rely on and that I encourage you to go check out.
+who have already created fully functionnal projects that I could rely on and that I encourage you to go check out.
 
 ## Project
 
@@ -39,6 +39,13 @@ interface that could be used to do those operations.
 
 As of now, the binary file must be executed in the ./bin folder, but I will
 make it possible to execute it elsewhere in another version.
+
+It very much possible that some sentences you will wrote will display warnings like so :\
+Warning : <X> is not in the dictionnary. Please consider adding it.
+
+It is because the dictionnary used does not contain your word. If this is the
+case, I encourage you to submit a merge request so that we can collectively make
+this dictionnary grow.
 
 # Build
 
@@ -88,7 +95,7 @@ This way of inputting sentences is better than CLI for numerous reasons. Not onl
 is it aesthetically more pleasing but, and more importantly, it handles french
 characters better. In using CLI (with Ada) to input sentences when the project
 first started, I had to input quotation marks (") at the start and end of each
-sentences. This was because otherwise otherwise apostrophes would be interpreted
+sentences. This was because otherwise apostrophes would be interpreted
 as string delimiters and would bug the program. Using the TUI, no such things
 are required anymore.
 
@@ -112,7 +119,8 @@ This is useful because it allows for a 1.5:1 mapping between french and its noma
 dialect while being computationally efficient as the mapping can be put into a Hashmap.
 
 As an example, let us take a sentence that will serve us as example throughout this
-section. Let's say that I want to translate the sentence "Il y a plus à découvrir ici." [1].\
+section. Let's say that I want to translate the sentence "Il y a plus à découvrir ici." [1].
+
 This step will transform this sentence into its corresponding phonems. As such,
 it will go from,\
 ```Il y a plus à découvrir ici.```\
@@ -133,7 +141,7 @@ when starting this project.
 
 ## Phonems to glyphs
 
-# Simplification
+### Simplification
 
 Now that we have our phonems, it it time to translate them to actual glyphs.
 But first, we still need to transform our data a bit more. In order to
@@ -147,12 +155,12 @@ This step, while useless in itself - as I could have done the unsimplified phone
 to glyphs mapping directly - is mainly because it is easier to read when programming
 both the language model and debugging.
 
-# Glyphs
+## Glyphs
 
 For there on, we can go through our sentence and construct a three-branches graph
 that will hold the informations.
 
-## Language model
+### Language model
 
 As said before, a language model was devised so that we could encode each phonems
 into glyphs. A screenshot of the model can be seen below.
@@ -173,7 +181,7 @@ Indeed, following basic information theory, it is more efficient like so
 (at least spatially).
 
 
-## Graph
+### Graph
 
 Without going to much into the implementation details, each graph's node is a
 record composed of a type T {n[umeral], v[owel], c[onsonant], s[eparator]}
@@ -182,21 +190,21 @@ There is also a GlyphName which is its corresponding phonem.
 
 In this graph, glyphs are distributed along three mains axis:
 
-| ![The graph representation](./doc/graph/graph.png) |
+![The graph representation](./doc/graph/graph.png)
 
 Which allows - as we saw before - for some redundancy.
 
-In our case, the glyphs' linear representation of our sentence is
+In our case, the glyphs' linear representation of our sentence is\
 ```squaresquare(v) line(c) linedotline(s) pentapenta(v) linedotline(s) squareline(v) linedotline(s) pentabend(c) line(c) hexabend(v) linedotline(s) squareline(v) linedotline(s) pentaline(c) hexapenta(v) squarebend(c) heptaline(v) hexa(c) bend(c) squaresquare(v) bend(c) linedotline(s) squaresquare(v) square(c) squaresquare(v) bend(n)```
 
-# Drawing
+## Drawing
 
 Those are not the final images
 
 ![Traduction 1](./doc/draw/butler_sentence.png) ![Traduction 2](./doc/draw/miano_sentence.png)|
 ![Traduction 3](./doc/draw/wittig_sentence.png) ![Traduction 4](./doc/draw/circlude_sentence.png)
 
-From left to right, up to down :
+From top to down :
 - _Si le sexe devenait une catégorie dépendante du genre, la définition même du genre comme interprétation culturelle du sexe perdrait tout son sens. - Trouble dans le genre; J. Butler_
 - _Quand on est un Blanc, jouer aux Indiens et faire du recel de biens culturels mal aqcuis revient au même. - L'opposé de la blancheur; L. Miano_
 - _Les lesbiennes ne sont pas des femmes. -La pensée Straight; M. Wittig_
@@ -210,11 +218,10 @@ From left to right, up to down :
  however, creates waves on indignation. If the feminin as neutral is so controversial, it is very much because, in my opinon, it demonstrates very well
  that this alledged neutrality is impossible. -The post-binary typography; C. Circlude_
 
-
-
 ## Spiral
 
-Following the construction of such a model, one can now draw this graph.\
+Following the construction of such a model, one can now draw this graph.
+
 The main way to draw the spiral is by using polar coordinates to draw a [golden spiral](https://en.wikipedia.org/wiki/Golden_spiral).\
 By getting the depth of the graph (N), which is the length of the main branch, and
 the current depth of the i-th symbol (I), one can use this information to derive
