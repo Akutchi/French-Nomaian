@@ -79,8 +79,7 @@ package body Draw_Spiral is
 
    begin
 
-      Transform
-        (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx, True);
+      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx);
       Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);

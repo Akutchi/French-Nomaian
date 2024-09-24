@@ -55,6 +55,8 @@ burrito+bb uu rr ii tt oo
 devinant+dd ee vv ii nn an
 micro-onde+mm ii cc rr oo on dd de
 micro-ondes+mm ii cc rr oo on dd de
+grammatical+gg rr aa mm mm aa tt ii kk aa ll
+déclenche+dd ei kk ll an ch ee
 ;;;
 ;;; nombres et ponctuation
 ;;;
@@ -101484,7 +101486,7 @@ xénophobes(2)+kk ss ai nn oo ff oo bb ee
 xénophobes(3)+kk ss ai nn oo ff oo bb ee zz
 xénophobes(4)+kk ss ai nn oo ff oo bb zz
 xénophobie+gg zz ai nn oo ff oo bb ii
-y+ii gg rr ai kk
+y+yy
 y(2)+ii gg rr ai gg
 y(3)+ii gg rr ai gg ee
 y(4)+ii gg rr ai kk

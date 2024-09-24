@@ -53,7 +53,7 @@ au heptabend v
 oi heptasquare v
 oe heptapenta v
 un heptahexa v
-eu hepthepta v
+eu heptahepta v
 w octaline v
 ;;;
 ;;;
