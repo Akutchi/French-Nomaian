@@ -147,6 +147,9 @@ wchar_t* Get (int type, int y) {
 
          if (N > 0) {
             response[N - 1] = ' ';
+            mvwprintw (stdscr, y + 1, N - 1, " ");
+            wmove (stdscr, y + 1, N - 1);
+            wrefresh (stdscr);
             N--;
          }
          break;
@@ -159,14 +162,14 @@ wchar_t* Get (int type, int y) {
 
       if (N == curr_end_size) {
          curr_end_size += Block;
-         response = (wchar_t*)realloc (response, sizeof (*response) * curr_end_size);
+         response = (wchar_t*)realloc (response, curr_end_size * sizeof (*response));
          if (!response) return response;
       }
 
    }
 
    response[N - 1] = '\0';
-   response = (wchar_t*)realloc (response, sizeof (*response) * (N));
+   response = (wchar_t*)realloc (response, N * sizeof (*response));
 
    return response;
 }

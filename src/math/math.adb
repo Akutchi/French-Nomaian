@@ -167,17 +167,19 @@ package body Math is
 
       Element_vector : constant vector := (1.0, 0.0);
 
-      Grad    : constant gradient := Calculate_Gradient (I, N);
-      Tangent : vector            := Normalize ((Grad.dr, Grad.dtheta));
+      Grad : constant gradient := Calculate_Gradient (I, N);
 
-      scalar : constant Gdouble := dot (Tangent, Element_vector);
+      Grad_v  : constant vector := Normalize ((Grad.dr, Grad.dtheta));
+      Tangent : constant vector := Normalize ((Grad.dr, Grad.dtheta - PI_2));
+
+      scalar : constant Gdouble := dot (Tangent, Grad_v);
 
    begin
 
-      Tangent.p2 := Tangent.p2 - PI_2;
-      Angle      := Arccos (scalar);
+      --  Tangent.p2 := Tangent.p2 - PI_2;
+      Angle := TWO_PI - Arccos (scalar);
 
-      --  Ada.Text_IO.Put_Line (Gdouble'Image (scalar));
+      Ada.Text_IO.Put_Line (Gdouble'Image (Angle));
 
    end Adjust_Element;
 
