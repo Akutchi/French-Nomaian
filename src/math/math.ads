@@ -28,9 +28,7 @@ package Math is
 private
 
    function k (N : Gdouble) return Gdouble;
-   --  This function is used to adapt the angle to the length of the spiral.
-   --  The longer the spiral, the greater k will be, also increasing the
-   --  interval between two elements.
+   --  This function is used to adapt the coiling to the length of the spiral.
 
    function s (N : Gdouble) return Gdouble;
    --  This function is used to adapt the spiral's radius to the length of said
@@ -41,10 +39,9 @@ private
 
    function radius_prime (I, N : Gdouble) return Gdouble;
 
-   function eps (N : Gdouble) return Gdouble;
-   --  This function is used to adapt the gradient epsilon to the curve length.
-   --  I would need to adapt to the scaling also, but this is not an important
-   --  optimization.
+   function eps (I, N : Gdouble) return Gdouble;
+   --  This function is used to adapt the gradient epsilon to the curve length
+   --  and scale factor.
 
    function norm (Point : vector) return Gdouble;
 

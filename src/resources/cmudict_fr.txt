@@ -5,8 +5,41 @@
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;+Version 1.6
 ;;;+02/12/22: corrected some ei/ai & oo/au conflicts
-rature+rr aa tt uu rr
-ratures+rr aa tt uu rr
+;;;
+appuyez+aa pp uy ei
+aveuglette+aa vv ee gg ll ai tt
+burrito+bb uu rr ii tt oo
+chuis+ch uy ii
+choper+ch au pp ei
+chopé+ch au pp ei
+c'est+ss ' ei
+c'est(2)+ss ' ei tt
+déclenche+dd ei kk ll an ch ee
+devinant+dd ee vv ii nn an
+donné+dd oo nn ei
+etait+ei tt ai
+était+ei tt ai
+flemme+ff ll ai mm
+gousset+gg ou ss ei
+grammatical+gg rr aa mm mm aa tt ii kk aa ll
+instagram+in ss tt aa gg rr aa m
+j'en+jj ' an
+j'en(2)+jj an nn
+j'suis+jj ' ss uy ii
+j'suis(2)+ch uy ii
+kiffe+kk ii ff
+kiffe(2)+kk ii ff ee
+loser+ll ou zz oe rr
+losers+ll ou zz oe rr
+macaron+mm aa kk aa rr on
+macaron(2)+mm aa kk aa rr on nn
+macarons+mm aa kk aa rr on
+macarons(2)+mm aa kk aa rr on zz
+micro-onde+mm ii cc rr oo on dd de
+micro-ondes+mm ii cc rr oo on dd de
+osef+au zz ai ff
+perpendiculairement+pp ei rr pp an dd ii kk uu ll ai rr ee mm an
+playlist+pp ll ai yy ll ii ss tt
 qu'un+kk ' in
 qu'un(2)+kk in nn
 qu'une+kk ' uu nn
@@ -16,8 +49,11 @@ qu'ils+kk ' ii ll
 qu'elle+kk ' ai ll
 qu'elles+kk ' ai ll
 qu'on+kk ' on
-c'est+ss ' ei
-c'est(2)+ss ' ei tt
+rature+rr aa tt uu rr
+ratures+rr aa tt uu rr
+regarda+rr ee gg aa rr dd aa
+réincarné+rr ei in kk aa rr nn ei
+sauta+ss au tt aa
 s'est+ss ' ei
 s'est(2)+ss ei tt
 t'aime+tt ' ai mm
@@ -25,38 +61,9 @@ t'aime(2)+tt ai mm ee
 t'aiment+tt ' ai mm
 t'aiment(2)+tt ai mm ee
 t'aiment(3)+tt ai mm ee tt
-j'en+jj ' an
-j'en(2)+jj an nn
 t'as+tt ' aa
 t'as(2)+tt aa zz
-chuis+ch uy ii
-j'suis+jj ' ss uy ii
-j'suis(2)+ch uy ii
-instagram+in ss tt aa gg rr aa m
-osef+au zz ai ff
-kiffe+kk ii ff
-kiffe(2)+kk ii ff ee
-playlist+pp ll ai yy ll ii ss tt
-flemme+ff ll ai mm
-choper+ch au pp ei
-chopé+ch au pp ei
-loser+ll ou zz oe rr
-losers+ll ou zz oe rr
-réincarné+rr ei in kk aa rr nn ei
 y'+yy '
-macaron+mm aa kk aa rr on
-macaron(2)+mm aa kk aa rr on nn
-macarons+mm aa kk aa rr on
-macarons(2)+mm aa kk aa rr on zz
-etait+ei tt ai
-était+ei tt ai
-appuyez+aa pp uy ei
-burrito+bb uu rr ii tt oo
-devinant+dd ee vv ii nn an
-micro-onde+mm ii cc rr oo on dd de
-micro-ondes+mm ii cc rr oo on dd de
-grammatical+gg rr aa mm mm aa tt ii kk aa ll
-déclenche+dd ei kk ll an ch ee
 ;;;
 ;;; nombres et ponctuation
 ;;;
@@ -78,27 +85,27 @@ déclenche+dd ei kk ll an ch ee
 ;;;
 ;;; prénoms
 ;;;
-kaitlyn+kk ai tt ll ii nn
-eleanor+ei ll ei aa nn oo rr
-éléanor+ei ll ei aa nn oo rr
-charlotte+ch aa rr ll oo tt
-pandora+ pp an dd oo rr aa
-opéra+oo pp ai rr aa
-krystal+kk rr ii ss tt aa ll
-elise+ei ll ii zz
-élise+ei ll ii zz
-cassandre+kk aa ss ss an dd rr
-nemesis+nn ei mm ei zz ii ss
-némésis+nn ei mm ei zz ii ss
-cyrille+ss ii rr yy ll ee
-emilie+ei mm ii ll ii ee
-émilie+ei mm ii ll ii ee
 abigaelle+aa bb ii gg aa ei ll
 abigaëlle+aa bb ii gg aa ei ll
+cassandre+kk aa ss ss an dd rr
+charlotte+ch aa rr ll oo tt
+cyrille+ss ii rr yy ll ee
+eleanor+ei ll ei aa nn oo rr
+éléanor+ei ll ei aa nn oo rr
+elise+ei ll ii zz
+élise+ei ll ii zz
 eloise+ei ll oo ii zz
 éloise+ei ll oo ii zz
+emilie+ei mm ii ll ii ee
+émilie+ei mm ii ll ii ee
+kaitlyn+kk ai tt ll ii nn
+krystal+kk rr ii ss tt aa ll
+nemesis+nn ei mm ei zz ii ss
+némésis+nn ei mm ei zz ii ss
+opéra+oo pp ai rr aa
+pandora+ pp an dd oo rr aa
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;+End of words added by Mim for easier user input
+;;;+End of words added by Mim [and me] for easier user input
 ;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ce+ss
 ce(2)+ss ee

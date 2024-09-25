@@ -7,6 +7,7 @@ with Draw_Glyphs;
 
 with Draw_Utils;        use Draw_Utils;
 with Draw_Spiral_Utils; use Draw_Spiral_Utils;
+with Math_Constants;    use Math_Constants;
 with Math;              use Math;
 
 package body Draw_Spiral is
@@ -79,8 +80,7 @@ package body Draw_Spiral is
 
    begin
 
-      Transform
-        (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx, True);
+      Transform (Root_Elem, Depth_I, state.Depth_N, X_t, Y_t, state, Ctx);
       Adjust_Element (Local_Angle, Depth_I, state.Depth_N);
 
       DG.Rotation_Around (Ctx, X_t, Y_t, Local_Angle);

@@ -35,27 +35,36 @@ The goal of this project is to create a full-fledged french/nomai translator.
 But not only did I want to generate nomai sentences like other projects did before
 me, but I also wanted to be able to do the inverse : To translate back to french.
 Moreover, I wanted the whole of it to be usable as is, and thus to create an
-interface that could be used to do those operations.
-
-As of now, the binary file must be executed in the ./bin folder, but I will
-make it possible to execute it elsewhere in another version.
+interface that could be used to do those operations.\
+The project was tested up until sentences with 137 characters. Above that and
+I can't guarantee the result. Yes, that's not scalable, but I couldn't make it
+work with unkown size text.
+For reference, 137 characters are a bit more than this sentence,
+> Either the well was very deep, or she fell very slowly, for she had plenty of
+time as she went down to look about her and to wonder what was going to happen
+next.\
+\- Alice in wonderland L. Caroll
 
 It very much possible that some sentences you will wrote will display warnings like so :\
-```Warning : <X> is not in the dictionnary. Please consider adding it.```
-
+```Warning : <X> is not in the dictionnary. Please consider adding it.```\
 It is because the dictionnary used does not contain your word. If this is the
 case, I encourage you to submit a merge request so that we can collectively make
 this dictionnary grow.
+Also, please note that for now, only " ' , . ... ? ! are supported in the
+french punctuation convention.
+
+As of now, the binary file must be executed in the ./bin folder, but I will
+make it possible to execute it elsewhere in another version.
 
 # Build
 
 ## Ada
 
-French Nomaian is a mostly Ada project (with a little bit of C) built with Alire.
+French Nomaian is a mostly Ada project built with Alire.
 As such, one must install Alire to be able to build it. You can download it [here](https://alire.ada.dev/)
 and follow the installation procedure [here](https://alire.ada.dev/docs/).
 
-Apart from alire, the project use several dependencies that can be added if nedded
+Apart from alire, the project use some dependencies that can be added if nedded
 with the ```alire with <X>``` command and that are shown below.
 
 | ![dependencies](./doc/dependencies/dependencies.png) |
@@ -68,6 +77,14 @@ However, this project also use a bit of C in order to create a basic TUI.
 As such, to build the project, you also need to install ncurses librairies.
 To do this, simply use\
 ``` sudo apt-get install libncurses5-dev libncursesw5-dev```
+
+## Gprbuild
+
+Also be aware that in order to work, the program must use some compiler and
+linker flags. And while those are in [the config file](./config/french_nomaian_config.gpr),
+they may have to change depending on your plateform.
+If you have a compiling error, please check if you have the correct flags using
+```pkg-config ncurses [--cflags, -libs]```
 
 ## Run
 
@@ -201,24 +218,16 @@ In our case, the glyphs' linear representation of our sentence is\
 
 Those are not the final images
 
-![Traduction 1](./doc/draw/butler_sentence.png)\
-![Traduction 2](./doc/draw/miano_sentence.png)\
-![Traduction 3](./doc/draw/wittig_sentence.png)\
-![Traduction 4](./doc/draw/circlude_sentence.png)
+![Traduction 1](./doc/draw/butler_sentence.png) \
+_Si le sexe devenait une catégorie dépendante du genre, la définition même du genre comme interprétation culturelle du sexe perdrait tout son sens. On ne pourrais alors plus concevoir le genre comme un processus culturel qui ne fait que donner un sens à un sexe donné [...]_\
+\- Trouble dans le genre; J. Butler
 
-From top to down :
-- _Si le sexe devenait une catégorie dépendante du genre, la définition même du genre comme interprétation culturelle du sexe perdrait tout son sens. - Trouble dans le genre; J. Butler_
-- _Quand on est un Blanc, jouer aux Indiens et faire du recel de biens culturels mal aqcuis revient au même. - L'opposé de la blancheur; L. Miano_
-- _Les lesbiennes ne sont pas des femmes. -La pensée Straight; M. Wittig_
-- _Lorsque cette opération de genre grammatical générique est réalisée à la faveur du masculin, elle ne choque en aucun cas le patriarcat en place[,] l'inverse déclenche en revanche des vagues d'indignation. Si l'usage du féminin neutre est si controversé, c'est qu'il démontre de mon point de vue l'impossibilité de cette prétendue neutralité. -La typographie post-binaire; C. Circlude_
+ Translation :\
+ _It would make no sense, then, to define gender as the cultural
+interpretation of sex, if sex itself is a gendered category. Gender ought not to be conceived merely as the cultural inscription of meaning on a pregiven sex [...]_\
+ \- Gender Trouble; J. Butler
 
- Translation :
- - _It would make no sense, then, to define gender as the cultural interpretation of sex, if sex itself is a gendered category. -Gender Trouble; J. Butler_
- - _When you're White, pretending to be Indians and receiving stolen cultural goods are the same things. -The Opposite of Whiteness; L. Miano_
- - _Lesbians are not women. -The Straight mind; M. Wittig_
- - _When this generic grammatical gender operation is done to the favour of the masculine, it does not shock the patriarcal society in power[,] the inverse
- however, creates waves on indignation. If the feminin as neutral is so controversial, it is very much because, in my opinon, it demonstrates very well
- that this alledged neutrality is impossible. -The post-binary typography; C. Circlude_
+
 
 ## Spiral
 

@@ -34,7 +34,7 @@ package body Math is
 
    function s (N : Gdouble) return Gdouble is
    begin
-      return N / 10.0 + 0.5;
+      return 1.5 * N / 10.0 + 0.5;
    end s;
 
    -----------
@@ -81,9 +81,9 @@ package body Math is
    -- eps --
    ---------
 
-   function eps (N : Gdouble) return Gdouble is
+   function eps (I, N : Gdouble) return Gdouble is
    begin
-      return 0.55 * Exp (-0.05 * N) + 0.067;
+      return 0.55 * Exp (-0.05 * N) + 0.02 * (1.0 - 0.001 * I);
    end eps;
 
    ------------------------
@@ -96,7 +96,7 @@ package body Math is
 
       Gradient_Point : gradient;
 
-      epsilon : constant Gdouble := eps (N);
+      epsilon : constant Gdouble := eps (I, N);
 
       grad_r     : constant Gdouble := radius_prime (I, N);
       grad_theta : constant Gdouble := theta_prime (N);
@@ -167,19 +167,17 @@ package body Math is
 
       Element_vector : constant vector := (1.0, 0.0);
 
-      Grad : constant gradient := Calculate_Gradient (I, N);
+      Grad    : constant gradient := Calculate_Gradient (I, N);
+      Tangent : constant vector   := Normalize ((Grad.dr, Grad.dtheta - PI_2));
 
-      Grad_v  : constant vector := Normalize ((Grad.dr, Grad.dtheta));
-      Tangent : constant vector := Normalize ((Grad.dr, Grad.dtheta - PI_2));
-
-      scalar : constant Gdouble := dot (Tangent, Grad_v);
+      scalar : Gdouble;
 
    begin
 
-      --  Tangent.p2 := Tangent.p2 - PI_2;
-      Angle := TWO_PI - Arccos (scalar);
+      scalar := dot (Tangent, Element_vector);
+      Angle  := Arccos (scalar);
 
-      Ada.Text_IO.Put_Line (Gdouble'Image (Angle));
+      --  Ada.Text_IO.Put_Line (Gdouble'Image (Angle));
 
    end Adjust_Element;
 

@@ -13,6 +13,8 @@ with Draw_Spiral;
 
 with Math_Constants; use Math_Constants;
 
+with Ada.Text_IO;
+
 package body Tools is
 
    package C_S renames Cairo.Surface;
@@ -150,8 +152,10 @@ package body Tools is
 
          begin
 
-            state.Xb      := W / 2.0;
-            state.Yb      := H / 2.0;
+            Ada.Text_IO.Put_Line (Natural'Image (Depth_N));
+
+            state.Xb      := W / 2.0 - W / 8.0;
+            state.Yb      := H / 2.0 - H / 10.0;
             state.LM      := LM;
             state.Depth_N := Gdouble (Depth_N);
 
